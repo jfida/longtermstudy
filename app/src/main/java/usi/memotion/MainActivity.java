@@ -1,65 +1,52 @@
 package usi.memotion;
 
 import android.Manifest;
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.support.annotation.NonNull;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.TabLayout;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ScrollView;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
-
-import net.danlew.android.joda.JodaTimeAndroid;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import usi.memotion.UI.fragments.TabFragmentAdapter;
+import usi.memotion.UI.fragments.AboutApplicationFragment;
+import usi.memotion.UI.fragments.AboutFragment;
+import usi.memotion.UI.fragments.LectureSurveysFragment;
 import usi.memotion.UI.fragments.HomeFragment;
-import usi.memotion.UI.menu.AboutFragment;
+import usi.memotion.UI.fragments.SurveysFragment;
 import usi.memotion.UI.views.RegistrationView;
-import usi.memotion.surveys.config.SurveyType;
-import usi.memotion.surveys.handle.NotificationBroadcastReceiver;
-import usi.memotion.UI.fragments.SwipeChoiceViewPager;
 import usi.memotion.surveys.SurveysService;
-import usi.memotion.local.database.controllers.SQLiteController;
 import usi.memotion.gathering.GatheringSystem;
 import usi.memotion.gathering.SensorType;
-import usi.memotion.local.database.tableHandlers.SurveyConfig;
-import usi.memotion.local.database.tables.UserTable;
 import usi.memotion.remote.database.upload.DataUploadService;
 
-public class MainActivity extends AppCompatActivity implements HomeFragment.OnRegistrationSurveyChoice {
-//    SurveysFragment.OnSurveyCompletedCallback,
+public class MainActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
 
     private GatheringSystem gSys;
-    private TabLayout tabLayout;
-    private SwipeChoiceViewPager viewPager;
-    private FragmentPagerAdapter tabFragmentAdapter;
-    private android.support.v7.widget.Toolbar toolbar;
-    private AppBarLayout main;
-    private ScrollView welcome;
-    private Button welcomeNext;
-    public static boolean running;
+    private boolean viewIsAtHome;
+
+    protected DrawerLayout drawerLayout;
+    private Toolbar toolbar;
+    protected NavigationView navigationView;
+
 
     ExpandableRelativeLayout expandableLayout1, expandableLayout2;
-
-    private boolean viewIsAtHome;
 
 
     private final int PERMISSION_REQUEST_STATUS = 0;
@@ -70,74 +57,20 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnRe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        main = (AppBarLayout) findViewById(R.id.main_tab);
-        welcome = (ScrollView) findViewById(R.id.welcome);
-        welcomeNext = (Button) findViewById(R.id.welcome_next);
-
-        welcomeNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                main.setVisibility(View.VISIBLE);
-                welcome.setVisibility(View.INVISIBLE);
-                init();
-            }
-        });
-
-        if(checkPermissions()) {
-            main.setVisibility(View.VISIBLE);
-            welcome.setVisibility(View.INVISIBLE);
-            init();
-        } else {
-            main.setVisibility(View.INVISIBLE);
-            welcome.setVisibility(View.VISIBLE);
-        }
-
-    }
-
-    private void init() {
-        JodaTimeAndroid.init(this);
-
-        Intent i = getIntent();
-        String action = i.getAction();
-
-        viewPager = (SwipeChoiceViewPager) findViewById(R.id.viewPager);
-        viewPager.setSwipeEnabled(false);
-        tabFragmentAdapter = new TabFragmentAdapter(getSupportFragmentManager(), getApplicationContext());
-        viewPager.setAdapter(tabFragmentAdapter);
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        tabLayout.setupWithViewPager(viewPager, true);
-
-
-        tabLayout.getTabAt(1).setCustomView(R.layout.surveys_tab_layout);
-
-//        showSurveyNotification();
-
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-        });
-
-        if(action != null && action.equals(NotificationBroadcastReceiver.OPEN_SURVEYS_ACTION)) {
-            viewPager.setCurrentItem(1);
-        }
-
-        SQLiteController.getInstance(this);
-
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.activity_main);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.setDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        displayView(R.id.nav_home);
 
         if(!checkPermissions()) {
             ActivityCompat.requestPermissions(this,
@@ -151,11 +84,10 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnRe
                             Manifest.permission.INTERNET},
                     PERMISSION_REQUEST_STATUS);
         } else {
-//            boolean user = checkUserRegistered();
-//            if(user) {
             initServices(grantedPermissions());
-//            }
         }
+
+
     }
 
     private void initServices(List<String> grantedPermissions) {
@@ -191,9 +123,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnRe
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if(requestCode == PERMISSION_REQUEST_STATUS) {
-//            if(checkUserRegistered()) {
             initServices(convertPermissionResultsToList(permissions, grantResults));
-//            }
         }
     }
 
@@ -234,145 +164,17 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnRe
                 ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_ADMIN) == PackageManager.PERMISSION_GRANTED;
     }
 
-    private boolean checkUserRegistered() {
-        Cursor c = SQLiteController.getInstance(this).rawQuery("SELECT * FROM " + UserTable.UserEntry.TABLE_USER, null);
-
-        if(c.getCount() == 0) {
-            return false;
-        }
-
-        c.moveToFirst();
-        boolean agreed = c.getInt(2) == 0 ? false : true;
-        return agreed;
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        Fragment dialog;
-        switch(id) {
-            case R.id.study_info:
-                new AboutFragment();
-//                dialog.show(getSupportFragmentManager(), "study_info");
-
-                break;
-            case R.id.app_info:
-                new AboutFragment();
-//                dialog.show(getSupportFragmentManager(), "app_info");
-                break;
-            case R.id.profile_view:
-                new RegistrationView();
-//                dialog.show(getSupportFragmentManager(), "profile_view");
-                break;
-            case R.id.register_form:
-                new RegistrationView();
-//                dialog.show(getSupportFragmentManager(), "register_form");
-                break;
-            default:
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     protected void onStart() {
         super.onStart();
-//        EventBus.getDefault().register(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-//        EventBus.getDefault().unregister(this);
     }
 
-
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void onMessageEvent(SurveyEvent event) {
-//        Survey s = (Survey) Survey.findByPk(event.getRecordId());
-//
-//        if(event.isScheduled()) {
-//            String surveyFragmentTag = makeFragmentName(viewPager.getId(), 1);
-//            SurveysFragment fragment = (SurveysFragment) getSupportFragmentManager().findFragmentByTag(surveyFragmentTag);
-//            fragment.resetSurvey(s.surveyType);
-//        }
-//
-//        showSurveyNotification();
-//    }
-
-//    private void showSurveyNotification() {
-//        int count = Survey.getAllAvailableSurveysCount();
-//
-//        View notificationView = tabLayout.getTabAt(1).getCustomView();
-//
-//        ImageView image = (ImageView) notificationView.findViewById(R.id.surveysPamNotificationImage);
-//        if(count == 0) {
-//            image.setVisibility(View.INVISIBLE);
-//        } else {
-//            image.setVisibility(View.VISIBLE);
-//            switch(count) {
-//                case 1:
-//                    image.setImageResource(R.drawable.notification_1);
-//                    break;
-//                case 2:
-//                    image.setImageResource(R.drawable.notification_2);
-//                    break;
-//                case 3:
-//                    image.setImageResource(R.drawable.notification_3);
-//                    break;
-//                case 4:
-//                    image.setImageResource(R.drawable.notification_4);
-//                    break;
-//                case 5:
-//                    image.setImageResource(R.drawable.notification_5);
-//                    break;
-//                case 6:
-//                    image.setImageResource(R.drawable.notification_6);
-//                    break;
-//                default:
-//            }
-//        }
-//    }
-
-//    @Override
-//    public void onSurveyCompletedCallback() {
-//        showSurveyNotification();
-//    }
-
-    @Override
-    public void onRegistrationSurveyChoice(boolean now) {
-        initServices(grantedPermissions());
-        if(now) {
-            viewPager.setCurrentItem(1);
-        } else {
-            SurveyConfig config = SurveyConfig.getConfig(SurveyType.GROUPED_SSPP);
-            config.immediate = false;
-            config.save();
-        }
-
-//        showSurveyNotification();
-    }
-
-    private static String makeFragmentName(int viewPagerId, int index) {
-        return "android:switcher:" + viewPagerId + ":" + index;
-    }
-
-//    @Override
-//    public void onEnrollStatusUpdate(boolean exit) {
-//        tabFragmentAdapter.notifyDataSetChanged();
-//        if(exit) {
-//            gSys.stopServices();
-//            stopService(new Intent(this, DataUploadService.class));
-//            stopService(new Intent(this, SurveysService.class));
-//        } else {
-//            initServices(grantedPermissions());
-//        }
-//    }
 
     public void expandableButton1(View view) {
         expandableLayout1 = (ExpandableRelativeLayout) findViewById(R.id.expandableLayout1);
@@ -382,6 +184,109 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnRe
     public void expandableButton2(View view) {
         expandableLayout2 = (ExpandableRelativeLayout) findViewById(R.id.expandableLayout2);
         expandableLayout2.toggle(); // toggle expand and collapse
+    }
+
+    public void displayView(int viewId) {
+        android.support.v4.app.Fragment fragment = null;
+        String title = getString(R.string.app_name);
+
+        switch (viewId) {
+            case R.id.nav_home:
+                fragment = new HomeFragment();
+                title  = "Welcome";
+                viewIsAtHome = true;
+
+                break;
+            case R.id.nav_lecture_surveys:
+                fragment = new LectureSurveysFragment();
+                title  = "Lecture Surveys";
+                viewIsAtHome = false;
+                break;
+            case R.id.nav_general_surveys:
+                fragment = new SurveysFragment();
+                title = "General Surveys";
+                viewIsAtHome = false;
+                break;
+
+            case R.id.nav_register:
+                fragment = new RegistrationView();
+                title = "Registration Form";
+//                if(checkAndroidID()){
+//                    fragment = new ProfileFragment();
+//                    title = "Account Details";
+//
+//                }else{
+//                    fragment = new RegisterFragment(); //Change it to papers
+//                    title = "Create Account";
+//                }
+
+                viewIsAtHome = false;
+                break;
+
+            case R.id.nav_about_study:
+                fragment = new AboutFragment();
+                title = "About Study";
+                viewIsAtHome = false;
+                break;
+
+            case R.id.nav_about_app:
+                fragment = new AboutApplicationFragment();
+                title = "About Study";
+                viewIsAtHome = false;
+                break;
+
+
+        }
+
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame, fragment);
+            ft.commit();
+        }
+
+        // set the toolbar title
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        if (!viewIsAtHome) {
+            displayView(R.id.nav_home);
+        } else {
+            moveTaskToBack(true);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        displayView(item.getItemId());
+        return true;
+
     }
 
 }

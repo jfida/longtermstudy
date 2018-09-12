@@ -8,13 +8,13 @@
             android:title="Home" />
 
         <item
-            android:id="@+id/nav_mood"
+            android:id="@+id/nav_lecture_surveys"
             android:icon="@drawable/mood"
-            android:title="Mood" />
+            android:title="Lecture Surveys" />
         <item
-            android:id="@+id/nav_surveys"
+            android:id="@+id/nav_general_surveys"
             android:icon="@drawable/surveys"
-            android:title="Surveys" />
+            android:title="General Surveys" />
 
     </group>
 
@@ -26,9 +26,14 @@
                 android:title="Account" />
 
             <item
-                android:id="@+id/nav_about"
+                android:id="@+id/nav_about_study"
                 android:icon="@drawable/info"
                 android:title="About study" />
+
+            <item
+                android:id="@+id/nav_about_app"
+                android:icon="@drawable/info"
+                android:title="About app" />
         </menu>
     </item>
 

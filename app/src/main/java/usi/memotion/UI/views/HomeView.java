@@ -43,7 +43,6 @@ public class HomeView extends LinearLayout{
     private Context context;
 
     private LinearLayout content;
-    private TextView unenrolledAlert;
     private View currentFace;
     private Button submitButton;
     private View simpleMoodForm;
@@ -62,16 +61,9 @@ public class HomeView extends LinearLayout{
 
     private void init() {
         content = (LinearLayout) findViewById(R.id.home_content);
-        unenrolledAlert = (TextView) findViewById(R.id.home_unenrolled_alert);
 
-        if(User.isEnrolled()) {
-            content.setVisibility(VISIBLE);
-            unenrolledAlert.setVisibility(INVISIBLE);
-            showHomeContent();
-        } else {
-            content.setVisibility(INVISIBLE);
-            unenrolledAlert.setVisibility(VISIBLE);
-        }
+        content.setVisibility(VISIBLE);
+        showHomeContent();
     }
 
     private void showHomeContent() {

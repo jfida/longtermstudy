@@ -54,6 +54,9 @@
     <string name="communication_sciences">Communication Sciences</string>
     <string name="academy_of_architecture">Academy of Architecture</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 
     <string-array name="age_range_choices">
         <item>@string/selectItem</item>
@@ -93,7 +96,6 @@
     <string name="industry">Industry</string>
 
 
-
     <string name="lecture_surveys_description">Surveys about the lectures</string>
     <string name="instructions">Please choose a number from 1 - 7 that best desribes your agreement with the following statements. \n 1=Strongly disagree - 7=Strongly agree</string>
 
@@ -111,8 +113,6 @@
     <string name="beginning">First</string>
     <string name="middle">Middle</string>
     <string name="end">Last</string>
-
-
 
 
     <string name="registration_survey_question">Could you please answer some questions?</string>

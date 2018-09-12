@@ -1,6 +1,5 @@
 package usi.memotion.UI.views;
 
-import android.app.Fragment;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.provider.Settings;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -34,6 +34,7 @@ import usi.memotion.R;
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
 import usi.memotion.local.database.db.LocalSQLiteDBHelper;
+import usi.memotion.local.database.tables.LectureSurveyTable;
 import usi.memotion.local.database.tables.UserTable;
 
 /**
@@ -156,7 +157,9 @@ public class RegistrationView extends Fragment {
         record.put(UserTable.UserEntry.COLUMN_STATUS, statusSelection);
 
         localController.insertRecord(UserTable.UserEntry.TABLE_USER, record);
-
+        Log.d("REGISTRATION FORM", "Added record: ts: " + "username: " + record.get(UserTable.UserEntry.USERNAME) + ", e4 id: " + record.get(UserTable.UserEntry.EMPATICAID)  +
+                ", Email: " + record.get(UserTable.UserEntry.EMAIL) + ", Switch Token: " + record.get(UserTable.UserEntry.SWITCH_TOKEN) + ", Switch pass: " + record.get(UserTable.UserEntry.SWITCH_PASSWORD)
+                + ", Age: " + record.get(UserTable.UserEntry.COLUMN_AGE) + ", Gender: " + record.get(UserTable.UserEntry.COLUMN_GENDER) + ", Status: " + record.get(UserTable.UserEntry.COLUMN_STATUS));
 
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
