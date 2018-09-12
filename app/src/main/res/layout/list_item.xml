@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/textPart"
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/social_media_app"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/session_start"
+            android:layout_below="@id/social_media_app"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/session_length"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/session_start"
+            android:layout_margin="10dp"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
+    <!--<TextView-->
+    <!--android:id="@+id/session_id"-->
+    <!--android:layout_toRightOf="@id/moodImage"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="20dp"-->
+    <!--android:textSize="20sp"-->
+    <!--android:textStyle="bold"/>-->
+
+</RelativeLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--accelerometer frequency-->
+    <string name="accelerometerSamplingFreq">1000</string>
+
+    <!--bluetooth frequency-->
+    <string name="bluetoothSamplingFreq">300000</string>
+
+    <!--location frequencies-->
+    <string name="locationDayFreq">300000</string>
+    <string name="locationNightFreq">1200000</string>
+    <string name="locationMinDistance">0</string>
+
+    <!--wifi frequencies-->
+    <string name="wifiDayFreq">300000</string>
+    <string name="wifiNightFreq">1200000</string>
+
+    <!--used apps frequency-->
+    <string name="usedAppsFreq">300000</string>
+
+</resources>

@@ -1,0 +1,116 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_agreement_form"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Research Study: Studying audience responses to academic presentations during a conference."
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:paddingBottom="30dp"/>
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:paddingBottom="30dp"/>
+
+
+        <TextView
+            android:id="@+id/textview112"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="What is the purpose of this research study?"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textview113"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="The purpose of this study is to investigate how the audience responds to conference presentations and what do these responses imply.  "/>
+
+        <TextView
+            android:id="@+id/textview114"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="What will you do in the study?"
+            android:textStyle="bold"
+            android:layout_marginTop="26dp" />
+
+        <TextView
+            android:id="@+id/textview115"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="During the conference, you will wear a sensing device– the E4 wristband by Empatica. The device will collect data about your blood pressure, galvanic skin response and skin temperature. This sensor data will give us an objective basis to understand your level of engagement/attention/interest during the presentations. You will also be asked to rank the papers of the conference and fill-in short questionnaires via Energieinformatik17 Android application. Your answers will allow us to gather information on your opinion about the presentation. You can refrain from answering any question you might prefer not to answer (e.g., because it makes you uncomfortable) and you can stop the survey at any time." />
+
+        <TextView
+            android:id="@+id/textview116"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="How long does it last?"
+            android:textStyle="bold"
+            android:layout_marginTop="30dp" />
+
+        <TextView
+            android:id="@+id/textview117"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="The study lasts as long as the Energieinformatik2017 conference. You are required to keep the device from the opening of the conference until the end of the day. " />
+
+        <TextView
+            android:id="@+id/textview118"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:text="Is my data going to be confidential?"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/textview119"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="The information and data collected in this study will be stored safely and handled confidentially. Your data will be anonymized through the assignment of an alphanumerical code and your name will never be mentioned in connection to the data or in any report. Any attempt to deduce your identity from the data is explicitly forbidden by our data analysis policy." />
+
+        <TextView
+            android:id="@+id/textview120"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:text="Can I skip the study?"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textview121"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your participation in the study is completely voluntary. You have the right to withdraw from the study at any time without penalty and to require your data to be entirely and permanently deleted."/>
+
+        <TextView
+            android:id="@+id/textview122"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contact person if you have questions about the study:"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textview123"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Shkurta Gashi, shkurta.gashi@usi.ch" />
+
+    </LinearLayout>
+</ScrollView>

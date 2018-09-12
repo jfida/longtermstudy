@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/nav_mood"
+            android:icon="@drawable/mood"
+            android:title="Mood" />
+        <item
+            android:id="@+id/nav_surveys"
+            android:icon="@drawable/surveys"
+            android:title="Surveys" />
+
+    </group>
+
+    <item android:title="About the study">
+        <menu>
+            <item
+                android:id="@+id/nav_register"
+                android:icon="@drawable/account"
+                android:title="Account" />
+
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/info"
+                android:title="About study" />
+        </menu>
+    </item>
+
+
+</menu>
