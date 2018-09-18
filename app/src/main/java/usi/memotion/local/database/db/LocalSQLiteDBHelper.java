@@ -3,37 +3,24 @@ package usi.memotion.local.database.db;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import usi.memotion.PostLectureSurvey;
 import usi.memotion.local.database.tables.AccelerometerTable;
 import usi.memotion.local.database.tables.BlueToothTable;
-import usi.memotion.local.database.tables.DailyIntervalsTable;
 import usi.memotion.local.database.tables.LectureSurveyTable;
 import usi.memotion.local.database.tables.PAMTable;
-import usi.memotion.local.database.tables.PHQ8Table;
-import usi.memotion.local.database.tables.PSSTable;
-import usi.memotion.local.database.tables.PWBTable;
 import usi.memotion.local.database.tables.PhoneCallLogTable;
 import usi.memotion.local.database.tables.LocationTable;
 import usi.memotion.local.database.tables.PhoneLockTable;
-import usi.memotion.local.database.tables.SHSTable;
 import usi.memotion.local.database.tables.SMSTable;
-import usi.memotion.local.database.tables.SWLSTable;
 import usi.memotion.local.database.tables.SimpleMoodTable;
-import usi.memotion.local.database.tables.SurveyAlarmSurveyTable;
-import usi.memotion.local.database.tables.SurveyAlarmsTable;
-import usi.memotion.local.database.tables.SurveyConfigTable;
-import usi.memotion.local.database.tables.SurveyTable;
 import usi.memotion.local.database.tables.UploaderUtilityTable;
-import usi.memotion.local.database.tables.UsedAppTable;
 import usi.memotion.local.database.tables.UserTable;
 import usi.memotion.local.database.tables.WiFiTable;
 
@@ -61,7 +48,6 @@ public class LocalSQLiteDBHelper extends SQLiteOpenHelper {
         db.execSQL(AccelerometerTable.getCreateQuery());
         db.execSQL(PhoneCallLogTable.getCreateQuery());
         db.execSQL(SMSTable.getCreateQuery());
-        db.execSQL(UsedAppTable.getCreateQuery());
         db.execSQL(BlueToothTable.getCreateQuery());
         db.execSQL(PhoneLockTable.getCreateQuery());
         db.execSQL(WiFiTable.getCreateQuery());
@@ -69,23 +55,11 @@ public class LocalSQLiteDBHelper extends SQLiteOpenHelper {
         db.execSQL(UserTable.UserEntry.getCreateQuery());
         db.execSQL(SimpleMoodTable.getCreateQuery());
         db.execSQL(PAMTable.getCreateQuery());
-        db.execSQL(PWBTable.getCreateQuery());
-        db.execSQL(SHSTable.getCreateQuery());
-        db.execSQL(SWLSTable.getCreateQuery());
-        db.execSQL(PHQ8Table.getCreateQuery());
-        db.execSQL(PSSTable.getCreateQuery());
-        db.execSQL(SurveyTable.getCreateQuery());
-        db.execSQL(SurveyAlarmsTable.getCreateQuery());
-        db.execSQL(SurveyAlarmSurveyTable.getCreateQuery());
-        db.execSQL(SurveyConfigTable.getCreateQuery());
-        db.execSQL(DailyIntervalsTable.getCreateQuery());
         db.execSQL(LectureSurveyTable.getCreateQuery());
 
 
         //insert init data to uploader_utility table
         insertRecords(db, UploaderUtilityTable.TABLE_UPLOADER_UTILITY, UploaderUtilityTable.getRecords());
-        insertRecords(db, SurveyConfigTable.TABLE_SURVEY_CONFIG, SurveyConfigTable.getRecords());
-        insertRecords(db, DailyIntervalsTable.TABLE_DAILY_INTERVALS_TABLE, DailyIntervalsTable.getRecords());
 
         Log.d("DATABASE HELPER", "Db created");
     }
@@ -108,13 +82,12 @@ public class LocalSQLiteDBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d("DBHelper", "Upgrading db. Truncating accelerometer and used apps");
         db.execSQL("delete from "+ AccelerometerTable.TABLE_ACCELEROMETER);
-        db.execSQL("delete from "+ UsedAppTable.TABLE_USED_APP);
         return;
     }
 
     public List<PostLectureSurvey> getAllPostlectureSurveys(){
         List<PostLectureSurvey> postLectureSurveyList = new ArrayList<>();
-        String selectQuery = "SELECT * FROM "+ UsedAppTable.TABLE_USED_APP;
+        String selectQuery = "SELECT * FROM "+ AccelerometerTable.TABLE_ACCELEROMETER;
         SQLiteDatabase db = getReadableDatabase();
 
         Cursor cursor = db.rawQuery(selectQuery, null);

@@ -95,8 +95,8 @@
     <string name="academia">Academia</string>
     <string name="industry">Industry</string>
 
-
-    <string name="lecture_surveys_description">Surveys about the lectures</string>
+    <string name="daily_surveys_description">Surveys related to </string>
+    <string name="lecture_surveys_description">Surveys related to the lectures</string>
     <string name="instructions">Please choose a number from 1 - 7 that best desribes your agreement with the following statements. \n 1=Strongly disagree - 7=Strongly agree</string>
 
     <string name="lecture_q1">This lecture was interesting.</string>

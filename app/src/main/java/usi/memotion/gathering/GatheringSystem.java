@@ -12,7 +12,6 @@ import usi.memotion.gathering.gatheringServices.LocationGatheringService;
 import usi.memotion.gathering.gatheringServices.LockGatheringService;
 import usi.memotion.gathering.gatheringServices.PhoneCallGatheringService;
 import usi.memotion.gathering.gatheringServices.SMSGatheringService;
-import usi.memotion.gathering.gatheringServices.UsedAppGatheringService;
 import usi.memotion.gathering.gatheringServices.WifiGatheringService;
 
 import android.util.Log;
@@ -81,7 +80,6 @@ public class GatheringSystem {
         context.stopService(new Intent(context, LocationGatheringService.class));
         context.stopService(new Intent(context, LockGatheringService.class));
         context.stopService(new Intent(context, SMSGatheringService.class));
-        context.stopService(new Intent(context, UsedAppGatheringService.class));
         context.stopService(new Intent(context, WifiGatheringService.class));
         context.stopService(new Intent(context, PhoneCallGatheringService.class));
     }

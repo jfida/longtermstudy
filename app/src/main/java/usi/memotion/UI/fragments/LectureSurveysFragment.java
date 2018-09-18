@@ -35,7 +35,7 @@ import usi.memotion.local.database.tables.UserTable;
  */
 public class LectureSurveysFragment extends Fragment {
 
-    ExpandableRelativeLayout expandableLayout1, expandableLayout2;
+    ExpandableRelativeLayout expandableLayout0, expandableLayout1, expandableLayout2;
 
     Button submitSurveyButton;
     private RadioGroup question1Options;
@@ -80,6 +80,7 @@ public class LectureSurveysFragment extends Fragment {
 
         localcontroller = SQLiteController.getInstance(getContext());
 
+        expandableLayout0 = (ExpandableRelativeLayout) root.findViewById(R.id.expandableLayout0);
         expandableLayout1 = (ExpandableRelativeLayout) root.findViewById(R.id.expandableLayout1);
         expandableLayout2 = (ExpandableRelativeLayout) root.findViewById(R.id.expandableLayout2);
 
@@ -115,7 +116,6 @@ public class LectureSurveysFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //Ask if they are sure to add or update the data
-                //Alert Dialog
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
                 alertDialog.setTitle("Submit Survey Answers");
 //                alertDialog.setIcon(R.drawable.logo3);
@@ -127,14 +127,12 @@ public class LectureSurveysFragment extends Fragment {
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.cancel();
-
                                 }
                             });
 
                     alertDialog.setPositiveButton(R.string.no,
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-
                                     //Close this activity
                                     getActivity().finish();
                                 }
@@ -142,8 +140,6 @@ public class LectureSurveysFragment extends Fragment {
 
                 }else{
                     alertDialog.setMessage("Do you want to save these answers?");
-
-
                     alertDialog.setNegativeButton(R.string.yes,
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
@@ -182,12 +178,7 @@ public class LectureSurveysFragment extends Fragment {
                                 }
                             });
                 }
-
-
                 alertDialog.show();
-
-
-
             }
         });
 

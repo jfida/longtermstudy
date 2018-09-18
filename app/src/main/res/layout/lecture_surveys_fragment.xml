@@ -25,10 +25,89 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
         <Button
-            android:id="@+id/expandableButton1"
+            android:id="@+id/expandableButton0"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/paperSessionsTitle"
+            android:background="?attr/colorButtonNormal"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:onClick="expandableButton0"
+            android:paddingRight="10dp"
+            android:text="Pre-lecture Surveys"
+            android:textAllCaps="false"
+            android:textColor="?android:attr/textColorPrimary" />
+
+
+        <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+            android:id="@+id/expandableLayout0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/expandableButton0"
+            android:background="@color/material_grey_600"
+            android:padding="16dp"
+            app:ael_duration="400"
+            app:ael_expanded="false"
+            app:ael_interpolator="accelerate"
+            app:ael_orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/survey_instructions0"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="34dp"
+                        android:paddingRight="24dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="20dp"
+                            android:text="This survey should be completed before the lecture."
+                            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/instructions"
+                            />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="@color/colorGreen"/>
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:paddingRight="35dp"
+                            android:text="@string/lecture_q1" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </ScrollView>
+
+        </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+
+        <Button
+            android:id="@+id/expandableButton1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/expandableLayout0"
             android:background="?attr/colorButtonNormal"
             android:drawableRight="@android:drawable/arrow_down_float"
             android:onClick="expandableButton1"

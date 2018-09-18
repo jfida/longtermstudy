@@ -4,15 +4,11 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.util.Log;
 
-import usi.memotion.local.database.tableHandlers.Survey;
-import usi.memotion.local.database.tableHandlers.SurveyAlarms;
 import usi.memotion.remote.database.controllers.SwitchDriveController;
-import usi.memotion.surveys.config.SurveyType;
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.tableHandlers.TableHandler;
 import usi.memotion.local.database.db.LocalDbUtility;
 import usi.memotion.local.database.db.LocalTables;
-import usi.memotion.local.database.tables.SurveyTable;
 import usi.memotion.local.database.tables.UploaderUtilityTable;
 import usi.memotion.remote.database.RemoteStorageController;
 import java.util.*;
@@ -85,129 +81,112 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
         }
     }
 
-    private String buildSurveyCSV(List<Survey> surveys) {
-        String csv = "";
-        String csvHeader = "";
-
-        for(String surveyColumn: LocalDbUtility.getTableColumns(LocalTables.TABLE_SURVEY)) {
-            csvHeader += surveyColumn + ", ";
-        }
-
-        String[] colums;
-        for(Entry<SurveyType, TableHandler> entry: surveys.get(0).getSurveys().entrySet()) {
-            colums = entry.getValue().getColumns();
-            for(int i = 3; i < colums.length; i++) {
-                csvHeader += entry.getValue().getTableName() + "_" + colums[i] + ", ";
-            }
-        }
-
-        csvHeader = csvHeader.substring(0, csvHeader.length()-2);
-        csv += csvHeader + "\n";
-
-        Map<SurveyType, TableHandler> childs = new HashMap<>();
-        String record = "";
-        String[] childColumns;
-        for(Survey s: surveys) {
-            childs = s.getSurveys();
-
-            for(String column: s.getColumns()) {
-                record += s.getAttributes().getAsString(column) + ", ";
-            }
-
-            for(Map.Entry<SurveyType, TableHandler> entry: childs.entrySet()) {
-                childColumns = entry.getValue().getColumns();
-                for(int i = 3; i < childColumns.length; i++) {
-                    record += entry.getValue().getAttributes().getAsString(childColumns[i]) + ", ";
-                }
-            }
-
-            record += "\n";
-        }
-
-        csv += record;
-
-        return csv.substring(0, csv.length()-1);
-    }
-
-    private String buildSurveyFileName(SurveyType survey) {
-        String today = buildDate();
-        return userId + "_" + today + "_" + survey.getSurveyName() + "_" + "part" + Integer.toString(getFilePartId(LocalTables.TABLE_SURVEY)) + ".csv";
-    }
-
-    private void processSurveys(TableHandler[] surveys) {
-
-        SurveyType currSurvey = ((Survey) surveys[0]).surveyType;
-        String fileName = buildSurveyFileName(currSurvey);
-        String currCsv = "";
-        Survey currS;
-        List<Survey> gSurveys = new ArrayList<>();
-
-        SurveyAlarms alarm;
-        for(TableHandler s: surveys) {
-            currS = (Survey) s;
-            if(currSurvey != currS.surveyType) {
-                currSurvey = currS.surveyType;
-
-                currCsv = buildSurveyCSV(gSurveys);
-                Log.d("AAA", currCsv);
-//                alarm = SurveyAlarmSurvey.getAlarm(currS.id);
-
-                TableInfo info = new TableInfo();
-                info.isSurvey = true;
-                info.survey = currSurvey;
-                info.surveysId = new ArrayList<>();
-                for(Survey ss: gSurveys) {
-                    info.surveysId.add(ss.id);
-                }
-                map.put(fileName, info);
-                remoteController.upload(fileName, currCsv);
-
-                fileName = buildSurveyFileName(currSurvey);
-                gSurveys = new ArrayList<>();
-            }
-
-            gSurveys.add(currS);
-
-        }
-
-        fileName = buildSurveyFileName(currSurvey);
-        currCsv = buildSurveyCSV(gSurveys);
-        Log.d("AAA", currCsv);
-        TableInfo info = new TableInfo();
-        info.isSurvey = true;
-        info.survey = currSurvey;
-        info.surveysId = new ArrayList<>();
-        for(Survey ss: gSurveys) {
-            info.surveysId.add(ss.id);
-        }
-        map.put(fileName, info);
-        remoteController.upload(fileName, currCsv);
-
-        incrementFilePartId(LocalTables.TABLE_SURVEY);
-    }
+//    private String buildSurveyCSV(List<Survey> surveys) {
+//        String csv = "";
+//        String csvHeader = "";
+//
+//        for(String surveyColumn: LocalDbUtility.getTableColumns(LocalTables.TABLE_SURVEY)) {
+//            csvHeader += surveyColumn + ", ";
+//        }
+//
+//        String[] colums;
+//        for(Entry<SurveyType, TableHandler> entry: surveys.get(0).getSurveys().entrySet()) {
+//            colums = entry.getValue().getColumns();
+//            for(int i = 3; i < colums.length; i++) {
+//                csvHeader += entry.getValue().getTableName() + "_" + colums[i] + ", ";
+//            }
+//        }
+//
+//        csvHeader = csvHeader.substring(0, csvHeader.length()-2);
+//        csv += csvHeader + "\n";
+//
+//        Map<SurveyType, TableHandler> childs = new HashMap<>();
+//        String record = "";
+//        String[] childColumns;
+//        for(Survey s: surveys) {
+//            childs = s.getSurveys();
+//
+//            for(String column: s.getColumns()) {
+//                record += s.getAttributes().getAsString(column) + ", ";
+//            }
+//
+//            for(Map.Entry<SurveyType, TableHandler> entry: childs.entrySet()) {
+//                childColumns = entry.getValue().getColumns();
+//                for(int i = 3; i < childColumns.length; i++) {
+//                    record += entry.getValue().getAttributes().getAsString(childColumns[i]) + ", ";
+//                }
+//            }
+//
+//            record += "\n";
+//        }
+//
+//        csv += record;
+//
+//        return csv.substring(0, csv.length()-1);
+//    }
+//
+//    private String buildSurveyFileName(SurveyType survey) {
+//        String today = buildDate();
+//        return userId + "_" + today + "_" + survey.getSurveyName() + "_" + "part" + Integer.toString(getFilePartId(LocalTables.TABLE_SURVEY)) + ".csv";
+//    }
+//
+//    private void processSurveys(TableHandler[] surveys) {
+//
+//        SurveyType currSurvey = ((Survey) surveys[0]).surveyType;
+//        String fileName = buildSurveyFileName(currSurvey);
+//        String currCsv = "";
+//        Survey currS;
+//        List<Survey> gSurveys = new ArrayList<>();
+//
+//        SurveyAlarms alarm;
+//        for(TableHandler s: surveys) {
+//            currS = (Survey) s;
+//            if(currSurvey != currS.surveyType) {
+//                currSurvey = currS.surveyType;
+//
+//                currCsv = buildSurveyCSV(gSurveys);
+//                Log.d("AAA", currCsv);
+////                alarm = SurveyAlarmSurvey.getAlarm(currS.id);
+//
+//                TableInfo info = new TableInfo();
+//                info.isSurvey = true;
+//                info.survey = currSurvey;
+//                info.surveysId = new ArrayList<>();
+//                for(Survey ss: gSurveys) {
+//                    info.surveysId.add(ss.id);
+//                }
+//                map.put(fileName, info);
+//                remoteController.upload(fileName, currCsv);
+//
+//                fileName = buildSurveyFileName(currSurvey);
+//                gSurveys = new ArrayList<>();
+//            }
+//
+//            gSurveys.add(currS);
+//
+//        }
+//
+//        fileName = buildSurveyFileName(currSurvey);
+//        currCsv = buildSurveyCSV(gSurveys);
+//        Log.d("AAA", currCsv);
+//        TableInfo info = new TableInfo();
+//        info.isSurvey = true;
+//        info.survey = currSurvey;
+//        info.surveysId = new ArrayList<>();
+//        for(Survey ss: gSurveys) {
+//            info.surveysId.add(ss.id);
+//        }
+//        map.put(fileName, info);
+//        remoteController.upload(fileName, currCsv);
+//
+//        incrementFilePartId(LocalTables.TABLE_SURVEY);
+//    }
 
     private void processTable(LocalTables table) {
 
-        if(table == LocalTables.TABLE_SWLS || table == LocalTables.TABLE_PWB ||
-           table == LocalTables.TABLE_PSS || table == LocalTables.TABLE_PHQ8 ||
-           table == LocalTables.TABLE_SHS || table == LocalTables.TABLE_PAM ||
-           table == LocalTables.TABLE_SURVEY_ALARMS || table == LocalTables.TABLE_USER ||
-           table == LocalTables.TABLE_SURVEY_ALARMS_SURVEY || table == LocalTables.TABLE_SURVEY_CONFIG || table == LocalTables.TABLE_USED_APP) {
-            return;
-        }
-
         Log.d("DATA UPLOAD SERVICE", "Processing table " + LocalDbUtility.getTableName(table));
 
-
-
-        if(table == LocalTables.TABLE_SURVEY) {
-            TableHandler[] surveys = Survey.findAll("*", "(" + SurveyTable.KEY_SURVEY_EXPIRED + " = " + 1 + " OR " + SurveyTable.KEY_SURVEY_COMPLETED + " = " + 1 + ") AND " + SurveyTable.KEY_SURVEY_UPLOADED + " = " + 0 + " ORDER BY " + SurveyTable.KEY_SURVEY_TYPE + " ASC");
-            if(surveys == null) {
-                Log.d("DATA UPLOAD SERVICE", "No records to upload");
-            } else {
-                processSurveys(surveys);
-            }
-        } else if(table == LocalTables.TABLE_LOCATION || table == LocalTables.TABLE_PHONELOCK || table == LocalTables.TABLE_CALL_LOG || table == LocalTables.TABLE_SMS) {
+        if(table == LocalTables.TABLE_LOCATION || table == LocalTables.TABLE_PHONELOCK || table == LocalTables.TABLE_CALL_LOG || table == LocalTables.TABLE_SMS ) {
 
                 String query = getQuery(table);
 
@@ -272,8 +251,26 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
             } else {
                 Log.d("DATA UPLOAD SERVICE", "Table is empty, nothing to upload");
             }
-        }
+        } else if(table == LocalTables.TABLE_USER){
+            String query = getQuery(table);
+            Cursor records = localController.rawQuery(query, null);
 
+            if (records.getCount() > 0) {
+                String fileName = buildFileName(table);
+                records.moveToFirst();
+                TableInfo info = new TableInfo();
+                info.table = table;
+                map.put(fileName, info);
+
+                Log.d("DATA UPLOAD SERVICE", "Preparing the data to upload for table " + LocalDbUtility.getTableName(table));
+                remoteController.upload(fileName, toCSV(records, table));
+
+                Log.d("DATA UPLOAD SERVICE", "Upload request sent for table " + LocalDbUtility.getTableName(table));
+
+            }else {
+                Log.d("DATA UPLOAD SERVICE", "Table is empty, nothing to upload");
+            }
+        }
     }
 
 
@@ -296,7 +293,7 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
         String query = "SELECT * FROM " + LocalDbUtility.getTableName(table) +
                 " WHERE " + columns[0] + " > " + Integer.toString(getRecordId(table));
 
-        if(table == LocalTables.TABLE_PAM || table == LocalTables.TABLE_PWB) {
+        if(table == LocalTables.TABLE_PAM) {
             query += " AND (" + columns[3] + " = " + 1 + " OR " + columns[5] + " = " + 1 + ")";
         }
 
@@ -478,7 +475,7 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
         Log.d("UPLOADER", "Got transfer event for file " + fileName);
         if(info != null && info.isSurvey) {
             if(status >= 200 && status <= 207) {
-                markSurveys(info.surveysId);
+//                markSurveys(info.surveysId);
             } else {
                 Log.d("DATA UPLOAD SERVICE", "Something went wrong, Owncould's response: " + Integer.toString(status));
             }
@@ -502,21 +499,21 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
 
     private class TableInfo {
         public boolean isSurvey;
-        public SurveyType survey;
+//        public SurveyType survey;
         public LocalTables table;
         public int startId;
         public int endId;
         public List<Long> surveysId;
     }
 
-    private void markSurveys(List<Long> ids) {
-        Survey s;
-        for(Long id: ids) {
-            s = (Survey) Survey.findByPk(id);
-            s.uploaded = true;
-            s.save();
-        }
-    }
+//    private void markSurveys(List<Long> ids) {
+//        Survey s;
+//        for(Long id: ids) {
+//            s = (Survey) Survey.findByPk(id);
+//            s.uploaded = true;
+//            s.save();
+//        }
+//    }
 }
 
 

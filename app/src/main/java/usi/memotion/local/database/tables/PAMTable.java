@@ -32,9 +32,7 @@ public class PAMTable {
                     KEY_PAM_TRANSPORTATION + " TEXT, " +
                     KEY_PAM_ACTIVITIES + " TEXT, " +
                     KEY_PAM_WORKLOAD + " TEXT, " +
-                    KEY_PAM_SOCIAL + " INTEGER, " +
-                    "FOREIGN KEY (" + KEY_PAM_PARENT_SURVEY_ID + ") REFERENCES " + SurveyTable.TABLE_SURVEY + "(" + SurveyTable.KEY_SURVEY_ID + "));" +
-                ")";
+                    KEY_PAM_SOCIAL + " INTEGER " + ")";
     }
 
     public static String[] getColumns() {

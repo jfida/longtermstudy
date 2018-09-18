@@ -37,12 +37,14 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".surveys.handle.NotificationBroadcastReceiver">
+        <activity android:name=".Reminders.Questionnaire"
+            android:launchMode="singleInstance" android:excludeFromRecents="true"
+            android:taskAffinity="" android:theme="@style/Theme.AppCompat.Dialog">
+        </activity>
 
-        </receiver>
+        <receiver android:name="usi.memotion.Reminders.AlarmNotificationReceiver" />
 
-        <receiver android:name=".surveys.handle.SchedulerAlarmReceiver"/>
-        <receiver android:name=".surveys.handle.SurveyEventReceiver"/>
+
 
         <service
             android:name="usi.memotion.gathering.gatheringServices.WifiGatheringService"
@@ -72,16 +74,9 @@
             android:name="usi.memotion.gathering.gatheringServices.SMSGatheringService"
             android:enabled="true"
             android:exported="true" />
-        <service
-            android:name="usi.memotion.gathering.gatheringServices.UsedAppGatheringService"
-            android:enabled="true"
-            android:exported="true" />
+
         <service
             android:name="usi.memotion.remote.database.upload.DataUploadService"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".surveys.SurveysService"
             android:enabled="true"
             android:exported="true" />
     </application>

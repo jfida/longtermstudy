@@ -26,7 +26,7 @@ public class TabFragmentAdapter extends FragmentPagerAdapter {
             case 1:
                 return new LectureSurveysFragment();
             case 2:
-                return new SurveysFragment();
+                return new LectureSurveysFragment();
             default:
                 return null;
         }
@@ -34,7 +34,7 @@ public class TabFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getItemPosition(Object object) {
-        if (object instanceof HomeFragment || object instanceof  SurveysFragment) {
+        if (object instanceof HomeFragment || object instanceof  LectureSurveysFragment) {
             return POSITION_NONE;
         } else {
             return super.getItemPosition(object);
