@@ -1,10 +1,13 @@
 package usi.memotion;
 
 import android.Manifest;
+import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -14,9 +17,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,6 +50,9 @@ import usi.memotion.gathering.SensorType;
 import usi.memotion.remote.database.upload.DataUploadService;
 
 public class MainActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
+    private static final String ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
+    private static final String ACTION_NOTIFICATION_LISTENER_SETTINGS = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS";
+    private AlertDialog enableNotificationListenerAlertDialog;
 
     private GatheringSystem gSys;
     private boolean viewIsAtHome;
@@ -71,8 +79,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -101,6 +107,12 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                             Manifest.permission.ACCESS_NETWORK_STATE,
                             Manifest.permission.INTERNET},
                     PERMISSION_REQUEST_STATUS);
+
+            // If the user did not turn the notification listener service on we prompt him to do so
+            if(!isNotificationServiceEnabled()){
+                enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog();
+                enableNotificationListenerAlertDialog.show();
+            }
         } else {
             initServices(grantedPermissions());
         }
@@ -279,12 +291,17 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
         if(fragment != null){
             String menuFragment = getIntent().getStringExtra("fragmentChoice");
+            String questionnaireSession = getIntent().getStringExtra("LectureSession");
+
             Log.v("displayView", "The received extras are: " + menuFragment);
 
             // If menuFragment is defined, then this activity was launched with a fragment selection
             if (menuFragment != null) {
                 if (menuFragment.equals("lectureSurveys")) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("LectureSession", questionnaireSession);
                     fragment = new LectureSurveysFragment();
+                    fragment.setArguments(bundle);
                 }else if(menuFragment.equals("dailySurveys")){
                     fragment = new DailySurveysFragment();
                 }
@@ -375,6 +392,56 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             Log.v("Homeee", "Alarms Triggered");
             scheduler.createReminder(getApplicationContext());
         }
+    }
+
+    /**
+     * Is Notification Service Enabled.
+     * Verifies if the notification listener service is enabled.
+     * Got it from: https://github.com/kpbird/NotificationListenerService-Example/blob/master/NLSExample/src/main/java/com/kpbird/nlsexample/NLService.java
+     * @return True if eanbled, false otherwise.
+     */
+    private boolean isNotificationServiceEnabled(){
+        String pkgName = getPackageName();
+        final String flat = Settings.Secure.getString(getContentResolver(),
+                ENABLED_NOTIFICATION_LISTENERS);
+        if (!TextUtils.isEmpty(flat)) {
+            final String[] names = flat.split(":");
+            for (int i = 0; i < names.length; i++) {
+                final ComponentName cn = ComponentName.unflattenFromString(names[i]);
+                if (cn != null) {
+                    if (TextUtils.equals(pkgName, cn.getPackageName())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Build Notification Listener Alert Dialog.
+     * Builds the alert dialog that pops up if the user has not turned
+     * the Notification Listener Service on yet.
+     * @return An alert dialog which leads to the notification enabling screen
+     */
+    private AlertDialog buildNotificationServiceAlertDialog(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Notification");
+        alertDialogBuilder.setMessage("We need this for that and that ... ");
+        alertDialogBuilder.setPositiveButton(R.string.yes,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        startActivity(new Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS));
+                    }
+                });
+        alertDialogBuilder.setNegativeButton(R.string.no,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // If you choose to not enable the notification listener
+                        // the app. will not work as expected
+                    }
+                });
+        return(alertDialogBuilder.create());
     }
 
 }

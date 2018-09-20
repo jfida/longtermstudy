@@ -28,7 +28,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         String session = intent.getExtras().get("Session").toString();
 
         if(session.equals("Wednesday - Pre") || session.equals("Friday - Pre") || session.equals("Wednesday - Break") || session.equals("Friday - Break") || session.equals("Wednesday - Post") || session.equals("Friday - Post")){
-            setNotification2(context, "Lecture Survey", "Please tell us how was your lecture - " + session + "!", 1000097);
+            setNotification2(context, "Lecture Survey", "Please tell us how was your lecture - " + session + "!", session, 1000097);
         }else if(session.equals("E4")) {
             setE4Notification(context, "E4 charging time", "Please don't forget to charge E4 and upload the data", 1000098);
         }else if(session.equals("morning") || session.equals("afternoon") || session.equals("evening")){
@@ -38,7 +38,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
 
 
 
-    public void setNotification2(Context context, String title, String content, int notificationID){
+    public void setNotification2(Context context, String title, String content, String session, int notificationID){
         Random rand = new Random();
         int code = rand.nextInt(1000000);
         System.out.println("code: "+code);
@@ -55,6 +55,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         When notification clicked, open Lecture Surveys Fragment
          */
         Intent intent = new Intent(context, Questionnaire.class);
+        intent.putExtra("LectureSession", session);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addParentStack(MainActivity.class);
@@ -62,7 +63,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         PendingIntent pendingIntent = stackBuilder.getPendingIntent(code, PendingIntent.FLAG_UPDATE_CURRENT);
 
         builder.setContentIntent(pendingIntent);
-        builder.setSmallIcon(R.drawable.account);
+        builder.setSmallIcon(R.drawable.surveys);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
         notificationManager.notify(notificationID, builder.build());
@@ -90,7 +91,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         PendingIntent pendingIntent = stackBuilder.getPendingIntent(code, PendingIntent.FLAG_UPDATE_CURRENT);
 
         builder.setContentIntent(pendingIntent);
-        builder.setSmallIcon(R.drawable.account);
+        builder.setSmallIcon(R.drawable.surveys);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
         notificationManager.notify(notificationID, builder.build());
@@ -119,7 +120,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         PendingIntent pendingIntent = stackBuilder.getPendingIntent(code, PendingIntent.FLAG_UPDATE_CURRENT);
 
         builder.setContentIntent(pendingIntent);
-        builder.setSmallIcon(R.drawable.account);
+        builder.setSmallIcon(R.drawable.surveys);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
         notificationManager.notify(notificationID, builder.build());

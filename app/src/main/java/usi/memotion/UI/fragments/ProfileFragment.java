@@ -50,9 +50,9 @@ public class ProfileFragment extends Fragment {
         gender = (TextView)rootview.findViewById(R.id.genderValue);
         status = (TextView) rootview.findViewById(R.id.statusValue);
 
-        String query = "SELECT * FROM usersTable";
 
         LocalStorageController localController = SQLiteController.getInstance(getContext());;
+        String query = "SELECT * FROM usersTable";
 
         Cursor records = localController.rawQuery(query, null);
         records.moveToFirst();

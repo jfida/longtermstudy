@@ -32,8 +32,10 @@ public class Questionnaire extends AppCompatActivity {
         alertDialog.setPositiveButton("Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        String session = getIntent().getStringExtra("LectureSession");
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         intent.putExtra("fragmentChoice", "lectureSurveys");
+                        intent.putExtra("LectureSession", session);
                         startActivity(intent);
                     }
                 });

@@ -3,6 +3,7 @@ package usi.memotion.UI.fragments;
 
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -83,6 +84,17 @@ public class LectureSurveysFragment extends Fragment {
         expandableLayout0 = (ExpandableRelativeLayout) root.findViewById(R.id.expandableLayout0);
         expandableLayout1 = (ExpandableRelativeLayout) root.findViewById(R.id.expandableLayout1);
         expandableLayout2 = (ExpandableRelativeLayout) root.findViewById(R.id.expandableLayout2);
+
+        String session = getArguments().getString("LectureSession");
+        if(session != null){
+            if(session.equals("Wednesday - Pre") || session.equals("Friday - Pre"))
+                    expandableLayout0.setExpanded(true);
+            else if(session.equals("Wednesday - Break") || session.equals("Friday - Break"))
+                expandableLayout1.setExpanded(true);
+            else if(session.equals("Wednesday - Post") || session.equals("Friday - Post"))
+                expandableLayout2.setExpanded(true);
+        }
+
 
         dbHelper = new LocalSQLiteDBHelper(getContext());
 

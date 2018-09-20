@@ -127,7 +127,3 @@ public class BluethootGatheringService extends Service {
         }
     }
 }
-
-
-
-

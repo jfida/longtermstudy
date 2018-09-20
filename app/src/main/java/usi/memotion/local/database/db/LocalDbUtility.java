@@ -3,6 +3,7 @@ package usi.memotion.local.database.db;
 import usi.memotion.local.database.tables.AccelerometerTable;
 import usi.memotion.local.database.tables.LectureSurveyTable;
 import usi.memotion.local.database.tables.LocationTable;
+import usi.memotion.local.database.tables.NotificationsTable;
 import usi.memotion.local.database.tables.PAMTable;
 import usi.memotion.local.database.tables.PhoneCallLogTable;
 import usi.memotion.local.database.tables.PhoneLockTable;
@@ -38,6 +39,8 @@ public class LocalDbUtility {
                 return SimpleMoodTable.TABLE_SIMPLE_MOOD;
             case TABLE_LECTURE_SURVEY:
                 return LectureSurveyTable.TABLE_LECTURE_SURVEY;
+            case TABLE_NOTIFICATIONS:
+                return NotificationsTable.TABLE_NOTIFICATIONS;
             default:
                 return null;
         }
@@ -63,6 +66,8 @@ public class LocalDbUtility {
                 return SimpleMoodTable.getColumns();
             case TABLE_LECTURE_SURVEY:
                 return LectureSurveyTable.getColumns();
+            case TABLE_NOTIFICATIONS:
+                return NotificationsTable.getColumns();
             default:
                 return null;
         }

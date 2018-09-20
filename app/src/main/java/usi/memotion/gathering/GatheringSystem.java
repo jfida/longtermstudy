@@ -10,6 +10,7 @@ import usi.memotion.gathering.gatheringServices.AccelerometerGatheringService;
 import usi.memotion.gathering.gatheringServices.BluethootGatheringService;
 import usi.memotion.gathering.gatheringServices.LocationGatheringService;
 import usi.memotion.gathering.gatheringServices.LockGatheringService;
+import usi.memotion.gathering.gatheringServices.Notifications.NotificationMonitorService;
 import usi.memotion.gathering.gatheringServices.PhoneCallGatheringService;
 import usi.memotion.gathering.gatheringServices.SMSGatheringService;
 import usi.memotion.gathering.gatheringServices.WifiGatheringService;
@@ -56,10 +57,6 @@ public class GatheringSystem {
                     Log.d("GATHERING SYSTEM", "Started sms service");
                     context.startService(new Intent(context, SMSGatheringService.class));
                     break;
-//                case USED_APPS:
-//                    Log.d("GATHERING SYSTEM", "Started used apps service");
-//                    context.startService(new Intent(context, UsedAppGatheringService.class));
-//                    break;
                 case WIFI:
                     Log.d("GATHERING SYSTEM", "Started wifi service");
                     context.startService(new Intent(context, WifiGatheringService.class));
@@ -67,6 +64,10 @@ public class GatheringSystem {
                 case PHONE_CALLS:
                     Log.d("GATHERING SYSTEM", "Started calls service");
                     context.startService(new Intent(context, PhoneCallGatheringService.class));
+                    break;
+                case NOTIFICATIONS:
+                    Log.d("GATHERING SYSTEM", "Started notifications service");
+                    context.startService(new Intent(context, NotificationMonitorService.class));
                     break;
                 default:
                     break;
@@ -82,5 +83,7 @@ public class GatheringSystem {
         context.stopService(new Intent(context, SMSGatheringService.class));
         context.stopService(new Intent(context, WifiGatheringService.class));
         context.stopService(new Intent(context, PhoneCallGatheringService.class));
+        context.stopService(new Intent(context, NotificationMonitorService.class));
+
     }
 }

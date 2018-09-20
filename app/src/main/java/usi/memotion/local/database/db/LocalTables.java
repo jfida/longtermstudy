@@ -15,6 +15,8 @@ import usi.memotion.local.database.tables.SMSTable;
 import usi.memotion.local.database.tables.SimpleMoodTable;
 import usi.memotion.local.database.tables.UserTable;
 import usi.memotion.local.database.tables.WiFiTable;
+import usi.memotion.local.database.tables.NotificationsTable;
+
 
 /**
  * Created by usi on 18/01/17.
@@ -31,7 +33,8 @@ public enum LocalTables {
     TABLE_SIMPLE_MOOD(SimpleMoodTable.class),
     TABLE_USER(UserTable.class),
     TABLE_ACCELEROMETER(AccelerometerTable.class),
-    TABLE_LECTURE_SURVEY(LectureSurveyTable.class);
+    TABLE_LECTURE_SURVEY(LectureSurveyTable.class),
+    TABLE_NOTIFICATIONS(NotificationsTable.class);
 
     LocalTables(Class a) {
     }

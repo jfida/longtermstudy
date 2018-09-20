@@ -186,7 +186,8 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
 
         Log.d("DATA UPLOAD SERVICE", "Processing table " + LocalDbUtility.getTableName(table));
 
-        if(table == LocalTables.TABLE_LOCATION || table == LocalTables.TABLE_PHONELOCK || table == LocalTables.TABLE_CALL_LOG || table == LocalTables.TABLE_SMS ) {
+        if(table == LocalTables.TABLE_LOCATION || table == LocalTables.TABLE_PHONELOCK || table == LocalTables.TABLE_CALL_LOG || table == LocalTables.TABLE_SMS ||
+                table == LocalTables.TABLE_NOTIFICATIONS || table == LocalTables.TABLE_USER) {
 
                 String query = getQuery(table);
 
@@ -251,26 +252,28 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
             } else {
                 Log.d("DATA UPLOAD SERVICE", "Table is empty, nothing to upload");
             }
-        } else if(table == LocalTables.TABLE_USER){
-            String query = getQuery(table);
-            Cursor records = localController.rawQuery(query, null);
-
-            if (records.getCount() > 0) {
-                String fileName = buildFileName(table);
-                records.moveToFirst();
-                TableInfo info = new TableInfo();
-                info.table = table;
-                map.put(fileName, info);
-
-                Log.d("DATA UPLOAD SERVICE", "Preparing the data to upload for table " + LocalDbUtility.getTableName(table));
-                remoteController.upload(fileName, toCSV(records, table));
-
-                Log.d("DATA UPLOAD SERVICE", "Upload request sent for table " + LocalDbUtility.getTableName(table));
-
-            }else {
-                Log.d("DATA UPLOAD SERVICE", "Table is empty, nothing to upload");
-            }
         }
+
+//        else if(table == LocalTables.TABLE_USER){
+//            String query = getQuery(table);
+//            Cursor records = localController.rawQuery(query, null);
+//
+//            if (records.getCount() > 0) {
+//                String fileName = buildFileName(table);
+//                records.moveToFirst();
+//                TableInfo info = new TableInfo();
+//                info.table = table;
+//                map.put(fileName, info);
+//
+//                Log.d("DATA UPLOAD SERVICE", "Preparing the data to upload for table " + LocalDbUtility.getTableName(table));
+//                remoteController.upload(fileName, toCSV(records, table));
+//
+//                Log.d("DATA UPLOAD SERVICE", "Upload request sent for table " + LocalDbUtility.getTableName(table));
+//
+//            }else {
+//                Log.d("DATA UPLOAD SERVICE", "Table is empty, nothing to upload");
+//            }
+//        }
     }
 
 
