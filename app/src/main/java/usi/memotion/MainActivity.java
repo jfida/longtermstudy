@@ -1,9 +1,12 @@
 package usi.memotion;
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -27,11 +30,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.aware.Aware;
+import com.aware.ESM;
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -43,16 +49,21 @@ import usi.memotion.UI.fragments.LectureSurveysFragment;
 import usi.memotion.UI.fragments.HomeFragment;
 import usi.memotion.UI.fragments.ProfileFragment;
 import usi.memotion.UI.views.RegistrationView;
+import usi.memotion.gathering.gatheringServices.ApplicationLogs.AppUsageStatisticsFragment;
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
 import usi.memotion.gathering.GatheringSystem;
 import usi.memotion.gathering.SensorType;
 import usi.memotion.remote.database.upload.DataUploadService;
+import usi.memotion.remote.database.upload.UploadAlarmReceiver;
 
 public class MainActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
     private static final String ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
+    private static final String ENABLED_USAGE_LISTENERS = "enabled_usage_listeners";
     private static final String ACTION_NOTIFICATION_LISTENER_SETTINGS = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS";
     private AlertDialog enableNotificationListenerAlertDialog;
+    private AlertDialog enableUsageServiceAlertDialog;
+
 
     private GatheringSystem gSys;
     private boolean viewIsAtHome;
@@ -113,9 +124,15 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                 enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog();
                 enableNotificationListenerAlertDialog.show();
             }
+
+            if(!isUsageAccessServiceEnabled()){
+                enableUsageServiceAlertDialog = buildUsageStatsManagerAlertDialog();
+                enableUsageServiceAlertDialog.show();
+            }
         } else {
             initServices(grantedPermissions());
         }
+
     }
 
     private void initServices(List<String> grantedPermissions) {
@@ -189,7 +206,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                 ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_ADMIN) == PackageManager.PERMISSION_GRANTED;
+                ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_ADMIN) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE) == PackageManager.PERMISSION_GRANTED;
     }
 
     @Override
@@ -263,6 +281,12 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                 viewIsAtHome = false;
                 break;
 
+            case R.id.nav_usage_statistics:
+                fragment = new AppUsageStatisticsFragment();
+                title = "Application Logs";
+                viewIsAtHome = false;
+                break;
+
             case R.id.nav_register:
                 if(checkAndroidID()){
                     fragment = new ProfileFragment();
@@ -330,9 +354,9 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         Cursor records = localController.rawQuery(query, null);
         records.moveToFirst();
 
-        String query2 = "SELECT * FROM lectureSurvey";
-        Cursor records2 = localController.rawQuery(query2, null);
-        Log.v("MAIN ACTIVITY", "" + records.moveToFirst());
+//        String query2 = "SELECT * FROM lectureSurvey";
+//        Cursor records2 = localController.rawQuery(query2, null);
+//        Log.v("MAIN ACTIVITY", "" + records.moveToFirst());
 
 
         if (records.getCount() > 0) {
@@ -391,8 +415,35 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         if(month == Calendar.SEPTEMBER || month == Calendar.OCTOBER || month == Calendar.NOVEMBER || month == Calendar.DECEMBER){
             Log.v("Homeee", "Alarms Triggered");
             scheduler.createReminder(getApplicationContext());
+            uploadDataEveryday();
         }
     }
+
+    public void uploadDataEveryday(){
+
+        // Retrieve a PendingIntent that will perform a broadcast
+        Intent intent = new Intent(getApplicationContext(), UploadAlarmReceiver.class);
+        AlarmManager am = (AlarmManager) getSystemService(getApplicationContext().ALARM_SERVICE);
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 17);
+        cal.set(Calendar.MINUTE, 36);
+        cal.set(Calendar.SECOND, 0);
+
+        if (cal.getTimeInMillis() > System.currentTimeMillis()) { //if it is more than 19:00 o'clock, trigger it tomorrow
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.GERMANY);
+
+            String time = sdf.format(new Date());
+            Log.v("HOMEEE", time + "Upload alarm triggered for today");
+            am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_ONE_SHOT));
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.GERMANY);
+            Log.v("HOMEEE", "Upload Alarm Triggered for next day");
+            cal.add(Calendar.DAY_OF_MONTH, 1); //trigger alarm tomorrow
+            am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_ONE_SHOT));
+        }
+    }
+
 
     /**
      * Is Notification Service Enabled.
@@ -419,6 +470,30 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     }
 
     /**
+     * Is Notification Service Enabled.
+     * Verifies if the notification listener service is enabled.
+     * Got it from: https://github.com/kpbird/NotificationListenerService-Example/blob/master/NLSExample/src/main/java/com/kpbird/nlsexample/NLService.java
+     * @return True if eanbled, false otherwise.
+     */
+    private boolean isUsageAccessServiceEnabled(){
+        String pkgName = getPackageName();
+        final String flat = Settings.Secure.getString(getContentResolver(),
+                ENABLED_USAGE_LISTENERS);
+        if (!TextUtils.isEmpty(flat)) {
+            final String[] names = flat.split(":");
+            for (int i = 0; i < names.length; i++) {
+                final ComponentName cn = ComponentName.unflattenFromString(names[i]);
+                if (cn != null) {
+                    if (TextUtils.equals(pkgName, cn.getPackageName())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Build Notification Listener Alert Dialog.
      * Builds the alert dialog that pops up if the user has not turned
      * the Notification Listener Service on yet.
@@ -426,12 +501,38 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
      */
     private AlertDialog buildNotificationServiceAlertDialog(){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle("Notification");
-        alertDialogBuilder.setMessage("We need this for that and that ... ");
+        alertDialogBuilder.setTitle("Permission needed");
+        alertDialogBuilder.setMessage("We need the permission to collect data about notifications.");
         alertDialogBuilder.setPositiveButton(R.string.yes,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         startActivity(new Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS));
+                    }
+                });
+        alertDialogBuilder.setNegativeButton(R.string.no,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // If you choose to not enable the notification listener
+                        // the app. will not work as expected
+                    }
+                });
+        return(alertDialogBuilder.create());
+    }
+
+    /**
+     * Build UsageStatsManager Dialog.
+     * Builds the alert dialog that pops up if the user has not turned
+     * the UsageStatsManager on yet.
+     * @return An alert dialog which leads to the notification enabling screen
+     */
+    private AlertDialog buildUsageStatsManagerAlertDialog(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Permission needed");
+        alertDialogBuilder.setMessage("We need the permission to collect data about the phone usage statistics.");
+        alertDialogBuilder.setPositiveButton(R.string.yes,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
                     }
                 });
         alertDialogBuilder.setNegativeButton(R.string.no,

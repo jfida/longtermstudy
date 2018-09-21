@@ -14,7 +14,8 @@ public enum SensorType {
     SMS(android.Manifest.permission.READ_PHONE_STATE, android.Manifest.permission.RECEIVE_SMS),
     USED_APPS(),
     PHONE_CALLS(android.Manifest.permission.READ_PHONE_STATE, android.Manifest.permission.PROCESS_OUTGOING_CALLS),
-    NOTIFICATIONS();
+    NOTIFICATIONS(),
+    APPLICATION_LOGS();
 
     private String[] permissions;
 

@@ -1,6 +1,9 @@
 package usi.memotion.local.database.db;
 
+import org.w3c.dom.UserDataHandler;
+
 import usi.memotion.local.database.tables.AccelerometerTable;
+import usi.memotion.local.database.tables.ApplicationLogsTable;
 import usi.memotion.local.database.tables.LectureSurveyTable;
 import usi.memotion.local.database.tables.LocationTable;
 import usi.memotion.local.database.tables.NotificationsTable;
@@ -9,6 +12,7 @@ import usi.memotion.local.database.tables.PhoneCallLogTable;
 import usi.memotion.local.database.tables.PhoneLockTable;
 import usi.memotion.local.database.tables.SMSTable;
 import usi.memotion.local.database.tables.SimpleMoodTable;
+import usi.memotion.local.database.tables.UserTable;
 import usi.memotion.local.database.tables.WiFiTable;
 
 /**
@@ -41,6 +45,8 @@ public class LocalDbUtility {
                 return LectureSurveyTable.TABLE_LECTURE_SURVEY;
             case TABLE_NOTIFICATIONS:
                 return NotificationsTable.TABLE_NOTIFICATIONS;
+            case TABLE_APPLICATION_LOGS:
+                return ApplicationLogsTable.TABLE_APPLICATION_LOGS;
             default:
                 return null;
         }
@@ -68,6 +74,45 @@ public class LocalDbUtility {
                 return LectureSurveyTable.getColumns();
             case TABLE_NOTIFICATIONS:
                 return NotificationsTable.getColumns();
+            case TABLE_APPLICATION_LOGS:
+                return ApplicationLogsTable.getColumns();
+            default:
+                return null;
+        }
+    }
+
+    public static String getDailyTableName(DailyTables table) {
+        switch (table) {
+            case TABLE_LECTURE_SURVEY:
+                return LectureSurveyTable.TABLE_LECTURE_SURVEY;
+//            case TABLE_ONE_TIME_SURVEY:
+//                return
+//            case TABLE_DAILY_SURVEY:
+//                return
+//            case TABLE_USER:
+//                return UserTable.TABLE_USER;
+            case TABLE_APPLICATION_LOGS:
+                return ApplicationLogsTable.TABLE_APPLICATION_LOGS;
+
+            default:
+                return null;
+        }
+    }
+
+
+
+    public static String[] getDailyTableColumns(DailyTables table) {
+        switch (table) {
+            case TABLE_LECTURE_SURVEY:
+                return LectureSurveyTable.getColumns();
+            case TABLE_APPLICATION_LOGS:
+                return ApplicationLogsTable.getColumns();
+//            case TABLE_USER:
+//                return UserTable.getColumns();
+//            case TABLE_ONE_TIME_SURVEY:
+//                return
+//            case TABLE_DAILY_SURVEY:
+//                return
             default:
                 return null;
         }

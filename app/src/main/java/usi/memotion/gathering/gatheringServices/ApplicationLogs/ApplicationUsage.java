@@ -1,4 +1,4 @@
-package usi.memotion.gathering.gatheringServices.Notifications;
+package usi.memotion.gathering.gatheringServices.ApplicationLogs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -72,10 +72,9 @@ public class ApplicationUsage {
 		long current_time = c.getTimeInMillis();
 
 //		UsageStatsManager usageStatsManager = (UsageStatsManager) context.getSystemService("usagestats");
-
  		UsageStatsManager usageStatsManager = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
 
-		final List<UsageStats> queryUsageStats= usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, 
+		final List<UsageStats> queryUsageStats= usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY,
 				(current_time - (60 * 60 * 1000)), current_time);
 		for(UsageStats stat : queryUsageStats)
 		{

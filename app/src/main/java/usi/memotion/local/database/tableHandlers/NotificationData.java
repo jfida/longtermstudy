@@ -231,37 +231,21 @@ public class NotificationData extends TableHandler
 	}
 
 
-
-//	public int getN_id() {
-//		return id;
-//	}
-
-
 	public String getTag() {
 		return tag;
 	}
-
-
 	public String getKey() {
 		return key;
 	}
-
-
 	public int getPriority() {
 		return priority;
 	}
-
-
 	public String getTitle() {
 		return title;
 	}
-
-
 	public long getArrivalTime() {
 		return arrivalTime;
 	}
-
-
 	public long getRemovalTime() {
 		return removalTime;
 	}
@@ -289,18 +273,12 @@ public class NotificationData extends TableHandler
 	public boolean isSound() {
 		return sound;
 	}
-
-
 	public boolean isUnique_sound() {
 		return unique_sound;
 	}
-
-
 	public String getAppName() {
 		return app_name;
 	}
-	
-
 	public String getAppPackageName() {
 		return app_package;
 	}

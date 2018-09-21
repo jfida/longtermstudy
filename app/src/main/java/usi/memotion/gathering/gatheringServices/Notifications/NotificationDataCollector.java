@@ -16,7 +16,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.PowerManager;
 import android.service.notification.StatusBarNotification;
@@ -28,8 +27,6 @@ import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
 import usi.memotion.local.database.tableHandlers.NotificationData;
 import usi.memotion.local.database.tables.NotificationsTable;
-import usi.memotion.local.database.tables.PhoneLockTable;
-import usi.memotion.local.database.tables.UserTable;
 
 
 public class NotificationDataCollector 

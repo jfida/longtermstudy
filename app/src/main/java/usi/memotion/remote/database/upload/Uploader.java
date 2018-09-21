@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.util.Log;
 
+import usi.memotion.local.database.db.DailyTables;
+import usi.memotion.local.database.db.LocalSQLiteDBHelper;
 import usi.memotion.remote.database.controllers.SwitchDriveController;
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.tableHandlers.TableHandler;
@@ -27,6 +29,7 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
     private long uploadThreshold;
     private String userId;
     private HashMap<String, TableInfo> map;
+    LocalSQLiteDBHelper dbHelper;
 
     public Uploader(String userId, RemoteStorageController remoteController, LocalStorageController localController, long uploadThreshold) {
         this.remoteController = remoteController;
@@ -43,6 +46,16 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
         map = new HashMap<>();
 //        Log.d("DATA UPLOAD INIT", c.getString(1) + " " + c.getString(2) + " " + c.getInt(3) + " " + c.getString(4));
 
+    }
+
+    public Uploader(String userId, RemoteStorageController remoteController, LocalStorageController localController, LocalSQLiteDBHelper dbHelper) {
+        this.remoteController = remoteController;
+        this.localController = localController;
+        //the start table to clean
+        tableToClean = LocalTables.values()[0];
+        //user id is the phone id
+        this.userId = userId;
+        this.dbHelper = dbHelper;
     }
 
     /**
@@ -79,6 +92,51 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
 //                i++;
 //            }
         }
+    }
+
+
+    /**
+     * Upload function to upload local tables' data to Switch Drive
+     * Local Tables: Users, Eda, Acc, Bvp, Temp
+     *
+     */
+    public int dailyUpload(){
+        int response = 0;
+        //number of tables
+        int nbTableToClean = DailyTables.values().length;
+        int i = 0;
+        Cursor c;
+        //current table to clean
+        DailyTables currTable;
+        String fileName;
+
+        while(i < nbTableToClean) {
+            currTable = DailyTables.values()[i];
+
+            //build name of file to upload
+            fileName = buildFileName(currTable);
+
+            //get all data currently in the table
+            c = getRecords(currTable);
+
+            if (c.getCount() > 0) {
+                c.moveToFirst();
+
+                //upload the data to the server
+                response = remoteController.upload(fileName, toCSV(c, currTable));
+
+                //if the file was put, delete records and update the arrays
+                if (response >= 200 && response <= 207) {
+                    response = 200;
+                } else {
+                    response=404;
+                    Log.d("DATA UPLOAD SERVICE", "Owncould's response: " + Integer.toString(response));
+                }
+            }
+            i++;
+        }
+
+        return response;
     }
 
 //    private String buildSurveyCSV(List<Survey> surveys) {
@@ -419,6 +477,17 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
     }
 
     /**
+     * Build the query to select all records from the given table.
+     *
+     * @param table
+     * @return
+     */
+    private Cursor getRecords(DailyTables table) {
+        String query = "SELECT * FROM " + LocalDbUtility.getDailyTableName(table);
+        return localController.rawQuery(query, null);
+    }
+
+    /**
      * Build the file name.
      *
      * <subjectid>_<date>_<table>_part<nbPart>.csv
@@ -431,6 +500,22 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
         String today = buildDate();
         return userId + "_" + today + "_" + LocalDbUtility.getTableName(table) + "_" + "part" + Integer.toString(getFilePartId(table)) + ".csv";
     }
+
+    /**
+     * Build the file name.
+     *
+     * <subjectid>_<date>_<table>_<username>.csv
+     *
+     * @param table
+     * @return
+     */
+    private String buildFileName(DailyTables table) {
+        //get current date
+        String today = buildDate();
+        String fileName = userId + "_" + today + "_" + LocalDbUtility.getDailyTableName(table) + ".csv";
+        return fileName;
+    }
+
 
     /**
      * Utility function to get the string representation of the today date.
@@ -453,6 +538,35 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
     private String toCSV(Cursor records, LocalTables table) {
         String csv = "";
         String[] columns = LocalDbUtility.getTableColumns(table);
+
+        for(int i = 0; i < columns.length; i++) {
+            csv += columns[i] + ",";
+        }
+
+        csv = csv.substring(0, csv.length()-1);
+        csv += "\n";
+
+        do {
+            for(int i = 0; i < columns.length; i++) {
+                csv += records.getString(i) + ",";
+            }
+            csv = csv.substring(0, csv.length()-1);
+            csv += "\n";
+        } while(records.moveToNext());
+        csv = csv.substring(0, csv.length()-1);
+        return csv;
+    }
+
+    /**
+     * Generate the csv data from the given cursor.
+     *
+     * @param records
+     * @param table
+     * @return
+     */
+    private String toCSV(Cursor records, DailyTables table) {
+        String csv = "";
+        String[] columns = LocalDbUtility.getDailyTableColumns(table);
 
         for(int i = 0; i < columns.length; i++) {
             csv += columns[i] + ",";

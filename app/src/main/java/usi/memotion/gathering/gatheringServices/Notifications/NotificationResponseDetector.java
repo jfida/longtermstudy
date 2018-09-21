@@ -3,6 +3,7 @@ package usi.memotion.gathering.gatheringServices.Notifications;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import usi.memotion.gathering.gatheringServices.ApplicationLogs.ApplicationUsage;
 import usi.memotion.gathering.gatheringServices.Notifications.Utils.Log;
 import usi.memotion.local.database.tableHandlers.NotificationData;
 
@@ -33,7 +34,7 @@ public class NotificationResponseDetector extends AsyncTask<Void, Void, Notifica
 		}
 
 
-		ApplicationUsage au = new ApplicationUsage(context);	
+		ApplicationUsage au = new ApplicationUsage(context);
 		String package_name = n_data.getAppPackageName();
 		long start_time = n_data.getRemovalTime() - 10000; // subtracted the threshold 10 seconds
 		boolean clicked = au.isAppLaunched(package_name, start_time);

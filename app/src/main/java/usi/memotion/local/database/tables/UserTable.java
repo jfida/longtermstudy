@@ -8,17 +8,8 @@ import android.provider.BaseColumns;
 public class UserTable {
 
 
-//    public static String[] getColumns() {
-//        String[] columns = {KEY_USER_ID, KEY_USER_UID, KEY_USER_AGREED, KEY_USER_AGE, KEY_USER_GENDER, KEY_USER_EMAIL, KEY_USER_FACULTY, KEY_USER_ACADEMIC_STATUS, KEY_USER_CREATION_TS, KEY_USER_UPDATE_TS, KEY_USER_END_STUDY};
-//        return columns;
-//    }
-
-
     // Private constructor to prevent someone from accidentally instantiating the contract class,
     private UserTable() {}
-
-    /* Inner class that defines the table contents */
-    public static final class UserEntry implements BaseColumns {
 
         /*
         * Users - Table and Columns declaration
@@ -37,17 +28,17 @@ public class UserTable {
         public final static String COLUMN_STATUS = "status";
 
         public static String getCreateQuery(){
-            return "CREATE TABLE " + UserEntry.TABLE_USER + " ("
-                    + UserEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + UserEntry.ANDROID_ID + " TEXT, "
-                    + UserEntry.USERNAME + " TEXT, "
-                    + UserEntry.EMPATICAID + " TEXT, "
-                    + UserEntry.SWITCH_TOKEN + " TEXT, "
-                    + UserEntry.SWITCH_PASSWORD + " TEXT, "
-                    + UserEntry.EMAIL + " TEXT, "
-                    + UserEntry.COLUMN_GENDER + " TEXT, "
-                    + UserEntry.COLUMN_AGE + " TEXT, "
-                    + UserEntry.COLUMN_STATUS + " TEXT);";
+            return "CREATE TABLE " + TABLE_USER + " ("
+                    + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + ANDROID_ID + " TEXT, "
+                    + USERNAME + " TEXT, "
+                    + EMPATICAID + " TEXT, "
+                    + SWITCH_TOKEN + " TEXT, "
+                    + SWITCH_PASSWORD + " TEXT, "
+                    + EMAIL + " TEXT, "
+                    + COLUMN_GENDER + " TEXT, "
+                    + COLUMN_AGE + " TEXT, "
+                    + COLUMN_STATUS + " TEXT);";
         }
 
 
@@ -86,7 +77,4 @@ public class UserTable {
             return columns;
         }
 
-
-
-    }
 }

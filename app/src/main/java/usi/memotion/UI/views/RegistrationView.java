@@ -146,20 +146,20 @@ public class RegistrationView extends Fragment {
         long time = System.currentTimeMillis()/1000;
         ContentValues record = new ContentValues();
 
-        record.put(UserTable.UserEntry.ANDROID_ID, Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID));
-        record.put(UserTable.UserEntry.USERNAME, username);
-        record.put(UserTable.UserEntry.EMPATICAID, empaticaID);
-        record.put(UserTable.UserEntry.SWITCH_TOKEN, switchToken);
-        record.put(UserTable.UserEntry.SWITCH_PASSWORD, switchPassword);
-        record.put(UserTable.UserEntry.EMAIL, email);
-        record.put(UserTable.UserEntry.COLUMN_AGE, ageSelection);
-        record.put(UserTable.UserEntry.COLUMN_GENDER, genderSelection);
-        record.put(UserTable.UserEntry.COLUMN_STATUS, statusSelection);
+        record.put(UserTable.ANDROID_ID, Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID));
+        record.put(UserTable.USERNAME, username);
+        record.put(UserTable.EMPATICAID, empaticaID);
+        record.put(UserTable.SWITCH_TOKEN, switchToken);
+        record.put(UserTable.SWITCH_PASSWORD, switchPassword);
+        record.put(UserTable.EMAIL, email);
+        record.put(UserTable.COLUMN_AGE, ageSelection);
+        record.put(UserTable.COLUMN_GENDER, genderSelection);
+        record.put(UserTable.COLUMN_STATUS, statusSelection);
 
-        localController.insertRecord(UserTable.UserEntry.TABLE_USER, record);
-        Log.d("REGISTRATION FORM", "Added record: ts: " + "username: " + record.get(UserTable.UserEntry.USERNAME) + ", e4 id: " + record.get(UserTable.UserEntry.EMPATICAID)  +
-                ", Email: " + record.get(UserTable.UserEntry.EMAIL) + ", Switch Token: " + record.get(UserTable.UserEntry.SWITCH_TOKEN) + ", Switch pass: " + record.get(UserTable.UserEntry.SWITCH_PASSWORD)
-                + ", Age: " + record.get(UserTable.UserEntry.COLUMN_AGE) + ", Gender: " + record.get(UserTable.UserEntry.COLUMN_GENDER) + ", Status: " + record.get(UserTable.UserEntry.COLUMN_STATUS));
+        localController.insertRecord(UserTable.TABLE_USER, record);
+        Log.d("REGISTRATION FORM", "Added record: ts: " + "username: " + record.get(UserTable.USERNAME) + ", e4 id: " + record.get(UserTable.EMPATICAID)  +
+                ", Email: " + record.get(UserTable.EMAIL) + ", Switch Token: " + record.get(UserTable.SWITCH_TOKEN) + ", Switch pass: " + record.get(UserTable.SWITCH_PASSWORD)
+                + ", Age: " + record.get(UserTable.COLUMN_AGE) + ", Gender: " + record.get(UserTable.COLUMN_GENDER) + ", Status: " + record.get(UserTable.COLUMN_STATUS));
 
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
@@ -202,10 +202,10 @@ public class RegistrationView extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch(checkedId){
                     case R.id.radiobutton_female:
-                        genderSelection = UserTable.UserEntry.GENDER_FEMALE;
+                        genderSelection = UserTable.GENDER_FEMALE;
                         break;
                     case R.id.radiobutton_male:
-                        genderSelection = UserTable.UserEntry.GENDER_MALE;
+                        genderSelection = UserTable.GENDER_MALE;
                         break;
                     default:
                         genderSelection = "";
@@ -238,13 +238,13 @@ public class RegistrationView extends Fragment {
                     if(selection.equals("Select Item")){
                         ageSelection = "";
                     } else if (selection.equals(getString(R.string.range20to30))) {
-                        ageSelection = UserTable.UserEntry.AGE_20_30;
+                        ageSelection = UserTable.AGE_20_30;
                     } else if(selection.equals(getString(R.string.range30to40))){
-                        ageSelection = UserTable.UserEntry.AGE_30_40;
+                        ageSelection = UserTable.AGE_30_40;
                     } else if (selection.equals(getString(R.string.range40to50))) {
-                        ageSelection = UserTable.UserEntry.AGE_40_50;
+                        ageSelection = UserTable.AGE_40_50;
                     } else {
-                        ageSelection = UserTable.UserEntry.AGE_50_ABOVE;
+                        ageSelection = UserTable.AGE_50_ABOVE;
                     }
                 }
             }
@@ -278,19 +278,19 @@ public class RegistrationView extends Fragment {
                     if(selection.equals("Select Item")) {
                         statusSelection = "";
                     } else if (selection.equals(getString(R.string.professor))) {
-                        statusSelection = UserTable.UserEntry.STATUS_FULL_PROFESSOR;
+                        statusSelection = UserTable.STATUS_FULL_PROFESSOR;
                     } else if(selection.equals(getString(R.string.researcher))) {
-                        statusSelection = UserTable.UserEntry.RESEARCHER;
+                        statusSelection = UserTable.RESEARCHER;
                     } else if(selection.equals(getString(R.string.post_doc))){
-                        statusSelection = UserTable.UserEntry.STATUS_POST_DOC;
+                        statusSelection = UserTable.STATUS_POST_DOC;
                     } else if(selection.equals(getString(R.string.phd_student))){
-                        statusSelection = UserTable.UserEntry.STATUS_PHD_STUDENT;
+                        statusSelection = UserTable.STATUS_PHD_STUDENT;
                     } else if(selection.equals(getString(R.string.assistant))){
-                        statusSelection = UserTable.UserEntry.STATUS_ASSISTANT;
+                        statusSelection = UserTable.STATUS_ASSISTANT;
                     }else if(selection.equals(getString(R.string.student))){
-                        statusSelection = UserTable.UserEntry.STUDENT;
+                        statusSelection = UserTable.STUDENT;
                     }else if(selection.equals(getString(R.string.other))){
-                        statusSelection = UserTable.UserEntry.OTHER;
+                        statusSelection = UserTable.OTHER;
                     }
                 }
             }

@@ -16,6 +16,11 @@
             android:icon="@drawable/surveys"
             android:title="General Surveys" />
 
+        <item
+            android:id="@+id/nav_usage_statistics"
+            android:icon="@drawable/surveys"
+            android:title="Application Logs" />
+
     </group>
 
     <item android:title="About the study">
