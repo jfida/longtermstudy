@@ -261,16 +261,17 @@
 
     <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ PSS +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <string name="pss_explanation">Please answer the following questions by marking from 1 (never) to 5 (very often)</string>
-    <string name="pss_q1">In the last month, how often have you been upset because of something that happened unexpectedly?</string>
-    <string name="pss_q2">In the last month, how often have you felt that you were unable to control the important things in your life?</string>
-    <string name="pss_q3">In the last month, how often have you felt nervous and "stressed"?</string>
-    <string name="pss_q4">In the last month, how often have you felt confident about your ability to handle your personal problems?</string>
-    <string name="pss_q5">In the last month, how often have you felt that things were going your way?</string>
-    <string name="pss_q6">In the last month, how often have you found that you could not cope with all the things that you had to do?</string>
-    <string name="pss_q7">In the last month, how often have you been able to control irritations in your life?</string>
-    <string name="pss_q8">In the last month, how often have you felt that you were on top of things?</string>
-    <string name="pss_q9">In the last month, how often have you been angered because of things that were outside of your control?</string>
-    <string name="pss_q10">In the last month, how often have you felt difficulties were pilling up so high that you could not overcome them?</string>
+    <string name="pss_instructions">The questions in this scale ask you about your feelings and thoughts in general. In each case, you will be asked to indicate by selecting how often you felt or thought a certain way.</string>
+    <string name="pss_q1">How often are you upset because of something that happened unexpectedly?</string>
+    <string name="pss_q2">How often do you feel that you are unable to control the important things in your life?</string>
+    <string name="pss_q3">How often do you feel nervous and "stressed"?</string>
+    <string name="pss_q4">How often do you feel confident about your ability to handle your personal problems?</string>
+    <string name="pss_q5">How often do you feel that things are going your way?</string>
+    <string name="pss_q6">How often do you find that you cannot cope with all the things that you have to do?</string>
+    <string name="pss_q7">How often are you able to control irritations in your life?</string>
+    <string name="pss_q8">How often do you feel that you are on top of things?</string>
+    <string name="pss_q9">How often are you angered because of things that are outside of your control?</string>
+    <string name="pss_q10">How often do you feel difficulties are pilling up so high that you cannot overcome them?</string>
 
     <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ PHQ8 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <string name="phq8_explanation">Please answer the following questions by marking them from 1 (not at all) to 4 (nearly every day)</string>
@@ -293,11 +294,63 @@
 
     <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ SWLS +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <string name="swls_explation">Please answer the following questions by marking them with a number from 1 (strongly disagree) to 7 (strongly agree).</string>
-    <string name="swls_q1">1. In most ways my life is close to my ideal.</string>
-    <string name="swls_q2">2. The conditions of my life are excellent.</string>
-    <string name="swls_q3">3. I am satisfied with my life.</string>
-    <string name="swls_q4">4. So far I have gotten the important things I want in life.</string>
-    <string name="swls_q5">5. If I could live my life over, I would change almost nothing</string>
+    <string name="swls_instructions"> Below are five statements that you may agree or disagree with. Please pick a number from 1 (strongly disagree) to 7 (strongly agree) next to each statement to indicate the extent to which you agree or disagree with that statement. Please be open and honest in your responding.</string>
+    <string name="swls_q1">In most ways my life is close to my ideal.</string>
+    <string name="swls_q2">The conditions of my life are excellent.</string>
+    <string name="swls_q3">I am satisfied with my life.</string>
+    <string name="swls_q4">So far I have gotten the important things I want in life.</string>
+    <string name="swls_q5">If I could live my life over, I would change almost nothing</string>
+
+    <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ TIPI +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <string name="personality_instructions">Here are a number of personality traits that may or may not apply to you. Please pick a number from 1 (strongly disagree) to 7 (strongly agree) next to each statement to indicate the extent to which you agree or disagree with that statement. You should rate the extent to which the pair of traits applies to you, even if one characteristic applies more strongly than the other.</string>
+    <string name="tipi_q1">Extraverted, enthusiastic.</string>
+    <string name="tipi_q2">Critical, quarrelsome.</string>
+    <string name="tipi_q3">Dependable, self-disciplined.</string>
+    <string name="tipi_q4">Anxious, easily upset.</string>
+    <string name="tipi_q5">Open to new experiences, complex.</string>
+    <string name="tipi_q6">Reserved, quiet.</string>
+    <string name="tipi_q7">Sympathetic, warm.</string>
+    <string name="tipi_q8">Disorganized, careless.</string>
+    <string name="tipi_q9">Calm, emotionally stable.</string>
+    <string name="tipi_q10">Conventional, uncreative.</string>
+
+
+    <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ GAD +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <string name="anxiety_insturctions">In general, how often are you bothered by the following problems.</string>
+    <string name="gad_q1">Feeling nervous, anxious, or on edge.</string>
+    <string name="gad_q2">Not being able to stop or control worrying.</string>
+    <string name="gad_q3">Worrying too much about different things.</string>
+    <string name="gad_q4">Trouble relaxing.</string>
+    <string name="gad_q5">Being so restless that it is hard to sit still.</string>
+    <string name="gad_q6">Becoming easily annoyed or irritable.</string>
+    <string name="gad_q7">Feeling afraid as if something awful might happen.</string>
+
+
+    <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ PSQI +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+
+
+    <string-array name="tipi_questions_choices">
+        <item>Select</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+
+    <string-array name="pss_questions_choices">
+        <item>Select</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+
 
 
 

@@ -27,7 +27,7 @@ public class SwitchDriveController implements RemoteStorageController {
         this.serverAddress = serverAddress;
         this.accessToken = accessToken;
         this.password = password;
-        doneSignal = new CountDownLatch(1);
+//        doneSignal = new CountDownLatch(1);
 
     }
 
@@ -36,12 +36,12 @@ public class SwitchDriveController implements RemoteStorageController {
     public int upload(String fileName, String data) {
 //        doneSignal = new CountDownLatch(1);
         new DataUploadTask(serverAddress, accessToken).execute(fileName, data);
-        try {
-            doneSignal.await();
-        } catch (InterruptedException e) {
-//            e.printStackTrace();
-            httpResponse = -1;
-        }
+//        try {
+//            doneSignal.await();
+//        } catch (InterruptedException e) {
+////            e.printStackTrace();
+//            httpResponse = -1;
+//        }
         return httpResponse;
     }
 
@@ -88,14 +88,14 @@ public class SwitchDriveController implements RemoteStorageController {
                 httpStatus = -1;
             }
 
-            httpResponse = httpStatus;
-            doneSignal.countDown();
+//            httpResponse = httpStatus;
+//            doneSignal.countDown();
             return httpStatus;
         }
 
         @Override
         protected void onPostExecute(Integer result) {
-//            httpResponse = result;
+            httpResponse = result;
 //            callback.onTransferCompleted(fileName, result);
 //            doneSignal.countDown();
         }

@@ -284,76 +284,49 @@ public class NotificationData extends TableHandler
 	}
 
 
-//	public void setN_id(int n_id) {
-//		this.n_id = n_id;
-//	}
-
-
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
-
-
 	public void setKey(String key) {
 		this.key = key;
 	}
-
-
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
-
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-
 	public void setArrivalTime(long arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
-
-
 	public void setRemovalTime(long removalTime) {
 		this.removalTime = removalTime;
 	}
-
-
 	public void setClicked(int clicked) {
 		this.clicked = clicked;
 	}
-
-
 	public void setLed(boolean led) {
 		this.led = led;
 	}
-
-
 	public void setVibrate(boolean vibrate) {
 		this.vibrate = vibrate;
 	}
-
-
 	public void setSound(boolean sound) {
 		this.sound = sound;
 	}
-
-
 	public void setUnique_sound(boolean unique_sound) {
 		this.unique_sound = unique_sound;
 	}
-
-
 	public void setAppName(String app_name) {
 		this.app_name = app_name;
 	}
-	
-
 	public void setAppPackage(String app_package) {
 		this.app_package = app_package;
 	}
 
 
+	public long getId(){return this.id;}
+	public void setId(long id){this.id = id;}
 
 
 }

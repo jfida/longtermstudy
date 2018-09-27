@@ -2,5 +2,6 @@
 <resources>
     <string name="server_address">https://drive.switch.ch/public.php/webdav/</string>
     <string name="token">SqDlnbOL3DjuNSG</string>
+    <!--SqDlnbOL3DjuNSG-->
     <string name="password">shkushku</string>
 </resources>

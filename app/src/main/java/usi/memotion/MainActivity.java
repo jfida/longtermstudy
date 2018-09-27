@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
         gSys.start();
 
-        startService(new Intent(this, DataUploadService.class));
+//        startService(new Intent(this, DataUploadService.class));
 
     }
 
@@ -354,11 +354,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         Cursor records = localController.rawQuery(query, null);
         records.moveToFirst();
 
-//        String query2 = "SELECT * FROM lectureSurvey";
-//        Cursor records2 = localController.rawQuery(query2, null);
-//        Log.v("MAIN ACTIVITY", "" + records.moveToFirst());
-
-
         if (records.getCount() > 0) {
             return true;
         }else{
@@ -426,8 +421,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         AlarmManager am = (AlarmManager) getSystemService(getApplicationContext().ALARM_SERVICE);
 
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 17);
-        cal.set(Calendar.MINUTE, 36);
+        cal.set(Calendar.HOUR_OF_DAY, 23);
+        cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
 
         if (cal.getTimeInMillis() > System.currentTimeMillis()) { //if it is more than 19:00 o'clock, trigger it tomorrow
@@ -443,7 +438,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_ONE_SHOT));
         }
     }
-
 
     /**
      * Is Notification Service Enabled.

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -31,11 +32,14 @@ import com.shawnlin.numberpicker.NumberPicker;
 
 import usi.memotion.MainActivity;
 import usi.memotion.R;
+import usi.memotion.UI.fragments.PersonalitySurveyFragment;
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
 import usi.memotion.local.database.db.LocalSQLiteDBHelper;
 import usi.memotion.local.database.tables.LectureSurveyTable;
 import usi.memotion.local.database.tables.UserTable;
+import usi.memotion.remote.database.controllers.SwitchDriveController;
+import usi.memotion.remote.database.upload.Uploader;
 
 /**
  * Created by shkurtagashi on 12/09/17.
@@ -47,6 +51,9 @@ public class RegistrationView extends Fragment {
     LocalSQLiteDBHelper dbHelper;
     private LocalStorageController localController;
 
+    SwitchDriveController switchDriveController;
+    SQLiteController sqlLiteController;
+    String androidID;
 
     private EditText usernameEditText;
     private EditText emailAdress;
@@ -161,6 +168,7 @@ public class RegistrationView extends Fragment {
                 ", Email: " + record.get(UserTable.EMAIL) + ", Switch Token: " + record.get(UserTable.SWITCH_TOKEN) + ", Switch pass: " + record.get(UserTable.SWITCH_PASSWORD)
                 + ", Age: " + record.get(UserTable.COLUMN_AGE) + ", Gender: " + record.get(UserTable.COLUMN_GENDER) + ", Status: " + record.get(UserTable.COLUMN_STATUS));
 
+        uploadRemotely();
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
         alertDialog.setTitle("New User Account");
@@ -173,9 +181,14 @@ public class RegistrationView extends Fragment {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(getContext(), "Thank you!", Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent (getContext(), MainActivity.class);
-                        startActivity(i);
-                        getActivity().finish();
+//                        Intent i = new Intent (getContext(), PersonalitySurveyFragment.class);
+//                        startActivity(i);
+//                        getActivity().finish();
+
+                        Fragment newFragment = new PersonalitySurveyFragment();
+                        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                        ft.replace(R.id.content_frame, newFragment);
+                        ft.commit();
                     }
                 });
 
@@ -187,7 +200,16 @@ public class RegistrationView extends Fragment {
                 });
 
         alertDialog.show();
+    }
 
+    public void uploadRemotely(){
+        androidID = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+        dbHelper = new LocalSQLiteDBHelper(getContext());
+        switchDriveController = new SwitchDriveController(getContext().getString(R.string.server_address),
+                getContext().getString(R.string.token), getContext().getString(R.string.password));
+        localController = SQLiteController.getInstance(getContext());
+        final Uploader uploader = new Uploader(androidID, switchDriveController, localController, dbHelper);
+        uploader.oneTimeUpload();
     }
 
 
