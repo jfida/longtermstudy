@@ -6,8 +6,8 @@ import android.provider.BaseColumns;
  * Created by shkurtagashi on 9/11/18.
  */
 
-public class LectureSurveyTable {
-    public final static String TABLE_LECTURE_SURVEY = "lectureSurvey";
+public class AnxietySurveyTable {
+    public final static String TABLE_ANXIETY_SURVEY = "anxietySurvey";
 
     public final static String _ID = BaseColumns._ID;
     public final static String TIMESTAMP = "timestamp";
@@ -18,9 +18,6 @@ public class LectureSurveyTable {
     public final static String QUESTION_5 = "question5";
     public final static String QUESTION_6 = "question6";
     public final static String QUESTION_7 = "question7";
-    public final static String QUESTION_8 = "question8";
-    public final static String QUESTION_9 = "question9";
-    public final static String QUESTION_10 = "question10";
 
 
 
@@ -42,7 +39,7 @@ public class LectureSurveyTable {
 
     // String that contains the SQL statement to create the General Survey data table
     public static String getCreateQuery() {
-        return "CREATE TABLE " + TABLE_LECTURE_SURVEY + "("
+        return "CREATE TABLE " + TABLE_ANXIETY_SURVEY + "("
                 + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + TIMESTAMP + " REAL, "
                 + QUESTION_1 + " TEXT, "
@@ -51,16 +48,13 @@ public class LectureSurveyTable {
                 + QUESTION_4 + " TEXT, "
                 + QUESTION_5 + " TEXT, "
                 + QUESTION_6 + " TEXT, "
-                + QUESTION_7 + " TEXT, "
-                + QUESTION_8 + " TEXT, "
-                + QUESTION_9 + " TEXT, "
-                + QUESTION_10 + " TEXT" + ")";
+                + QUESTION_7 + " TEXT " + ")";
 
     }
 
 
     public static String[] getColumns(){
-        String[] columns = {_ID, TIMESTAMP, QUESTION_1, QUESTION_2, QUESTION_3, QUESTION_4, QUESTION_5, QUESTION_6, QUESTION_7, QUESTION_8, QUESTION_9, QUESTION_10};
+        String[] columns = {_ID, TIMESTAMP, QUESTION_1, QUESTION_2, QUESTION_3, QUESTION_4, QUESTION_5, QUESTION_6, QUESTION_7};
 
         return columns;
     }

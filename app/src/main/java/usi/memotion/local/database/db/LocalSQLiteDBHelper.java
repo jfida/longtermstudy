@@ -12,6 +12,7 @@ import java.util.List;
 
 import usi.memotion.PostLectureSurvey;
 import usi.memotion.local.database.tables.AccelerometerTable;
+import usi.memotion.local.database.tables.AnxietySurveyTable;
 import usi.memotion.local.database.tables.ApplicationLogsTable;
 import usi.memotion.local.database.tables.BlueToothTable;
 import usi.memotion.local.database.tables.LectureSurveyTable;
@@ -60,6 +61,7 @@ public class LocalSQLiteDBHelper extends SQLiteOpenHelper {
         db.execSQL(LectureSurveyTable.getCreateQuery());
         db.execSQL(NotificationsTable.getCreateQuery());
         db.execSQL(ApplicationLogsTable.getCreateQuery());
+        db.execSQL(AnxietySurveyTable.getCreateQuery());
 
 
 

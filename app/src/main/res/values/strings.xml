@@ -5,6 +5,7 @@
     <string name="staff_email">usilab107@gmail.com</string>
     <string name="staff_email_pass"></string>
 
+    <string name="zero">0</string>
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="three">3</string>
@@ -316,18 +317,18 @@
 
 
     <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ GAD +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <string name="anxiety_insturctions">In general, how often are you bothered by the following problems.</string>
-    <string name="gad_q1">Feeling nervous, anxious, or on edge.</string>
-    <string name="gad_q2">Not being able to stop or control worrying.</string>
-    <string name="gad_q3">Worrying too much about different things.</string>
-    <string name="gad_q4">Trouble relaxing.</string>
-    <string name="gad_q5">Being so restless that it is hard to sit still.</string>
-    <string name="gad_q6">Becoming easily annoyed or irritable.</string>
-    <string name="gad_q7">Feeling afraid as if something awful might happen.</string>
+    <string name="anxiety_survey">Generalized Anxiety Disorder 7-item (GAD-7) scale</string>
+    <string name="anxiety_insturctions">In general, how often are you bothered by the following problems. Please give your answers based on the following examples: </string>
+    <string name="gad_q1">1. Feeling nervous, anxious, or on edge.</string>
+    <string name="gad_q2">2. Not being able to stop or control worrying.</string>
+    <string name="gad_q3">3. Worrying too much about different things.</string>
+    <string name="gad_q4">4. Trouble relaxing.</string>
+    <string name="gad_q5">5. Being so restless that it is hard to sit still.</string>
+    <string name="gad_q6">6. Becoming easily annoyed or irritable.</string>
+    <string name="gad_q7">7. Feeling afraid as if something awful might happen.</string>
 
 
     <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ PSQI +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
 
 
     <string-array name="tipi_questions_choices">
@@ -349,9 +350,6 @@
         <item>3</item>
         <item>4</item>
     </string-array>
-
-
-
 
 
     <!-- TODO: Remove or change this placeholder text -->

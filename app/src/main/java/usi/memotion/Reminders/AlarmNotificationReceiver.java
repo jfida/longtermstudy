@@ -27,17 +27,28 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         System.out.println("I am in receiver!");
 
-        Random rand = new Random();
-        int code = rand.nextInt(100000000);
-
         String session = intent.getExtras().get("Session").toString();
 
-        if(session.equals("Wednesday - Pre") || session.equals("Friday - Pre") || session.equals("Wednesday - Break") || session.equals("Friday - Break") || session.equals("Wednesday - Post") || session.equals("Friday - Post")){
-            setLectureNotification(context, "Lecture Survey", "Please tell us how was your lecture - " + session + "!", session, code);
+        if(session.equals("Wednesday - Pre")){
+            setLectureNotification(context, "Lecture Survey", "Please tell us how was your lecture - " + session + "!", session, 100090);
+        }else if(session.equals("Wednesday - Break")){
+            setLectureNotification(context, "Lecture Survey", "Please tell us how was your lecture - " + session + "!", session, 100091);
+        }else if(session.equals("Wednesday - Post")){
+            setLectureNotification(context, "Lecture Survey", "Please tell us how was your lecture - " + session + "!", session, 100092);
+        }else if(session.equals("Friday - Pre")){
+            setLectureNotification(context, "Lecture Survey", "Please tell us how was your lecture - " + session + "!", session, 100093);
+        }else if(session.equals("Friday - Break")){
+            setLectureNotification(context, "Lecture Survey", "Please tell us how was your lecture - " + session + "!", session, 100094);
+        }else if(session.equals("Friday - Post")){
+            setLectureNotification(context, "Lecture Survey", "Please tell us how was your lecture - " + session + "!", session, 100095);
         }else if(session.equals("E4")) {
-            setE4Notification(context, "E4 charging time", "Please don't forget to charge E4 and upload the data", code);
-        }else if(session.equals("early morning") || session.equals("morning") || session.equals("evening")){
-            setDailyNotification(context, "Survey about " + session, "Please tell us how you feel during the " + session + "!", code);
+            setE4Notification(context, "E4 charging time", "Please don't forget to charge E4 and upload the data", 100096);
+        }else if(session.equals("early morning")){
+            setDailyNotification(context, "Survey about " + session, "Please tell us how you feel during the " + session + "!", 100097);
+        }else if(session.equals("morning")){
+            setDailyNotification(context, "Survey about " + session, "Please tell us how you feel during the " + session + "!", 100098);
+        }else if(session.equals("evening")){
+            setDailyNotification(context, "Survey about " + session, "Please tell us how you feel during the " + session + "!", 100099);
         }
     }
 
@@ -92,7 +103,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         builder.setContentTitle(title);
         builder.setContentText(content);
         builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
-        builder.setAutoCancel(false);
+        builder.setAutoCancel(true);
         builder.setOngoing(true);
 
 
@@ -110,7 +121,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         notificationManager.notify(notificationID, builder.build());
 
         Handler h = new Handler();
-        long delayInMilliseconds = 6 * 60 * 60 * 1000; // 2 * 60 * 1000;
+        long delayInMilliseconds = 5 * 60 * 60 * 1000; // 2 * 60 * 1000;
         h.postDelayed(new Runnable() {
             public void run() {
                 notificationManager.cancel(notificationID);

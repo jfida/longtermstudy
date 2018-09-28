@@ -39,28 +39,8 @@ public class LectureSurveysFragment extends Fragment {
     ExpandableRelativeLayout expandableLayout0, expandableLayout1, expandableLayout2;
 
     Button submitSurveyButton;
-    private RadioGroup question1Options;
-    private RadioGroup question2Options;
-    private RadioGroup question3Options;
-    private RadioGroup question4Options;
-    private RadioGroup question5Options;
-    private RadioGroup question6Options;
-    private RadioGroup question7Options;
-    private RadioGroup question8Options;
-    private RadioGroup question9Options;
-    private RadioGroup question10Options;
-
-
-    int question1Selection = 0;
-    int question2Selection = 0;
-    int question3Selection = 0;
-    int question4Selection = 0;
-    int question5Selection = 0;
-    int question6Selection = 0;
-    int question7Selection = 0;
-    int question8Selection = 0;
-    int question9Selection = 0;
-    int question10Selection = 0;
+    private RadioGroup question1Options, question2Options, question3Options, question4Options, question5Options, question6Options, question7Options, question8Options, question9Options, question10Options;
+    int question1Selection = 0, question2Selection = 0, question3Selection = 0, question4Selection = 0, question5Selection = 0, question6Selection = 0, question7Selection = 0, question8Selection = 0, question9Selection = 0, question10Selection = 0;
 
     LocalSQLiteDBHelper dbHelper;
 

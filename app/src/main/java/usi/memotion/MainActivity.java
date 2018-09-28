@@ -206,8 +206,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                 ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_ADMIN) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(this, Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE) == PackageManager.PERMISSION_GRANTED;
+                ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_ADMIN) == PackageManager.PERMISSION_GRANTED;
     }
 
     @Override
@@ -324,9 +323,12 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                 if (menuFragment.equals("lectureSurveys")) {
                     Bundle bundle = new Bundle();
                     bundle.putString("LectureSession", questionnaireSession);
+                    bundle.putString("fragmentChoice",null);
                     fragment = new LectureSurveysFragment();
                     fragment.setArguments(bundle);
                 }else if(menuFragment.equals("dailySurveys")){
+                    Bundle bundle = new Bundle();
+                    bundle.putString("fragmentChoice",null);
                     fragment = new DailySurveysFragment();
                 }
             }
@@ -421,8 +423,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         AlarmManager am = (AlarmManager) getSystemService(getApplicationContext().ALARM_SERVICE);
 
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 23);
-        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.HOUR_OF_DAY, 17);
+        cal.set(Calendar.MINUTE, 18);
         cal.set(Calendar.SECOND, 0);
 
         if (cal.getTimeInMillis() > System.currentTimeMillis()) { //if it is more than 19:00 o'clock, trigger it tomorrow

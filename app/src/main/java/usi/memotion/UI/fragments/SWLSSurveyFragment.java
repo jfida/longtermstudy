@@ -57,7 +57,7 @@ public class SWLSSurveyFragment extends Fragment {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment newFragment = new HomeFragment();
+                Fragment newFragment = new AnxietySurveyFragment();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.content_frame, newFragment);
                 ft.commit();
