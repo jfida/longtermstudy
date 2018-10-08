@@ -67,9 +67,10 @@ dependencies {
     compile 'com.stepstone.stepper:material-stepper:2.2.0'
     compile 'org.adw.library:discrete-seekbar:1.0.1'
     compile files('libs/activation.jar')
-    compile 'com.sun.mail:android-mail:1.5.5'
-    compile 'com.sun.mail:android-activation:1.5.5'
+    //compile 'com.sun.mail:android-mail:1.5.5'
+    //compile 'com.sun.mail:android-activation:1.5.5'
     compile 'com.github.aakira:expandable-layout:1.4.2@aar'
     compile 'com.github.denzilferreira:aware-client:master-SNAPSHOT@aar'
     compile 'com.android.support:gridlayout-v7:25.2.0'
+    implementation 'com.google.android.gms:play-services-location:12.0.0'
 }

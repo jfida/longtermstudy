@@ -3,10 +3,11 @@ package usi.memotion;
 import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -15,7 +16,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -30,8 +30,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.aware.Aware;
-import com.aware.ESM;
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
 import java.text.SimpleDateFormat;
@@ -49,6 +47,7 @@ import usi.memotion.UI.fragments.LectureSurveysFragment;
 import usi.memotion.UI.fragments.HomeFragment;
 import usi.memotion.UI.fragments.ProfileFragment;
 import usi.memotion.UI.views.RegistrationView;
+import usi.memotion.gathering.gatheringServices.ActivityRecogntion.ActivityRecognitionBackgroundService;
 import usi.memotion.gathering.gatheringServices.ApplicationLogs.AppUsageStatisticsFragment;
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
@@ -78,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     int month;
     int dayOfMonth;
     FinalScheduler scheduler;
-
 
     ExpandableRelativeLayout expandableLayout0, expandableLayout1, expandableLayout2,
             expandableLayoutMood, expandableLayoutFatigue, expandableLayoutStress, expandableLayoutProductivity, expandableLayoutSleep;
@@ -132,7 +130,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         } else {
             initServices(grantedPermissions());
         }
-
     }
 
     private void initServices(List<String> grantedPermissions) {
@@ -544,6 +541,5 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                 });
         return(alertDialogBuilder.create());
     }
-
 }
 
