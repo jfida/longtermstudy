@@ -5,6 +5,7 @@ import usi.memotion.local.database.tableHandlers.PAMSurvey;
 import usi.memotion.local.database.tableHandlers.TableHandler;
 import usi.memotion.local.database.tableHandlers.User;
 import usi.memotion.local.database.tables.AccelerometerTable;
+import usi.memotion.local.database.tables.ActivityRecognitionTable;
 import usi.memotion.local.database.tables.ApplicationLogsTable;
 import usi.memotion.local.database.tables.BlueToothTable;
 import usi.memotion.local.database.tables.LectureSurveyTable;
@@ -36,7 +37,8 @@ public enum LocalTables {
     TABLE_ACCELEROMETER(AccelerometerTable.class),
     TABLE_LECTURE_SURVEY(LectureSurveyTable.class),
     TABLE_NOTIFICATIONS(NotificationsTable.class),
-    TABLE_APPLICATION_LOGS(ApplicationLogsTable.class);
+    TABLE_APPLICATION_LOGS(ApplicationLogsTable.class),
+    TABLE_ACTIVITY_RECOGNITION(ActivityRecognitionTable.class);
 
 
     LocalTables(Class a) {

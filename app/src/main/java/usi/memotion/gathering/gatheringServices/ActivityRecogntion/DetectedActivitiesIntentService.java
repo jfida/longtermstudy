@@ -1,15 +1,21 @@
 package usi.memotion.gathering.gatheringServices.ActivityRecogntion;
 
 import android.app.IntentService;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.util.Log;
 
 import com.google.android.gms.location.ActivityTransitionEvent;
 import com.google.android.gms.location.ActivityTransitionResult;
 
+import usi.memotion.local.database.controllers.LocalStorageController;
+import usi.memotion.local.database.controllers.SQLiteController;
+import usi.memotion.local.database.tables.ActivityRecognitionTable;
+
 public class DetectedActivitiesIntentService extends IntentService {
 
     protected static final String TAG = DetectedActivitiesIntentService.class.getSimpleName();
+    private LocalStorageController localStorageController;
 
     public DetectedActivitiesIntentService() {
         super(TAG);
@@ -18,6 +24,7 @@ public class DetectedActivitiesIntentService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
+        localStorageController = SQLiteController.getInstance(getApplicationContext());
     }
 
     @SuppressWarnings("unchecked")
@@ -26,8 +33,24 @@ public class DetectedActivitiesIntentService extends IntentService {
         if (ActivityTransitionResult.hasResult(intent)) {
             ActivityTransitionResult result = ActivityTransitionResult.extractResult(intent);
             for (ActivityTransitionEvent event : result.getTransitionEvents()) {
-                Log.d(TAG, "Detected activity: " + event.getActivityType() + ", " + event.getTransitionType());
+                if(ActivityRecognitionUtil.isValidActivity(event.getActivityType())) {
+                    saveActivityRecognition(event.getActivityType(), event.getTransitionType());
+                }
             }
         }
     }
+
+    private void saveActivityRecognition(int activity, int transition) {
+        ContentValues record = new ContentValues();
+
+        record.put(ActivityRecognitionTable.KEY_TIMESTAMP, Long.toString(System.currentTimeMillis()));
+        record.put(ActivityRecognitionTable.KEY_ACTIVITY,activity);
+        record.put(ActivityRecognitionTable.KEY_TRANSITION_TYPE,transition);
+
+        localStorageController.insertRecord(ActivityRecognitionTable.TABLE_ACTIVITY_RECOGNITION, record);
+        Log.d(TAG, "Detected activity at " + record.get(ActivityRecognitionTable.KEY_TIMESTAMP)
+                + ", activity: " + ActivityRecognitionUtil.getActivityName((int)record.get(ActivityRecognitionTable.KEY_ACTIVITY)) +
+                ", transition: " + ActivityRecognitionUtil.getTransitionName((int)record.get(ActivityRecognitionTable.KEY_TRANSITION_TYPE)));
+    }
 }
+

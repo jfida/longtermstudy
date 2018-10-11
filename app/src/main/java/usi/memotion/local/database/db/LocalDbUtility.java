@@ -3,6 +3,7 @@ package usi.memotion.local.database.db;
 import org.w3c.dom.UserDataHandler;
 
 import usi.memotion.local.database.tables.AccelerometerTable;
+import usi.memotion.local.database.tables.ActivityRecognitionTable;
 import usi.memotion.local.database.tables.ApplicationLogsTable;
 import usi.memotion.local.database.tables.LectureSurveyTable;
 import usi.memotion.local.database.tables.LocationTable;
@@ -47,6 +48,8 @@ public class LocalDbUtility {
                 return NotificationsTable.TABLE_NOTIFICATIONS;
             case TABLE_APPLICATION_LOGS:
                 return ApplicationLogsTable.TABLE_APPLICATION_LOGS;
+            case TABLE_ACTIVITY_RECOGNITION:
+                return ActivityRecognitionTable.TABLE_ACTIVITY_RECOGNITION;
             default:
                 return null;
         }
@@ -76,6 +79,8 @@ public class LocalDbUtility {
                 return NotificationsTable.getColumns();
             case TABLE_APPLICATION_LOGS:
                 return ApplicationLogsTable.getColumns();
+            case TABLE_ACTIVITY_RECOGNITION:
+                return ActivityRecognitionTable.getColumns();
             default:
                 return null;
         }
