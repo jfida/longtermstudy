@@ -65,6 +65,20 @@ public enum LocalTables {
                 return UserTable.TABLE_USER;
             case TABLE_LECTURE_SURVEY:
                 return LectureSurveyTable.TABLE_LECTURE_SURVEY;
+            case TABLE_APPLICATION_LOGS:
+                return ApplicationLogsTable.TABLE_APPLICATION_LOGS;
+            case TABLE_NOTIFICATIONS:
+                return NotificationsTable.TABLE_NOTIFICATIONS;
+            case TABLE_LOCATION:
+                return LocationTable.TABLE_LOCATION;
+            case TABLE_CALL_LOG:
+                return PhoneCallLogTable.TABLE_CALL_LOG;
+            case TABLE_SMS:
+                return SMSTable.TABLE_SMS;
+            case TABLE_PHONELOCK:
+                return PhoneLockTable.TABLE_PHONELOCK;
+            case TABLE_SIMPLE_MOOD:
+                return SimpleMoodTable.TABLE_SIMPLE_MOOD;
             default:
                 throw new IllegalArgumentException("Table not found!");
         }

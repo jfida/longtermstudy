@@ -21,10 +21,12 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import usi.memotion.R;
@@ -79,43 +81,49 @@ public class AppUsageStatisticsFragment extends Fragment {
         mSpinner = (Spinner) rootView.findViewById(R.id.spinner_time_span);
         SpinnerAdapter spinnerAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.action_list, android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(spinnerAdapter);
-        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-            String[] strings = getResources().getStringArray(R.array.action_list);
+        List<UsageStats> usageStatsList = getUsageStatistics(UsageStatsManager.INTERVAL_DAILY);
+        Collections.sort(usageStatsList, new LastTimeLaunchedComparatorDesc());
+        updateAppsList(usageStatsList);
 
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                StatsUsageInterval statsUsageInterval = StatsUsageInterval.getValue(strings[position]);
-                if (statsUsageInterval != null) {
-                    List<UsageStats> usageStatsList = getUsageStatistics(statsUsageInterval.mInterval);
-                    Collections.sort(usageStatsList, new LastTimeLaunchedComparatorDesc());
-                    updateAppsList(usageStatsList);
-                }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+//        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//            String[] strings = getResources().getStringArray(R.array.action_list);
+//
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                StatsUsageInterval statsUsageInterval = StatsUsageInterval.getValue(strings[position]);
+//                if (statsUsageInterval != null) {
+//                    List<UsageStats> usageStatsList = getUsageStatistics(UsageStatsManager.INTERVAL_DAILY);
+//                    Collections.sort(usageStatsList, new LastTimeLaunchedComparatorDesc());
+//                    updateAppsList(usageStatsList);
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//            }
+//        });
     }
 
     /**
      * Returns the {@link #mRecyclerView} including the time span specified by the
      * intervalType argument.
      *
-     * @param intervalType The time interval by which the stats are aggregated.
-     *                     Corresponding to the value of {@link UsageStatsManager}.
-     *                     E.g. {@link UsageStatsManager#INTERVAL_DAILY}, {@link
-     *                     UsageStatsManager#INTERVAL_WEEKLY},
-     *
      * @return A list of {@link UsageStats}.
      */
-    public List<UsageStats> getUsageStatistics(int intervalType) {
+    public List<UsageStats> getUsageStatistics(int interval) {
         // Get the app statistics since one year ago from the current time.
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.YEAR, -1);
+        cal.add(Calendar.DAY_OF_MONTH, -1);
+        cal.add(Calendar.HOUR, 18);
+        cal.add(Calendar.MINUTE, 0);
 
-        List<UsageStats> queryUsageStats = mUsageStatsManager.queryUsageStats(intervalType, cal.getTimeInMillis(), System.currentTimeMillis());
+        long end = System.currentTimeMillis();
+        long start = cal.getTimeInMillis();
+
+        List<UsageStats> queryUsageStats = mUsageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_BEST, start, end);
 
         if (queryUsageStats.size() == 0) {
             Log.i(TAG, "The user may not allow the access to apps usage. ");
@@ -128,6 +136,7 @@ public class AppUsageStatisticsFragment extends Fragment {
         }
         return queryUsageStats;
     }
+
 
     /**
      * Updates the {@link #mRecyclerView} with the list of {@link UsageStats} passed as an argument.
@@ -146,8 +155,11 @@ public class AppUsageStatisticsFragment extends Fragment {
                 Log.w(TAG, String.format("App Icon is not found for %s", customUsageStats.usageStats.getPackageName()));
                 customUsageStats.appIcon = getActivity().getDrawable(R.drawable.info);
             }
+
             customUsageStatsList.add(customUsageStats);
         }
+
+
         mUsageListAdapter.setCustomUsageStatsList(customUsageStatsList);
         mUsageListAdapter.notifyDataSetChanged();
         mRecyclerView.scrollToPosition(0);

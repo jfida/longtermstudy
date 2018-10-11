@@ -83,16 +83,8 @@ public class NotificationDataCollector
 				title = n.extras.getCharSequence(Notification.EXTRA_TEXT).toString();
 			title = title.replace("\n", " ").trim();
 
-            insertRecord(n_id, tag, key, priority, title, arrivalTime, removalTime, clicked, led, vibrate, sound, unique_sound, app_name, app_package);
+            insertRecord(tag, key, priority, title, arrivalTime, removalTime, clicked, led, vibrate, sound, unique_sound, app_name, app_package);
 			new Log().i("Saving notification in database: ");
-
-
-//			NotificationData n_data = new NotificationData(n_id, tag, key, priority,
-//					title, arrivalTime, removalTime,
-//					clicked, led, vibrate, sound, unique_sound, app_name, app_package) ;
-//
-//			saveNotificationData(n_data);
-
 
 		} 
 		catch (Exception e) 
@@ -185,10 +177,9 @@ public class NotificationDataCollector
 	}
 
 
-	private void insertRecord(int id, String tag, String key, int priority, String title, long arrival_time, long removal_time, int click, boolean led, boolean vibrate, boolean sound, boolean u_sound, String app_n, String app_p) {
+	private void insertRecord(String tag, String key, int priority, String title, long arrival_time, long removal_time, int click, boolean led, boolean vibrate, boolean sound, boolean u_sound, String app_n, String app_p) {
 		ContentValues record = new ContentValues();
 
-        record.put(NotificationsTable.KEY_NOTIF_ID, id);
 		record.put(NotificationsTable.KEY_NOTIF_TAG, tag);
 		record.put(NotificationsTable.KEY_NOTIF_KEY, key);
         record.put(NotificationsTable.KEY_NOTIF_PRIORITY, priority);

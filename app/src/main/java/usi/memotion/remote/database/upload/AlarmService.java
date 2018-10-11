@@ -70,7 +70,6 @@ public class AlarmService extends IntentService {
         Log.v("AlarmService", "I am in AlarmService");
 
         androidID = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-
         dbHelper = new LocalSQLiteDBHelper(getApplicationContext());
         switchDriveController = new SwitchDriveController(getApplicationContext().getString(R.string.server_address), getApplicationContext().getString(R.string.token), getApplicationContext().getString(R.string.password));
         localController = SQLiteController.getInstance(getApplicationContext());
@@ -80,7 +79,7 @@ public class AlarmService extends IntentService {
         mUsageStatsManager = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE); //Context.USAGE_STATS_SERVICE
 
         //Insert data from UsageStats to ApplicationLogs table
-        List<UsageStats> usageStatsList = getUsageStatistics(UsageStatsManager.INTERVAL_DAILY);
+        getUsageStatistics(UsageStatsManager.INTERVAL_DAILY);
 
         timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -93,27 +92,26 @@ public class AlarmService extends IntentService {
                 //If there is WiFi connection when Alarm is triggered then UPLOAD data
                 if (wifi.isConnected()) {
                     Log.v("Blla blla", "WIFI CONNECTED");
-//                    int response1 = uploader.uploadUsersTable();
-                    //Upload Local Tables - eda, acc, bvp, temp
-                    int response = uploader.dailyUpload();
+                    //Upload Local Tables
+//                    int response = uploader.upload();
+                    uploader.dailyUpload();
 
-                    if(response == 200){
-                        timer.cancel();
-                        timer.purge();
-                        Log.v("UPLOAD TEST", "DATA UPLOADED, TIMER CANCELED");
-                        setNotification(getApplicationContext(), "SWITCHdrive Upload", "Memotion data was successfully uploaded remotely on SWITCHdrive!", 1234512345);
-                    }
+//                    if(response == 200){
+//                        timer.cancel();
+//                        timer.purge();
+//                        Log.v("UPLOAD TEST", "DATA UPLOADED, TIMER CANCELED");
+//                        setNotification(getApplicationContext(), "SWITCHdrive Upload", "Memotion data was successfully uploaded remotely on SWITCHdrive!", 1234512345);
+//                    }
                 }else{
                     Log.v("UPLOAD TEST NO WIFI", "TIMER NOT CANCELED, BUT TRY AGAIN TO UPLOAD");
-                    //Upload Local Tables - eda, acc, bvp, temp
-                    int response = uploader.dailyUpload();
+                    uploader.dailyUpload();
 
-                    if(response == 200){
-                        timer.cancel();
-                        timer.purge();
-                        Log.v("UPLOAD TEST NO WIFI", "DATA UPLOADED, TIMER CANCELED");
-                        setNotification(getApplicationContext(), "SWITCHdrive Upload", "Memotion data was successfully uploaded remotely on SWITCHdrive!", 1234512345);
-                    }
+//                    if(response == 200){
+//                        timer.cancel();
+//                        timer.purge();
+//                        Log.v("UPLOAD TEST NO WIFI", "DATA UPLOADED, TIMER CANCELED");
+//                        setNotification(getApplicationContext(), "SWITCHdrive Upload", "Memotion data was successfully uploaded remotely on SWITCHdrive!", 1234512345);
+//                    }
                 }
             }
         }, 0, 1000*60*MINUTES);
@@ -148,10 +146,21 @@ public class AlarmService extends IntentService {
 
     public List<UsageStats> getUsageStatistics(int intervalType) {
         // Get the app statistics since one year ago from the current time.
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.YEAR, -1);
+        Calendar cal1 = Calendar.getInstance();
+        cal1.add(Calendar.DAY_OF_MONTH, -1);
+        cal1.add(Calendar.HOUR, 23);
+        cal1.add(Calendar.MINUTE, 0);
 
-        List<UsageStats> queryUsageStats = mUsageStatsManager.queryUsageStats(intervalType, cal.getTimeInMillis(), System.currentTimeMillis());
+
+        Calendar cal2 = Calendar.getInstance();
+        cal2.add(Calendar.DAY_OF_MONTH, 0);
+        cal2.add(Calendar.HOUR, 23);
+        cal2.add(Calendar.MINUTE, 0);
+
+        long start = cal1.getTimeInMillis();
+        long end = cal2.getTimeInMillis();
+
+        List<UsageStats> queryUsageStats = mUsageStatsManager.queryUsageStats(intervalType, start, end);
         for (int i = 0; i < queryUsageStats.size(); i++) {
             CustomUsageStats customUsageStats = new CustomUsageStats();
             customUsageStats.usageStats = queryUsageStats.get(i);
@@ -165,15 +174,6 @@ public class AlarmService extends IntentService {
             insertRecord(appData);
         }
 
-//        if (queryUsageStats.size() == 0) {
-//            Log.i("ALARM SERVICE", "The user may not allow the access to apps usage. ");
-//            Toast.makeText(getActivity(), getString(R.string.explanation_access_to_appusage_is_not_enabled), Toast.LENGTH_LONG).show();
-//            mOpenUsageSettingButton.setVisibility(View.VISIBLE);
-//            mOpenUsageSettingButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));}
-//            });
-//        }
         return queryUsageStats;
     }
 

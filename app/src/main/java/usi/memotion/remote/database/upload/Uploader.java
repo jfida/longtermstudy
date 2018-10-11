@@ -6,6 +6,7 @@ import android.util.Log;
 
 import usi.memotion.local.database.db.DailyTables;
 import usi.memotion.local.database.db.LocalSQLiteDBHelper;
+import usi.memotion.local.database.tables.LocationTable;
 import usi.memotion.remote.database.controllers.SwitchDriveController;
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.tableHandlers.TableHandler;
@@ -75,279 +76,115 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
                 updateDate(today);
             }
 
-            //number of tables
-            int nbTableToClean = LocalTables.values().length;
-            int i = 0;
-            //current table to clean
-            LocalTables currTable;
-
             //clean all tables
-            LocalTables[] a  =LocalTables.values();
+            LocalTables[] a = LocalTables.values();
             for(LocalTables t: LocalTables.values()) {
                 processTable(t);
             }
-//            while(i < nbTableToClean) {
-//                currTable = LocalTables.values()[i];
-//                processTable(currTable);
-//                i++;
-//            }
         }
     }
-
 
     /**
-     * Upload function to upload local tables' data to Switch Drive
-     * Local Tables: Users, Eda, Acc, Bvp, Temp
-     *
+     * This method uploads only the tables that need to be uploaded at the end of the day
      */
-    public int dailyUpload(){
-        int response = 0;
-        //number of tables
-        int nbTableToClean = DailyTables.values().length;
-        int i = 0;
-        Cursor c;
-        //current table to clean
-        DailyTables currTable;
-        String fileName;
+    public void dailyUpload() {
 
-        while(i < nbTableToClean) {
-            currTable = DailyTables.values()[i];
-
-            //build name of file to upload
-            fileName = buildFileName(currTable);
-
-            //get all data currently in the table
-            c = getRecords(currTable);
-
-            if (c.getCount() > 0) {
-                c.moveToFirst();
-
-                //upload the data to the server
-                response = remoteController.upload(fileName, toCSV(c, currTable));
-
-                //if the file was put, delete records and update the arrays
-                if (response >= 200 && response <= 207) {
-                    response = 200;
-                } else {
-                    response=404;
-                    Log.d("DATA UPLOAD SERVICE", "Owncould's response: " + Integer.toString(response));
-                }
-            }
-            i++;
-        }
-
-        return response;
+//            //clean all tables
+//            LocalTables[] a = LocalTables.values();
+//            for(LocalTables t: LocalTables.values()) {
+//                processTable(t);
+//            }
+        processTable(LocalTables.TABLE_LECTURE_SURVEY);
+        processTable(LocalTables.TABLE_APPLICATION_LOGS);
+        processTable(LocalTables.TABLE_NOTIFICATIONS);
+        processTable(LocalTables.TABLE_PHONELOCK);
+        processTable(LocalTables.TABLE_CALL_LOG);
+        processTable(LocalTables.TABLE_SMS);
+        processTable(LocalTables.TABLE_LOCATION);
+        processTable(LocalTables.TABLE_PAM);
+        processTable(LocalTables.TABLE_SIMPLE_MOOD);
     }
 
-//    private String buildSurveyCSV(List<Survey> surveys) {
-//        String csv = "";
-//        String csvHeader = "";
-//
-//        for(String surveyColumn: LocalDbUtility.getTableColumns(LocalTables.TABLE_SURVEY)) {
-//            csvHeader += surveyColumn + ", ";
-//        }
-//
-//        String[] colums;
-//        for(Entry<SurveyType, TableHandler> entry: surveys.get(0).getSurveys().entrySet()) {
-//            colums = entry.getValue().getColumns();
-//            for(int i = 3; i < colums.length; i++) {
-//                csvHeader += entry.getValue().getTableName() + "_" + colums[i] + ", ";
-//            }
-//        }
-//
-//        csvHeader = csvHeader.substring(0, csvHeader.length()-2);
-//        csv += csvHeader + "\n";
-//
-//        Map<SurveyType, TableHandler> childs = new HashMap<>();
-//        String record = "";
-//        String[] childColumns;
-//        for(Survey s: surveys) {
-//            childs = s.getSurveys();
-//
-//            for(String column: s.getColumns()) {
-//                record += s.getAttributes().getAsString(column) + ", ";
-//            }
-//
-//            for(Map.Entry<SurveyType, TableHandler> entry: childs.entrySet()) {
-//                childColumns = entry.getValue().getColumns();
-//                for(int i = 3; i < childColumns.length; i++) {
-//                    record += entry.getValue().getAttributes().getAsString(childColumns[i]) + ", ";
-//                }
-//            }
-//
-//            record += "\n";
-//        }
-//
-//        csv += record;
-//
-//        return csv.substring(0, csv.length()-1);
-//    }
-//
-//    private String buildSurveyFileName(SurveyType survey) {
-//        String today = buildDate();
-//        return userId + "_" + today + "_" + survey.getSurveyName() + "_" + "part" + Integer.toString(getFilePartId(LocalTables.TABLE_SURVEY)) + ".csv";
-//    }
-//
-//    private void processSurveys(TableHandler[] surveys) {
-//
-//        SurveyType currSurvey = ((Survey) surveys[0]).surveyType;
-//        String fileName = buildSurveyFileName(currSurvey);
-//        String currCsv = "";
-//        Survey currS;
-//        List<Survey> gSurveys = new ArrayList<>();
-//
-//        SurveyAlarms alarm;
-//        for(TableHandler s: surveys) {
-//            currS = (Survey) s;
-//            if(currSurvey != currS.surveyType) {
-//                currSurvey = currS.surveyType;
-//
-//                currCsv = buildSurveyCSV(gSurveys);
-//                Log.d("AAA", currCsv);
-////                alarm = SurveyAlarmSurvey.getAlarm(currS.id);
-//
-//                TableInfo info = new TableInfo();
-//                info.isSurvey = true;
-//                info.survey = currSurvey;
-//                info.surveysId = new ArrayList<>();
-//                for(Survey ss: gSurveys) {
-//                    info.surveysId.add(ss.id);
-//                }
-//                map.put(fileName, info);
-//                remoteController.upload(fileName, currCsv);
-//
-//                fileName = buildSurveyFileName(currSurvey);
-//                gSurveys = new ArrayList<>();
-//            }
-//
-//            gSurveys.add(currS);
-//
-//        }
-//
-//        fileName = buildSurveyFileName(currSurvey);
-//        currCsv = buildSurveyCSV(gSurveys);
-//        Log.d("AAA", currCsv);
-//        TableInfo info = new TableInfo();
-//        info.isSurvey = true;
-//        info.survey = currSurvey;
-//        info.surveysId = new ArrayList<>();
-//        for(Survey ss: gSurveys) {
-//            info.surveysId.add(ss.id);
-//        }
-//        map.put(fileName, info);
-//        remoteController.upload(fileName, currCsv);
-//
-//        incrementFilePartId(LocalTables.TABLE_SURVEY);
-//    }
+    /**
+     * This method uploads only the tables that need to be uploaded at the end of the day
+     */
+    public void oneTimeUpload() {
+        processTable(LocalTables.TABLE_USER);
+    }
 
     private void processTable(LocalTables table) {
 
         Log.d("DATA UPLOAD SERVICE", "Processing table " + LocalDbUtility.getTableName(table));
 
-        if(table == LocalTables.TABLE_LOCATION || table == LocalTables.TABLE_PHONELOCK || table == LocalTables.TABLE_CALL_LOG || table == LocalTables.TABLE_SMS ||
-                table == LocalTables.TABLE_NOTIFICATIONS || table == LocalTables.TABLE_USER) {
+//        if(table == LocalTables.TABLE_LOCATION || table == LocalTables.TABLE_PHONELOCK || table == LocalTables.TABLE_CALL_LOG || table == LocalTables.TABLE_SMS) {
+//            // Upload several times per day based on battery, wifi, and storage conditions, delete after operation is completed
+//
+//                String query = getQuery(table);
+//
+//                Cursor records = localController.rawQuery(query, null);
+//
+//                if (records.getCount() > 0) {
+//                    String fileName = buildFileName(table);
+//                    int startId;
+//                    int endId;
+//                    records.moveToFirst();
+//                    //the starting index
+//                    startId = records.getInt(0);
+//                    records.moveToLast();
+//                    //the ending index
+//                    endId = records.getInt(0);
+//                    records.moveToFirst();
+//                    TableInfo info = new TableInfo();
+//                    info.table = table;
+//                    info.startId = startId;
+//                    info.endId = endId;
+//                    map.put(fileName, info);
+//
+//                    Log.d("DATA UPLOAD SERVICE", "Preparing the data to upload for table " + LocalDbUtility.getTableName(table));
+//                    remoteController.upload(fileName, toCSV(records, table));
+//                    Log.d("DATA UPLOAD SERVICE", "Upload request sent for table " + LocalDbUtility.getTableName(table));
+//                } else {
+//                    Log.d("DATA UPLOAD SERVICE", "Table is empty, nothing to upload");
+//                }
+//                records.close();
+//        }else
 
-                String query = getQuery(table);
+        if(table == LocalTables.TABLE_USER){
+            // Upload only once, DO NOT delete
 
-                Cursor records = localController.rawQuery(query, null);
-
-                if (records.getCount() > 0) {
-                    String fileName = buildFileName(table);
-                    int startId;
-                    int endId;
-                    records.moveToFirst();
-                    //the starting index
-                    startId = records.getInt(0);
-                    records.moveToLast();
-                    //the ending index
-                    endId = records.getInt(0);
-                    records.moveToFirst();
-                    TableInfo info = new TableInfo();
-                    info.table = table;
-                    info.startId = startId;
-                    info.endId = endId;
-                    map.put(fileName, info);
-
-                    Log.d("DATA UPLOAD SERVICE", "Preparing the data to upload for table " + LocalDbUtility.getTableName(table));
-
-
-                    remoteController.upload(fileName, toCSV(records, table));
-
-                    Log.d("DATA UPLOAD SERVICE", "Upload request sent for table " + LocalDbUtility.getTableName(table));
-
-
-                } else {
-                    Log.d("DATA UPLOAD SERVICE", "Table is empty, nothing to upload");
-                }
-                records.close();
-        } else if(table == LocalTables.TABLE_ACCELEROMETER){
             String query = getQuery(table);
-            query += " LIMIT " + 4000;
             Cursor records = localController.rawQuery(query, null);
-
 
             if (records.getCount() > 0) {
                 String fileName = buildFileName(table);
-                int startId;
-                int endId;
-                records.moveToFirst();
-                //the starting index
-                startId = records.getInt(0);
-                records.moveToLast();
-                //the ending index
-                endId = records.getInt(0);
-                records.moveToFirst();
-                TableInfo info = new TableInfo();
-                info.table = table;
-                info.startId = startId;
-                info.endId = endId;
-                map.put(fileName, info);
-
                 Log.d("DATA UPLOAD SERVICE", "Preparing the data to upload for table " + LocalDbUtility.getTableName(table));
                 remoteController.upload(fileName, toCSV(records, table));
+                Log.d("DATA UPLOAD SERVICE", "Upload request sent for table " + LocalDbUtility.getTableName(table));
 
+            }else {
+                Log.d("DATA UPLOAD SERVICE", "Table is empty, nothing to upload");
+            }
+
+        }else if(table == LocalTables.TABLE_LECTURE_SURVEY || table == LocalTables.TABLE_NOTIFICATIONS || table == LocalTables.TABLE_LOCATION ||
+                table == LocalTables.TABLE_PHONELOCK || table == LocalTables.TABLE_CALL_LOG || table == LocalTables.TABLE_SMS ||
+                table == LocalTables.TABLE_APPLICATION_LOGS) {
+            //Here we should add also Daily Surveys
+            // Upload 1 time per day, delete
+            String query = getQuery(table);
+
+            Cursor records = localController.rawQuery(query, null);
+
+            if (records.getCount() > 0) {
+                String fileName = buildFileName(table);
+                Log.d("DATA UPLOAD SERVICE", "Preparing the data to upload for table " + LocalDbUtility.getTableName(table));
+                remoteController.upload(fileName, toCSV(records, table));
                 Log.d("DATA UPLOAD SERVICE", "Upload request sent for table " + LocalDbUtility.getTableName(table));
             } else {
                 Log.d("DATA UPLOAD SERVICE", "Table is empty, nothing to upload");
             }
+            records.close();
         }
-
-//        else if(table == LocalTables.TABLE_USER){
-//            String query = getQuery(table);
-//            Cursor records = localController.rawQuery(query, null);
-//
-//            if (records.getCount() > 0) {
-//                String fileName = buildFileName(table);
-//                records.moveToFirst();
-//                TableInfo info = new TableInfo();
-//                info.table = table;
-//                map.put(fileName, info);
-//
-//                Log.d("DATA UPLOAD SERVICE", "Preparing the data to upload for table " + LocalDbUtility.getTableName(table));
-//                remoteController.upload(fileName, toCSV(records, table));
-//
-//                Log.d("DATA UPLOAD SERVICE", "Upload request sent for table " + LocalDbUtility.getTableName(table));
-//
-//            }else {
-//                Log.d("DATA UPLOAD SERVICE", "Table is empty, nothing to upload");
-//            }
-//        }
     }
-
-
-//    private void uploadTable(String fileName, String fileContent) {
-//        int response = remoteController.upload(fileName, fileContent);
-//
-//        //if the file was put, delete records and update the arrays
-//        if(response >= 200 && response <= 207) {
-//            //delete from the db the records where id > startId and id <= endId
-//            removeRecords(table, startId, endId);
-//            incrementFilePartId(table);
-//            updateRecordId(table, endId);
-//        } else {
-//            Log.d("DATA UPLOAD SERVICE", "Something went wrong, Owncould's response: " + Integer.toString(response));
-//        }
-//    }
 
     private String getQuery(LocalTables table) {
         String[] columns = LocalDbUtility.getTableColumns(table);
@@ -477,17 +314,6 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
     }
 
     /**
-     * Build the query to select all records from the given table.
-     *
-     * @param table
-     * @return
-     */
-    private Cursor getRecords(DailyTables table) {
-        String query = "SELECT * FROM " + LocalDbUtility.getDailyTableName(table);
-        return localController.rawQuery(query, null);
-    }
-
-    /**
      * Build the file name.
      *
      * <subjectid>_<date>_<table>_part<nbPart>.csv
@@ -498,7 +324,7 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
     private String buildFileName(LocalTables table) {
         //get current date
         String today = buildDate();
-        return userId + "_" + today + "_" + LocalDbUtility.getTableName(table) + "_" + "part" + Integer.toString(getFilePartId(table)) + ".csv";
+        return userId + "_" + today + "_" + LocalDbUtility.getTableName(table) + ".csv"; //+ "_" + "part" + Integer.toString(getFilePartId(table))
     }
 
     /**
@@ -509,10 +335,10 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
      * @param table
      * @return
      */
-    private String buildFileName(DailyTables table) {
+    private String buildFileName2(LocalTables table) {
         //get current date
         String today = buildDate();
-        String fileName = userId + "_" + today + "_" + LocalDbUtility.getDailyTableName(table) + ".csv";
+        String fileName = userId + "_" + today + "_" + LocalDbUtility.getTableName(table) + ".csv";
         return fileName;
     }
 
@@ -539,64 +365,91 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
         String csv = "";
         String[] columns = LocalDbUtility.getTableColumns(table);
 
-        for(int i = 0; i < columns.length; i++) {
-            csv += columns[i] + ",";
-        }
+        if(records.getCount() == 1){
+            for(int i = 0; i < columns.length; i++) {
+                csv += columns[i] + ",";
+            }
 
-        csv = csv.substring(0, csv.length()-1);
-        csv += "\n";
+            records.moveToFirst();
+            csv = csv.substring(0, csv.length()-1);
+            csv += "\n";
 
-        do {
             for(int i = 0; i < columns.length; i++) {
                 csv += records.getString(i) + ",";
             }
             csv = csv.substring(0, csv.length()-1);
-            csv += "\n";
-        } while(records.moveToNext());
-        csv = csv.substring(0, csv.length()-1);
-        return csv;
-    }
 
-    /**
-     * Generate the csv data from the given cursor.
-     *
-     * @param records
-     * @param table
-     * @return
-     */
-    private String toCSV(Cursor records, DailyTables table) {
-        String csv = "";
-        String[] columns = LocalDbUtility.getDailyTableColumns(table);
-
-        for(int i = 0; i < columns.length; i++) {
-            csv += columns[i] + ",";
-        }
-
-        csv = csv.substring(0, csv.length()-1);
-        csv += "\n";
-
-        do {
+            Log.d("UPLOADER","Table with only one column: " + table.getTableName());
+        }else{
             for(int i = 0; i < columns.length; i++) {
-                csv += records.getString(i) + ",";
+                csv += columns[i] + ",";
             }
+
             csv = csv.substring(0, csv.length()-1);
             csv += "\n";
-        } while(records.moveToNext());
-        csv = csv.substring(0, csv.length()-1);
+
+            records.moveToFirst();
+            do {
+                for(int i = 0; i < columns.length; i++) {
+                    csv += records.getString(i) + ",";
+                }
+                csv = csv.substring(0, csv.length()-1);
+                csv += "\n";
+            } while(records.moveToNext());
+            csv = csv.substring(0, csv.length()-1);
+        }
         return csv;
     }
+
+
+//    /**
+//     * Generate the csv data from the given cursor.
+//     *
+//     * @param records
+//     * @param table
+//     * @return
+//     */
+//    private String toCSV(Cursor records, DailyTables table) {
+//        String csv = "";
+//        String[] columns = LocalDbUtility.getDailyTableColumns(table);
+//
+//        for(int i = 0; i < columns.length; i++) {
+//            csv += columns[i] + ",";
+//        }
+//
+//        csv = csv.substring(0, csv.length()-1);
+//        csv += "\n";
+//
+//        do {
+//            for(int i = 0; i < columns.length; i++) {
+//                csv += records.getString(i) + ",";
+//            }
+//            csv = csv.substring(0, csv.length()-1);
+//            csv += "\n";
+//        } while(records.moveToNext());
+//        csv = csv.substring(0, csv.length()-1);
+//        return csv;
+//    }
 
     @Override
     public void onTransferCompleted(String fileName, int status) {
         TableInfo info = map.get(fileName);
         Log.d("UPLOADER", "Got transfer event for file " + fileName);
-        if(info != null && info.isSurvey) {
+
+        if(fileName.contains("usersTable")){
             if(status >= 200 && status <= 207) {
+                Log.d("UPLOADER", "Got transfer event for file " + fileName);
+            } else {
+                Log.d("DATA UPLOAD SERVICE", "Something went wrong, Owncould's response: " + Integer.toString(status));
+            }
+        }else if(info != null && info.isSurvey) {
+            if(status >= 200 && status <= 207) {
+                Log.d("UPLOADER", "Got transfer event for file " + fileName);
 //                markSurveys(info.surveysId);
             } else {
                 Log.d("DATA UPLOAD SERVICE", "Something went wrong, Owncould's response: " + Integer.toString(status));
             }
-        } else {
+        }else {
             if(status >= 200 && status <= 207) {
                 //delete from the db the records where id > startId and id <= endId
                 if(info.table != LocalTables.TABLE_SIMPLE_MOOD) {
@@ -610,7 +463,6 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
             }
         }
 
-
         map.remove(fileName);
     }
 
@@ -622,15 +474,6 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
         public int endId;
         public List<Long> surveysId;
     }
-
-//    private void markSurveys(List<Long> ids) {
-//        Survey s;
-//        for(Long id: ids) {
-//            s = (Survey) Survey.findByPk(id);
-//            s.uploaded = true;
-//            s.save();
-//        }
-//    }
 }
 
 
