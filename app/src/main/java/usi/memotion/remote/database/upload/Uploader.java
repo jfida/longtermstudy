@@ -110,44 +110,16 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
      */
     public void oneTimeUpload() {
         processTable(LocalTables.TABLE_USER);
+        //process Anxiety
+        //other one time TIPI
+        // Anxiety (GAD),
+        // Stress (PSS),
+        // Satisfaction with Life (SWLS)
     }
 
     private void processTable(LocalTables table) {
 
         Log.d("DATA UPLOAD SERVICE", "Processing table " + LocalDbUtility.getTableName(table));
-
-//        if(table == LocalTables.TABLE_LOCATION || table == LocalTables.TABLE_PHONELOCK || table == LocalTables.TABLE_CALL_LOG || table == LocalTables.TABLE_SMS) {
-//            // Upload several times per day based on battery, wifi, and storage conditions, delete after operation is completed
-//
-//                String query = getQuery(table);
-//
-//                Cursor records = localController.rawQuery(query, null);
-//
-//                if (records.getCount() > 0) {
-//                    String fileName = buildFileName(table);
-//                    int startId;
-//                    int endId;
-//                    records.moveToFirst();
-//                    //the starting index
-//                    startId = records.getInt(0);
-//                    records.moveToLast();
-//                    //the ending index
-//                    endId = records.getInt(0);
-//                    records.moveToFirst();
-//                    TableInfo info = new TableInfo();
-//                    info.table = table;
-//                    info.startId = startId;
-//                    info.endId = endId;
-//                    map.put(fileName, info);
-//
-//                    Log.d("DATA UPLOAD SERVICE", "Preparing the data to upload for table " + LocalDbUtility.getTableName(table));
-//                    remoteController.upload(fileName, toCSV(records, table));
-//                    Log.d("DATA UPLOAD SERVICE", "Upload request sent for table " + LocalDbUtility.getTableName(table));
-//                } else {
-//                    Log.d("DATA UPLOAD SERVICE", "Table is empty, nothing to upload");
-//                }
-//                records.close();
-//        }else
 
         if(table == LocalTables.TABLE_USER){
             // Upload only once, DO NOT delete
@@ -188,14 +160,9 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
 
     private String getQuery(LocalTables table) {
         String[] columns = LocalDbUtility.getTableColumns(table);
-        String query = "SELECT * FROM " + LocalDbUtility.getTableName(table) +
-                " WHERE " + columns[0] + " > " + Integer.toString(getRecordId(table));
+        return "SELECT * FROM " + LocalDbUtility.getTableName(table)
+                + " WHERE " + columns[0] + " > " + Integer.toString(getRecordId(table));
 
-        if(table == LocalTables.TABLE_PAM) {
-            query += " AND (" + columns[3] + " = " + 1 + " OR " + columns[5] + " = " + 1 + ")";
-        }
-
-        return query;
     }
 
     private boolean checkDate(String date) {
@@ -301,17 +268,17 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
         localController.delete(LocalDbUtility.getTableName(table), clause);
     }
 
-    /**
-     * Build the query to select all records from the given table.
-     *
-     * @param table
-     * @return
-     */
-    private Cursor getRecords(LocalTables table) {
-        String query = "SELECT * FROM " + LocalDbUtility.getTableName(table) +
-                " WHERE " + LocalDbUtility.getTableColumns(table)[0] + " > " + Integer.toString(getRecordId(table));
-        return localController.rawQuery(query, null);
-    }
+//    /**
+//     * Build the query to select all records from the given table.
+//     *
+//     * @param table
+//     * @return
+//     */
+//    private Cursor getRecords(LocalTables table) {
+//        String query = "SELECT * FROM " + LocalDbUtility.getTableName(table) +
+//                " WHERE " + LocalDbUtility.getTableColumns(table)[0] + " > " + Integer.toString(getRecordId(table));
+//        return localController.rawQuery(query, null);
+//    }
 
     /**
      * Build the file name.
@@ -324,23 +291,9 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
     private String buildFileName(LocalTables table) {
         //get current date
         String today = buildDate();
-        return userId + "_" + today + "_" + LocalDbUtility.getTableName(table) + ".csv"; //+ "_" + "part" + Integer.toString(getFilePartId(table))
+        return userId + "_" + today + "_" + LocalDbUtility.getTableName(table) + ".csv";
     }
 
-    /**
-     * Build the file name.
-     *
-     * <subjectid>_<date>_<table>_<username>.csv
-     *
-     * @param table
-     * @return
-     */
-    private String buildFileName2(LocalTables table) {
-        //get current date
-        String today = buildDate();
-        String fileName = userId + "_" + today + "_" + LocalDbUtility.getTableName(table) + ".csv";
-        return fileName;
-    }
 
 
     /**

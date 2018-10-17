@@ -92,74 +92,38 @@ public class LocalSQLiteDBHelper extends SQLiteOpenHelper {
         return;
     }
 
-    public List<PostLectureSurvey> getAllPostlectureSurveys(){
-        List<PostLectureSurvey> postLectureSurveyList = new ArrayList<>();
-        String selectQuery = "SELECT * FROM "+ AccelerometerTable.TABLE_ACCELEROMETER;
-        SQLiteDatabase db = getReadableDatabase();
-
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        try{
-            if(cursor.moveToPosition(0)){
-                do{
-                    PostLectureSurvey postlectureSurvey = new PostLectureSurvey();
-
-                    postlectureSurvey._id = cursor.getInt(cursor.getColumnIndex("id_used_app"));
-                    postlectureSurvey._timestamp= cursor.getDouble(cursor.getColumnIndex("ts"));
-                    postlectureSurvey._question1= cursor.getString(cursor.getColumnIndex("type"));
-                    postlectureSurvey._question2 = cursor.getString(cursor.getColumnIndex("name"));
-//                    postlectureSurvey._question3 = cursor.getString(cursor.getColumnIndex("duration"));
-
-
-
-                    postLectureSurveyList.add(postlectureSurvey);
-                }while(cursor.moveToNext());
-
-            }
-        }catch (Exception e){
-            Log.d("DB HELPER", "Error while trying to get posts from accelereometer table");
-        }finally {
-            if(cursor != null && !cursor.isClosed()){
-                cursor.close();
-            }
-        }
-
-        return postLectureSurveyList;
-    }
-
-    /*
-    Add a SURVEY into Surveys table
-*/
-//    public void addSurvey(Survey survey, Context context) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        db.beginTransaction();
+//    public List<PostLectureSurvey> getAllPostlectureSurveys(){
+//        List<PostLectureSurvey> postLectureSurveyList = new ArrayList<>();
+//        String selectQuery = "SELECT * FROM "+ AccelerometerTable.TABLE_ACCELEROMETER;
+//        SQLiteDatabase db = getReadableDatabase();
 //
-//        try {
-//            ContentValues values = new ContentValues();
+//        Cursor cursor = db.rawQuery(selectQuery, null);
 //
-//            values.put(SurveyEntry.TIMESTAMP, survey.getTimestamp());
-//            values.put(SurveyEntry.PAPER_ID, survey.getPaperId());
-//            values.put(SurveyEntry.QUESTION_1, survey.getQuestion1());
-//            values.put(SurveyEntry.QUESTION_2, survey.getQuestion2());
-//            values.put(SurveyEntry.QUESTION_3, survey.getQuestion3());
-//            values.put(SurveyEntry.QUESTION_4, survey.getQuestion4());
-//            values.put(SurveyEntry.QUESTION_5, survey.getQuestion5());
-//            values.put(SurveyEntry.QUESTION_6, survey.getQuestion6());
-//            values.put(SurveyEntry.QUESTION_7, survey.getQuestion7());
-//            values.put(SurveyEntry.QUESTION_8, survey.getQuestion8());
-//            values.put(SurveyEntry.QUESTION_9, survey.getQuestion9());
-//            values.put(SurveyEntry.QUESTION_10, survey.getQuestion10());
+//        try{
+//            if(cursor.moveToPosition(0)){
+//                do{
+//                    PostLectureSurvey postlectureSurvey = new PostLectureSurvey();
 //
-//            db.insertOrThrow(SurveyEntry.TABLE_NAME_SURVEY, null, values);
-//            db.setTransactionSuccessful();
+//                    postlectureSurvey._id = cursor.getInt(cursor.getColumnIndex("id_used_app"));
+//                    postlectureSurvey._timestamp= cursor.getDouble(cursor.getColumnIndex("ts"));
+//                    postlectureSurvey._question1= cursor.getString(cursor.getColumnIndex("type"));
+//                    postlectureSurvey._question2 = cursor.getString(cursor.getColumnIndex("name"));
+////                    postlectureSurvey._question3 = cursor.getString(cursor.getColumnIndex("duration"));
 //
-//            System.out.println("Survey DATA INSERTED: "+ values);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            Log.d("DBHelper", "Error while trying to add SURVEY to database");
-//        } finally {
-//            db.endTransaction();
-//            db.close();
+//
+//
+//                    postLectureSurveyList.add(postlectureSurvey);
+//                }while(cursor.moveToNext());
+//
+//            }
+//        }catch (Exception e){
+//            Log.d("DB HELPER", "Error while trying to get posts from accelereometer table");
+//        }finally {
+//            if(cursor != null && !cursor.isClosed()){
+//                cursor.close();
+//            }
 //        }
+//
+//        return postLectureSurveyList;
 //    }
 }

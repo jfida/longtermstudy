@@ -83,39 +83,10 @@ public class LocalDbUtility {
                 return ApplicationLogsTable.getColumns();
             case TABLE_ACTIVITY_RECOGNITION:
                 return ActivityRecognitionTable.getColumns();
-            default:
-                return null;
-        }
-    }
-
-    public static String getDailyTableName(DailyTables table) {
-        switch (table) {
-            case TABLE_LECTURE_SURVEY:
-                return LectureSurveyTable.TABLE_LECTURE_SURVEY;
-//            case TABLE_ONE_TIME_SURVEY:
-//                return
-//            case TABLE_DAILY_SURVEY:
-//                return
-//            case TABLE_USER:
-//                return UserTable.TABLE_USER;
-            case TABLE_APPLICATION_LOGS:
-                return ApplicationLogsTable.TABLE_APPLICATION_LOGS;
-
-            default:
-                return null;
-        }
-    }
-
-
-
-    public static String[] getDailyTableColumns(DailyTables table) {
-        switch (table) {
-            case TABLE_USER:
-                return UserTable.getColumns();
             case TABLE_LECTURE_SURVEY:
                 return LectureSurveyTable.getColumns();
-            case TABLE_APPLICATION_LOGS:
-                return ApplicationLogsTable.getColumns();
+            case TABLE_USER:
+                return UserTable.getColumns();
             default:
                 return null;
         }

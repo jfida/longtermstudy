@@ -58,9 +58,6 @@ public class UserTable {
         public static final String GENDER_FEMALE = "F";
 
 
-        public static final String ACADEMIA = "Academia";
-        public static final String INDUSTRY = "Industry";
-
         public static final String STATUS_FULL_PROFESSOR = "Professor";
         public static final String STATUS_POST_DOC = "Post-doc";
         public static final String STATUS_PHD_STUDENT = "Ph.D. Student";
@@ -72,7 +69,7 @@ public class UserTable {
 
 
         public static String[] getColumns(){
-            String[] columns = {_ID, ANDROID_ID, USERNAME, EMPATICAID, EMAIL, SWITCH_TOKEN, SWITCH_PASSWORD, COLUMN_GENDER, COLUMN_AGE, COLUMN_STATUS};
+            String[] columns = {_ID, ANDROID_ID, USERNAME, EMPATICAID, EMAIL, COLUMN_GENDER, COLUMN_AGE, COLUMN_STATUS};
 
             return columns;
         }

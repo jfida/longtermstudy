@@ -85,9 +85,9 @@ public class AlarmService extends IntentService {
             username = records.getString(records.getColumnIndex(UserTable.USERNAME));
         }
 
-        String userName = username + "_" + androidID;
+//        String userName = username + "_" + androidID;
 
-        final Uploader uploader = new Uploader(userName, switchDriveController, localController, dbHelper);
+        final Uploader uploader = new Uploader(androidID, switchDriveController, localController, dbHelper);
 
         localStorageController = SQLiteController.getInstance(getApplicationContext());
         mUsageStatsManager = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);
