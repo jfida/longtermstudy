@@ -1,6 +1,7 @@
 package usi.memotion.local.database.db;
 
 import usi.memotion.local.database.tables.AccelerometerTable;
+import usi.memotion.local.database.tables.ActivityRecognitionTable;
 import usi.memotion.local.database.tables.ApplicationLogsTable;
 import usi.memotion.local.database.tables.LectureSurveyTable;
 import usi.memotion.local.database.tables.LocationTable;
@@ -51,7 +52,8 @@ public class LocalDbUtility {
 //                return
             case TABLE_APPLICATION_LOGS:
                 return ApplicationLogsTable.TABLE_APPLICATION_LOGS;
-
+            case TABLE_ACTIVITY_RECOGNITION:
+                return ActivityRecognitionTable.TABLE_ACTIVITY_RECOGNITION;
             default:
                 return null;
         }
@@ -77,6 +79,37 @@ public class LocalDbUtility {
                 return SimpleMoodTable.getColumns();
             case TABLE_NOTIFICATIONS:
                 return NotificationsTable.getColumns();
+            case TABLE_APPLICATION_LOGS:
+                return ApplicationLogsTable.getColumns();
+            case TABLE_ACTIVITY_RECOGNITION:
+                return ActivityRecognitionTable.getColumns();
+            default:
+                return null;
+        }
+    }
+
+    public static String getDailyTableName(DailyTables table) {
+        switch (table) {
+            case TABLE_LECTURE_SURVEY:
+                return LectureSurveyTable.TABLE_LECTURE_SURVEY;
+//            case TABLE_ONE_TIME_SURVEY:
+//                return
+//            case TABLE_DAILY_SURVEY:
+//                return
+//            case TABLE_USER:
+//                return UserTable.TABLE_USER;
+            case TABLE_APPLICATION_LOGS:
+                return ApplicationLogsTable.TABLE_APPLICATION_LOGS;
+
+            default:
+                return null;
+        }
+    }
+
+
+
+    public static String[] getDailyTableColumns(DailyTables table) {
+        switch (table) {
             case TABLE_USER:
                 return UserTable.getColumns();
             case TABLE_LECTURE_SURVEY:

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import usi.memotion.gathering.gatheringServices.AccelerometerGatheringService;
+import usi.memotion.gathering.gatheringServices.ActivityRecogntion.ActivityRecognitionBackgroundService;
 import usi.memotion.gathering.gatheringServices.BluethootGatheringService;
 import usi.memotion.gathering.gatheringServices.LocationGatheringService;
 import usi.memotion.gathering.gatheringServices.LockGatheringService;
@@ -65,6 +66,10 @@ public class GatheringSystem {
                     Log.d("GATHERING SYSTEM", "Started notifications service");
                     context.startService(new Intent(context, NotificationMonitorService.class));
                     break;
+                case ACTIVITY_RECOGNITION:
+                    Log.d("GATHERING SYSTEM", "Started activity recognition service");
+                    context.startService(new Intent(context,ActivityRecognitionBackgroundService.class));
+                    break;
                 default:
                     break;
             }
@@ -80,6 +85,6 @@ public class GatheringSystem {
         context.stopService(new Intent(context, WifiGatheringService.class));
         context.stopService(new Intent(context, PhoneCallGatheringService.class));
         context.stopService(new Intent(context, NotificationMonitorService.class));
-
+        context.stopService(new Intent(context,ActivityRecognitionBackgroundService.class));
     }
 }

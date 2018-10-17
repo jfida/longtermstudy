@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import usi.memotion.local.database.tables.AccelerometerTable;
+import usi.memotion.local.database.tables.ActivityRecognitionTable;
 import usi.memotion.local.database.tables.AnxietySurveyTable;
 import usi.memotion.local.database.tables.ApplicationLogsTable;
 import usi.memotion.local.database.tables.BlueToothTable;
@@ -60,9 +61,8 @@ public class LocalSQLiteDBHelper extends SQLiteOpenHelper {
         db.execSQL(LectureSurveyTable.getCreateQuery());
         db.execSQL(NotificationsTable.getCreateQuery());
         db.execSQL(ApplicationLogsTable.getCreateQuery());
+        db.execSQL(ActivityRecognitionTable.getCreateQuery());
         db.execSQL(AnxietySurveyTable.getCreateQuery());
-
-
 
 
         //insert init data to uploader_utility table
