@@ -89,11 +89,6 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
      */
     public void dailyUpload() {
 
-//            //clean all tables
-//            LocalTables[] a = LocalTables.values();
-//            for(LocalTables t: LocalTables.values()) {
-//                processTable(t);
-//            }
         processTable(LocalTables.TABLE_LECTURE_SURVEY);
         processTable(LocalTables.TABLE_APPLICATION_LOGS);
         processTable(LocalTables.TABLE_NOTIFICATIONS);

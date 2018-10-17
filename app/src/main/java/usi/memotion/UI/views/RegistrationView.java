@@ -212,19 +212,19 @@ public class RegistrationView extends Fragment {
         localController = SQLiteController.getInstance(getContext());
 
 
-//        String query = "SELECT * FROM usersTable";
-//        Cursor records = localController.rawQuery(query, null);
-//        records.moveToFirst();
-//
-//        String username = null;
-//
-//        if (records.getCount() > 0){
-//            username = records.getString(records.getColumnIndex(UserTable.USERNAME));
-//
-//        }
+        String query = "SELECT * FROM usersTable";
+        Cursor records = localController.rawQuery(query, null);
+        records.moveToFirst();
 
-//        String userName = username + "_" + androidID;
-        final Uploader uploader = new Uploader(androidID, switchDriveController, localController, dbHelper);
+        String username = null;
+
+        if (records.getCount() > 0){
+            username = records.getString(records.getColumnIndex(UserTable.USERNAME));
+
+        }
+
+        String userName = username + "_" + androidID;
+        final Uploader uploader = new Uploader(userName, switchDriveController, localController, dbHelper);
         uploader.oneTimeUpload();
     }
 
