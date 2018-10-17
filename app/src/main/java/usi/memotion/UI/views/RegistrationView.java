@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.provider.Settings;
@@ -36,6 +37,7 @@ import usi.memotion.UI.fragments.PersonalitySurveyFragment;
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
 import usi.memotion.local.database.db.LocalSQLiteDBHelper;
+import usi.memotion.local.database.tableHandlers.User;
 import usi.memotion.local.database.tables.LectureSurveyTable;
 import usi.memotion.local.database.tables.UserTable;
 import usi.memotion.remote.database.controllers.SwitchDriveController;
@@ -208,7 +210,21 @@ public class RegistrationView extends Fragment {
         switchDriveController = new SwitchDriveController(getContext().getString(R.string.server_address),
                 getContext().getString(R.string.token), getContext().getString(R.string.password));
         localController = SQLiteController.getInstance(getContext());
-        final Uploader uploader = new Uploader(androidID, switchDriveController, localController, dbHelper);
+
+
+        String query = "SELECT * FROM usersTable";
+        Cursor records = localController.rawQuery(query, null);
+        records.moveToFirst();
+
+        String username = null;
+
+        if (records.getCount() > 0){
+            username = records.getString(records.getColumnIndex(UserTable.USERNAME));
+
+        }
+
+        String userName = username + "_" + androidID;
+        final Uploader uploader = new Uploader(userName, switchDriveController, localController, dbHelper);
         uploader.oneTimeUpload();
     }
 

@@ -2,7 +2,6 @@ package usi.memotion.UI.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringDef;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import usi.memotion.FacebookArrayAdapter;
-import usi.memotion.PostLectureSurvey;
 import usi.memotion.R;
 import usi.memotion.local.database.db.LocalSQLiteDBHelper;
 

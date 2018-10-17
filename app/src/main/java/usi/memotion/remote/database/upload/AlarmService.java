@@ -10,6 +10,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -38,6 +39,7 @@ import usi.memotion.local.database.db.LocalSQLiteDBHelper;
 import usi.memotion.local.database.tableHandlers.ApplicationLogData;
 import usi.memotion.local.database.tables.ApplicationLogsTable;
 import usi.memotion.local.database.tables.NotificationsTable;
+import usi.memotion.local.database.tables.UserTable;
 import usi.memotion.remote.database.controllers.SwitchDriveController;
 
 
@@ -73,10 +75,22 @@ public class AlarmService extends IntentService {
         dbHelper = new LocalSQLiteDBHelper(getApplicationContext());
         switchDriveController = new SwitchDriveController(getApplicationContext().getString(R.string.server_address), getApplicationContext().getString(R.string.token), getApplicationContext().getString(R.string.password));
         localController = SQLiteController.getInstance(getApplicationContext());
-        final Uploader uploader = new Uploader(androidID, switchDriveController, localController, dbHelper);
+        String query = "SELECT * FROM usersTable";
+        Cursor records = localController.rawQuery(query, null);
+        records.moveToFirst();
+
+        String username = null;
+
+        if (records.getCount() > 0){
+            username = records.getString(records.getColumnIndex(UserTable.USERNAME));
+        }
+
+        String userName = username + "_" + androidID;
+
+        final Uploader uploader = new Uploader(userName, switchDriveController, localController, dbHelper);
 
         localStorageController = SQLiteController.getInstance(getApplicationContext());
-        mUsageStatsManager = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE); //Context.USAGE_STATS_SERVICE
+        mUsageStatsManager = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);
 
         //Insert data from UsageStats to ApplicationLogs table
         getUsageStatistics(UsageStatsManager.INTERVAL_DAILY);
@@ -93,25 +107,11 @@ public class AlarmService extends IntentService {
                 if (wifi.isConnected()) {
                     Log.v("Blla blla", "WIFI CONNECTED");
                     //Upload Local Tables
-//                    int response = uploader.upload();
                     uploader.dailyUpload();
-
-//                    if(response == 200){
-//                        timer.cancel();
-//                        timer.purge();
-//                        Log.v("UPLOAD TEST", "DATA UPLOADED, TIMER CANCELED");
-//                        setNotification(getApplicationContext(), "SWITCHdrive Upload", "Memotion data was successfully uploaded remotely on SWITCHdrive!", 1234512345);
-//                    }
                 }else{
                     Log.v("UPLOAD TEST NO WIFI", "TIMER NOT CANCELED, BUT TRY AGAIN TO UPLOAD");
                     uploader.dailyUpload();
 
-//                    if(response == 200){
-//                        timer.cancel();
-//                        timer.purge();
-//                        Log.v("UPLOAD TEST NO WIFI", "DATA UPLOADED, TIMER CANCELED");
-//                        setNotification(getApplicationContext(), "SWITCHdrive Upload", "Memotion data was successfully uploaded remotely on SWITCHdrive!", 1234512345);
-//                    }
                 }
             }
         }, 0, 1000*60*MINUTES);

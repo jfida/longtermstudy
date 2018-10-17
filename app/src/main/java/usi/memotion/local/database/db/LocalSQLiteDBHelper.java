@@ -10,7 +10,6 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import usi.memotion.PostLectureSurvey;
 import usi.memotion.local.database.tables.AccelerometerTable;
 import usi.memotion.local.database.tables.AnxietySurveyTable;
 import usi.memotion.local.database.tables.ApplicationLogsTable;

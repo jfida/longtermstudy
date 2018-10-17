@@ -33,22 +33,6 @@ public class FinalScheduler {
     private Reminder eveningSurvey = new Reminder(19, 0, "afternoon");
     private Reminder e4 = new Reminder(21, 15, "E4");
 
-//    /********** Mobile Computing - Day 1 ***********/
-//    private Weekday preLecture1 = new Weekday(9, 42, Calendar.FRIDAY, "Wednesday - Pre");
-//    private Weekday breakLecture1 = new Weekday(9, 41, Calendar.FRIDAY, "Wednesday - Break");
-//    private Weekday postLecture1 = new Weekday(9, 43, Calendar.FRIDAY, "Wednesday - Post");
-//
-//    /********** Mobile Computing - Day 2 ***********/
-//    private Weekday preLecture2 = new Weekday(9, 44, Calendar.FRIDAY, "Friday - Pre");
-//    private Weekday breakLecture2 = new Weekday(9, 45, Calendar.FRIDAY, "Friday - Break");
-//    private Weekday postLecture2 = new Weekday(9, 46, Calendar.FRIDAY, "Friday - Post");
-//
-//    /********** Daily Reminders *********/
-//    private Reminder morningSurvey = new Reminder(9, 47, "early morning");
-//    private Reminder afternoonSurvey = new Reminder(9, 48, "morning");
-//    private Reminder eveningSurvey = new Reminder(9, 49, "afternoon");
-//    private Reminder e4 = new Reminder(9, 50, "E4");
-
 
 
     private Calendar createCalendar(int day, int hour, int minute){
