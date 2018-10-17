@@ -1,6 +1,5 @@
 package usi.memotion.gathering;
 
-import java.util.jar.Manifest;
 
 /**
  * Created by Luca Dotti on 30/12/16.
@@ -15,7 +14,8 @@ public enum SensorType {
     USED_APPS(),
     PHONE_CALLS(android.Manifest.permission.READ_PHONE_STATE, android.Manifest.permission.PROCESS_OUTGOING_CALLS),
     NOTIFICATIONS(),
-    APPLICATION_LOGS();
+    APPLICATION_LOGS(),
+    ACTIVITY_RECOGNITION();
 
     private String[] permissions;
 
