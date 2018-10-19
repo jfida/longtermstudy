@@ -33,9 +33,7 @@ public class DetectedActivitiesIntentService extends IntentService {
         if (ActivityTransitionResult.hasResult(intent)) {
             ActivityTransitionResult result = ActivityTransitionResult.extractResult(intent);
             for (ActivityTransitionEvent event : result.getTransitionEvents()) {
-                if(ActivityRecognitionUtil.isValidActivity(event.getActivityType())) {
                     saveActivityRecognition(event.getActivityType(), event.getTransitionType());
-                }
             }
         }
     }
