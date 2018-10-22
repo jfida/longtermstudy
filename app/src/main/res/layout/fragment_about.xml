@@ -18,7 +18,7 @@
             android:id="@+id/textView19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Research Study: Studying audience responses to academic presentations during a conference."
+            android:text="Research Study: Unobtrusive Inference of User’s Well-being Using Smartphone and Wearable Devices "
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:paddingBottom="30dp"/>
 
@@ -41,7 +41,7 @@
             android:id="@+id/textview113"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="The purpose of this study is to investigate how the audience responds to conference presentations and what do these responses imply.  "/>
+            android:text="The purpose of this study is to assess the user’s well-being over time and the factors that may influence it (such as stress, productivity, mood and more), using smartphones and wearable devices. "/>
 
         <TextView
             android:id="@+id/textview114"
@@ -55,7 +55,7 @@
             android:id="@+id/textview115"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="During the conference, you will wear a sensing device– the E4 wristband by Empatica. The device will collect data about your blood pressure, galvanic skin response and skin temperature. This sensor data will give us an objective basis to understand your level of engagement/attention/interest during the presentations. You will also be asked to rank the papers of the conference and fill-in short questionnaires via Energieinformatik17 Android application. Your answers will allow us to gather information on your opinion about the presentation. You can refrain from answering any question you might prefer not to answer (e.g., because it makes you uncomfortable) and you can stop the survey at any time." />
+            android:text="You will install the Android application MEMOTION and wear the E4 wristband by Empatica. The E4 device will collect data about your blood pressure, galvanic skin response and skin temperature. This sensor data can be used as an objective basis to understand your affective state. The application will unobtrusively gather some sensor’s data (e.g: location, activity recognition, app usage, phone events, notification, SMS and phone calls). This sensor data can be used as an objective basis to understand your behavior.  You will be asked to fill-in short questionnaires three times per day. Your answers can be used to get information about your subjective perception of your well-being and to understand which are the main factors that may contribute to it (such as stress, productivity and mood). You can refrain from answering any question you might prefer not to answer (e.g., because it makes you uncomfortable) and you can stop the survey at any time. Your data will be anonymized and safely stored in the academic cloud storage service SWITCHdrive0F . We will give you access to your data and you can decide to delete it at any time."/>
 
         <TextView
             android:id="@+id/textview116"
@@ -69,7 +69,7 @@
             android:id="@+id/textview117"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="The study lasts as long as the Energieinformatik2017 conference. You are required to keep the device from the opening of the conference until the end of the day. " />
+            android:text="The study will require few minutes of your daily time for 4 weeks. " />
 
         <TextView
             android:id="@+id/textview118"
@@ -110,7 +110,7 @@
             android:id="@+id/textview123"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Shkurta Gashi, shkurta.gashi@usi.ch" />
+            android:text="Shkurta Gashi: shkurta.gashi@usi.ch, Elena Di Lascio: elena.di.lascio@usi.ch, Silvia Santini: silvia.santini@usi.ch" />
 
     </LinearLayout>
 </ScrollView>

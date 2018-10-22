@@ -38,10 +38,10 @@ public class ProfileFragment extends Fragment {
         dbHelper = new LocalSQLiteDBHelper(getContext());
 
         username = (TextView) rootview.findViewById(R.id.usernameValue);
-        empaticaId = (TextView)rootview.findViewById(R.id.empaticaID);
-        email = (TextView)rootview.findViewById(R.id.email);
-        switchtoken = (TextView)rootview.findViewById(R.id.switchtoken);
-        switchpassword = (TextView)rootview.findViewById(R.id.switchpwd);
+//        empaticaId = (TextView)rootview.findViewById(R.id.empaticaID);
+//        email = (TextView)rootview.findViewById(R.id.email);
+//        switchtoken = (TextView)rootview.findViewById(R.id.switchtoken);
+//        switchpassword = (TextView)rootview.findViewById(R.id.switchpwd);
         age = (TextView)rootview.findViewById(R.id.ageValue);
         gender = (TextView)rootview.findViewById(R.id.genderValue);
         status = (TextView) rootview.findViewById(R.id.statusValue);
@@ -54,10 +54,10 @@ public class ProfileFragment extends Fragment {
         records.moveToFirst();
 
         username.setText(records.getString(records.getColumnIndex(UserTable.USERNAME)));
-        empaticaId.setText(records.getString(records.getColumnIndex(UserTable.EMPATICAID)));
-        switchtoken.setText(records.getString(records.getColumnIndex(UserTable.SWITCH_TOKEN)));
-        switchpassword.setText(records.getString(records.getColumnIndex(UserTable.SWITCH_PASSWORD)));
-        email.setText(records.getString(records.getColumnIndex(UserTable.EMAIL)));
+//        empaticaId.setText(records.getString(records.getColumnIndex(UserTable.EMPATICAID)));
+//        switchtoken.setText(records.getString(records.getColumnIndex(UserTable.SWITCH_TOKEN)));
+//        switchpassword.setText(records.getString(records.getColumnIndex(UserTable.SWITCH_PASSWORD)));
+//        email.setText(records.getString(records.getColumnIndex(UserTable.EMAIL)));
         age.setText(records.getString(records.getColumnIndex(UserTable.COLUMN_AGE)));
         gender.setText(records.getString(records.getColumnIndex(UserTable.COLUMN_GENDER)));
         status.setText(records.getString(records.getColumnIndex(UserTable.COLUMN_STATUS)));

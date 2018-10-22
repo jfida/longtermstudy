@@ -28,10 +28,10 @@ public class FinalScheduler {
     private Weekday postLecture2 = new Weekday(15, 15, Calendar.FRIDAY, "Friday - Post");
 
     /********** Daily Reminders *********/
-    private Reminder morningSurvey = new Reminder(7, 15, "early morning");
+    private Reminder morningSurvey = new Reminder(7, 15, "early morning"); //7:15
     private Reminder afternoonSurvey = new Reminder(12, 30, "morning");
     private Reminder eveningSurvey = new Reminder(19, 0, "afternoon");
-    private Reminder e4 = new Reminder(21, 15, "E4");
+    private Reminder e4 = new Reminder(21, 15, "E4"); //21:15
 
 
 

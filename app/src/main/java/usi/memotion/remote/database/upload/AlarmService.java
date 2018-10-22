@@ -31,7 +31,6 @@ import java.util.TimerTask;
 
 import usi.memotion.MainActivity;
 import usi.memotion.R;
-import usi.memotion.gathering.gatheringServices.ApplicationLogs.AppUsageStatisticsFragment;
 import usi.memotion.gathering.gatheringServices.ApplicationLogs.CustomUsageStats;
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
@@ -58,7 +57,6 @@ public class AlarmService extends IntentService {
 
     UsageStatsManager mUsageStatsManager;
     LocalStorageController localStorageController;
-
 
     public AlarmService() {
         super("AlarmService");
