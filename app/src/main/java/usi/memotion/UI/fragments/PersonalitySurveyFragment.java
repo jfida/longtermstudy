@@ -322,13 +322,13 @@ public class PersonalitySurveyFragment extends Fragment {
     }
 
     private boolean isSpinnerValid(Spinner spinner){
-        int selected1 = spinner.getSelectedItemPosition();
-        TextView text1 = (TextView)spinner.getSelectedView();
-        if(((String)spinner.getItemAtPosition(selected1)).equals("Select")){
-            text1.setError("error");
+        int selected = spinner.getSelectedItemPosition();
+        TextView text = (TextView)spinner.getSelectedView();
+        if(((String)spinner.getItemAtPosition(selected)).equals("Select")){
+            text.setError("error");
             return false;
         } else {
-            text1.setError(null);
+            text.setError(null);
             return true;
         }
     }

@@ -23,6 +23,7 @@ import usi.memotion.local.database.tables.PhoneCallLogTable;
 import usi.memotion.local.database.tables.LocationTable;
 import usi.memotion.local.database.tables.PhoneLockTable;
 import usi.memotion.local.database.tables.SMSTable;
+import usi.memotion.local.database.tables.SWLSSurveyTable;
 import usi.memotion.local.database.tables.SimpleMoodTable;
 import usi.memotion.local.database.tables.UploaderUtilityTable;
 import usi.memotion.local.database.tables.UserTable;
@@ -65,6 +66,7 @@ public class LocalSQLiteDBHelper extends SQLiteOpenHelper {
         db.execSQL(ActivityRecognitionTable.getCreateQuery());
         db.execSQL(AnxietySurveyTable.getCreateQuery());
         db.execSQL(PersonalitySurveyTable.getCreateQuery());
+        db.execSQL(SWLSSurveyTable.getCreateQuery());
 
 
         //insert init data to uploader_utility table
