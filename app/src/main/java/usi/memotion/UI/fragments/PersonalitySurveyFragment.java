@@ -3,14 +3,10 @@ package usi.memotion.UI.fragments;
 
 import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,14 +19,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
 
 import usi.memotion.R;
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
-import usi.memotion.local.database.tables.AnxietySurveyTable;
 import usi.memotion.local.database.tables.PersonalitySurveyTable;
-import usi.memotion.local.database.tables.UserTable;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -157,8 +150,6 @@ public class PersonalitySurveyFragment extends Fragment {
     }
 
     private void setUpSpinnerListeners() {
-
-        // Set the integer ageSelection to the constant values
         question1Options.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
 
             @Override
