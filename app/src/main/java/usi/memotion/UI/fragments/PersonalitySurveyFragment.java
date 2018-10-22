@@ -1,10 +1,15 @@
 package usi.memotion.UI.fragments;
 
 
+import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,9 +18,18 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import usi.memotion.R;
+import usi.memotion.local.database.controllers.LocalStorageController;
+import usi.memotion.local.database.controllers.SQLiteController;
+import usi.memotion.local.database.tables.AnxietySurveyTable;
+import usi.memotion.local.database.tables.PersonalitySurveyTable;
 import usi.memotion.local.database.tables.UserTable;
 
 /**
@@ -29,6 +43,10 @@ public class PersonalitySurveyFragment extends Fragment {
     private String answer1, answer2, answer3, answer4, answer5, answer6, answer7, answer8, answer9, answer10;
 
     private Button submitButton;
+
+    private ImageButton information;
+
+    private LocalStorageController localcontroller;
 
     public PersonalitySurveyFragment() {
         // Required empty public constructor
@@ -52,7 +70,10 @@ public class PersonalitySurveyFragment extends Fragment {
         question9Options = (Spinner) root.findViewById(R.id.tipi_q9_options);
         question10Options = (Spinner) root.findViewById(R.id.tipi_q10_options);
 
+        localcontroller = SQLiteController.getInstance(getContext());
+
         submitButton = (Button) root.findViewById(R.id.submit_tipi);
+        information = (ImageButton) root.findViewById(R.id.info_TIPI);
 
         Spinner[] spinners = {question1Options, question2Options, question3Options, question4Options,
                 question5Options, question6Options, question7Options, question8Options, question9Options, question10Options};
@@ -66,10 +87,58 @@ public class PersonalitySurveyFragment extends Fragment {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment newFragment = new SWLSSurveyFragment();
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.content_frame, newFragment);
-                ft.commit();
+                if(validateSpinners()) {
+                    ContentValues record = new ContentValues();
+                    record.put(PersonalitySurveyTable.TIMESTAMP, System.currentTimeMillis());
+                    record.put(PersonalitySurveyTable.QUESTION_1, Integer.parseInt(question1Options.getSelectedItem().toString()));
+                    record.put(PersonalitySurveyTable.QUESTION_2, Integer.parseInt(question2Options.getSelectedItem().toString()));
+                    record.put(PersonalitySurveyTable.QUESTION_3, Integer.parseInt(question3Options.getSelectedItem().toString()));
+                    record.put(PersonalitySurveyTable.QUESTION_4, Integer.parseInt(question4Options.getSelectedItem().toString()));
+                    record.put(PersonalitySurveyTable.QUESTION_5, Integer.parseInt(question5Options.getSelectedItem().toString()));
+                    record.put(PersonalitySurveyTable.QUESTION_6, Integer.parseInt(question6Options.getSelectedItem().toString()));
+                    record.put(PersonalitySurveyTable.QUESTION_7, Integer.parseInt(question7Options.getSelectedItem().toString()));
+                    record.put(PersonalitySurveyTable.QUESTION_8, Integer.parseInt(question8Options.getSelectedItem().toString()));
+                    record.put(PersonalitySurveyTable.QUESTION_9, Integer.parseInt(question9Options.getSelectedItem().toString()));
+                    record.put(PersonalitySurveyTable.QUESTION_10, Integer.parseInt(question10Options.getSelectedItem().toString()));
+                    localcontroller.insertRecord(PersonalitySurveyTable.TABLE_PERSONALITY_SURVEY, record);
+
+                    Log.d("PERSONALITY SURVEYS", "Added record: ts: " + record.get(PersonalitySurveyTable.TIMESTAMP));
+
+
+                    //Show thank you message
+                    Toast.makeText(getContext(), "Thank you very much!", Toast.LENGTH_SHORT).show();
+
+                    Fragment newFragment = new SWLSSurveyFragment();
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.content_frame, newFragment);
+                    ft.commit();
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle(R.string.fill_answers);
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            }
+        });
+
+        information.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(R.string.TIPI_scale_title);
+                builder.setMessage(R.string.TIPI_scale);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
@@ -243,9 +312,34 @@ public class PersonalitySurveyFragment extends Fragment {
                 answer10 = ""; // Unknown
             }
         });
+    }
 
 
+    private boolean validateSpinners() {
+        boolean valid = true;
+        valid = isSpinnerValid(question1Options);
+        valid = isSpinnerValid(question2Options);
+        valid = isSpinnerValid(question3Options);
+        valid = isSpinnerValid(question4Options);
+        valid = isSpinnerValid(question5Options);
+        valid = isSpinnerValid(question6Options);
+        valid = isSpinnerValid(question7Options);
+        valid = isSpinnerValid(question8Options);
+        valid = isSpinnerValid(question9Options);
+        valid = isSpinnerValid(question10Options);
+        return valid;
+    }
 
+    private boolean isSpinnerValid(Spinner spinner){
+        int selected1 = spinner.getSelectedItemPosition();
+        TextView text1 = (TextView)spinner.getSelectedView();
+        if(((String)spinner.getItemAtPosition(selected1)).equals("Select")){
+            text1.setError("error");
+            return false;
+        } else {
+            text1.setError(null);
+            return true;
+        }
     }
 }
 

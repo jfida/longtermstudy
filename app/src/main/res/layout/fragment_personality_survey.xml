@@ -38,11 +38,28 @@
                 android:paddingRight="35dp"
                 android:text="@string/personality_instructions" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18dp"
-                android:text="I see myself as: "/>
+                android:text="I see myself as: "
+                android:layout_weight="0.5"/>
+
+            <ImageButton
+                android:id="@+id/info_TIPI"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:adjustViewBounds="true"
+                android:padding="10dp"
+                android:layout_marginRight="20dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/information" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
