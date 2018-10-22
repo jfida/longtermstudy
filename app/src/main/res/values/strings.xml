@@ -354,7 +354,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="TIPI_scale">1: Disagree strongly   2: Disagree moderately 3: Disagree a little   4: Neither agree or disagree   5: Agree a little   6: Agree moderately   7: Strongly agree</string>
+    <string name="TIPI_scale">1: Disagree strong \n 2: Disagree moderately \n 3: Disagree a little \n 4: Neither agree or disagree \n 5: Agree a little \n 6: Agree moderately \n 7: Strongly agree</string>
     <string name="TIPI_scale_title">Personality test scale</string>
     <string name="fill_answers">Please fill out all the answers!</string>
 </resources>
