@@ -48,7 +48,6 @@ import usi.memotion.UI.fragments.HomeFragment;
 import usi.memotion.UI.fragments.ProfileFragment;
 import usi.memotion.UI.views.RegistrationView;
 import usi.memotion.gathering.gatheringServices.ActivityRecogntion.ActivityRecognitionBackgroundService;
-import usi.memotion.gathering.gatheringServices.ApplicationLogs.AppUsageStatisticsFragment;
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
 import usi.memotion.gathering.GatheringSystem;
@@ -277,11 +276,11 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                 viewIsAtHome = false;
                 break;
 
-            case R.id.nav_usage_statistics:
-                fragment = new AppUsageStatisticsFragment();
-                title = "Application Logs";
-                viewIsAtHome = false;
-                break;
+//            case R.id.nav_usage_statistics:
+//                fragment = new AppUsageStatisticsFragment();
+//                title = "Application Logs";
+//                viewIsAtHome = false;
+//                break;
 
             case R.id.nav_register:
                 if(checkAndroidID()){

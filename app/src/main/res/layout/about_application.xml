@@ -23,7 +23,7 @@ android:fillViewport="true">
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
         android:textSize="20dp"
-        android:text="MEMOTION needs to access some personal information:"
+        android:text="MEMOTION collects the following information:"
         android:paddingBottom="15dp"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,13 +45,13 @@ android:fillViewport="true">
             android:textColor="@android:color/white"
             android:textSize="15dp"
             android:paddingBottom="10dp"
-            android:text="The location is gathered using the GPS or WIFI sensors. The location will be used at the end of the study to find correlation between the user's movements and his mood."/>
+            android:text="The time and coordinates of the location are gathered using the GPS or WIFI sensors."/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
-            android:text="Accelerometer"
+            android:text="Activity"
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="15dp"
@@ -62,7 +62,43 @@ android:fillViewport="true">
             android:textColor="@android:color/white"
             android:textSize="15dp"
             android:paddingBottom="10dp"
-            android:text="The accelerometer information is gathered from the accelerometer sensor. This information is used to identify the current user's activity."/>
+            android:text="The time and type of activity of the user."/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:text="Application"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:paddingBottom="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="15dp"
+            android:paddingBottom="10dp"
+            android:text="The time and type of applications used. "/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:text="Notification"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:paddingBottom="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="15dp"
+            android:paddingBottom="10dp"
+            android:text="The time and name of the application where the notification came from. "/>
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,6 +115,7 @@ android:fillViewport="true">
             android:textSize="15dp"
             android:paddingBottom="10dp"
             android:text="The WIFI information is gathered from the wifi sensor. This information is used to perform indoor localization and places labeling."/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -127,6 +164,75 @@ android:fillViewport="true">
             android:textSize="15dp"
             android:paddingBottom="10dp"
             android:text="The phone lock/unlock events are collected."/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:text="One-time surveys"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:paddingBottom="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="15dp"
+            android:paddingBottom="10dp"
+            android:text="Surveys regarding user’s personality, stress, satisfaction with life"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:text="Lecture surveys"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:paddingBottom="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="15dp"
+            android:paddingBottom="10dp"
+            android:text="Surveys regarding the experience during a lecture (i.e., engagement, attention)."/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:text="Daily surveys"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:paddingBottom="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="15dp"
+            android:paddingBottom="10dp"
+            android:text="Surveys about the sleep quality, affect, productivity, fatigue and stress levels during the day. "/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:text="Weekly surveys"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:paddingBottom="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="15dp"
+            android:paddingBottom="10dp"
+            android:text="Surveys about the well-being in general for the past week."/>
     </LinearLayout>
 
 </LinearLayout>

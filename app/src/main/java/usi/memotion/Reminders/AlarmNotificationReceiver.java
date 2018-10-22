@@ -1,5 +1,6 @@
 package usi.memotion.Reminders;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -65,6 +66,11 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
         builder.setAutoCancel(true);
         builder.setOngoing(true);
+//        builder.setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+
+
+//        long[] pattern = {500,500,500,500,500,500};
+//        builder.setVibrate(pattern);
 
 
         /*
@@ -105,6 +111,11 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
         builder.setAutoCancel(true);
         builder.setOngoing(true);
+//        builder.setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+
+
+//        long[] pattern = {500,500,500,500,500,500};
+//        builder.setVibrate(pattern);
 
 
         Intent intent = new Intent(context, MainActivity.class);
@@ -141,6 +152,11 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
         builder.setAutoCancel(true);
         builder.setOngoing(true);
+//        builder.setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+
+
+//        long[] pattern = {500,500,500,500,500,500};
+//        builder.setVibrate(pattern);
 
 
         Intent intent = new Intent(context, MainActivity.class);
