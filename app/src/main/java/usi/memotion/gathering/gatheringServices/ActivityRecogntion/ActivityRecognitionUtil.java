@@ -9,8 +9,6 @@ public class ActivityRecognitionUtil{
                 return "IN_VEHICLE";
             case DetectedActivity.ON_BICYCLE:
                 return "ON_BICYCLE";
-            case DetectedActivity.ON_FOOT:
-                return "ON_FOOT";
             case DetectedActivity.RUNNING:
                 return "RUNNING";
             case DetectedActivity.STILL:
@@ -26,16 +24,5 @@ public class ActivityRecognitionUtil{
         if(transition==0)
             return "ENTER";
         return "EXIT";
-    }
-
-    public static boolean isValidActivity(int activity){
-        if (activity == DetectedActivity.IN_VEHICLE ||
-                activity == DetectedActivity.ON_BICYCLE ||
-                activity == DetectedActivity.ON_FOOT ||
-                activity == DetectedActivity.RUNNING ||
-                activity == DetectedActivity.STILL ||
-                activity == DetectedActivity.WALKING)
-            return true;
-        return false;
     }
 }
