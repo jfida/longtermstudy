@@ -307,18 +307,18 @@ public class PersonalitySurveyFragment extends Fragment {
 
 
     private boolean validateSpinners() {
-        boolean valid = true;
-        valid = isSpinnerValid(question1Options);
-        valid = isSpinnerValid(question2Options);
-        valid = isSpinnerValid(question3Options);
-        valid = isSpinnerValid(question4Options);
-        valid = isSpinnerValid(question5Options);
-        valid = isSpinnerValid(question6Options);
-        valid = isSpinnerValid(question7Options);
-        valid = isSpinnerValid(question8Options);
-        valid = isSpinnerValid(question9Options);
-        valid = isSpinnerValid(question10Options);
-        return valid;
+        boolean valid1 = isSpinnerValid(question1Options);
+        boolean valid2 = isSpinnerValid(question2Options);
+        boolean valid3 = isSpinnerValid(question3Options);
+        boolean valid4 = isSpinnerValid(question4Options);
+        boolean valid5 = isSpinnerValid(question5Options);
+        boolean valid6 = isSpinnerValid(question6Options);
+        boolean valid7 = isSpinnerValid(question7Options);
+        boolean valid8 = isSpinnerValid(question8Options);
+        boolean valid9 = isSpinnerValid(question9Options);
+        boolean valid10 = isSpinnerValid(question10Options);
+        return valid1 && valid2 && valid3 && valid4 && valid5 && valid6 && valid7
+                &&valid8 && valid9 && valid10;
     }
 
     private boolean isSpinnerValid(Spinner spinner){

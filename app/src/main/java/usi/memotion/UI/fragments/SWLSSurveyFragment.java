@@ -85,16 +85,16 @@ public class SWLSSurveyFragment extends Fragment {
                     record.put(SWLSSurveyTable.QUESTION_5, Integer.parseInt(question5Options.getSelectedItem().toString()));
                     localcontroller.insertRecord(SWLSSurveyTable.TABLE_SWLSS_SURVEY, record);
 
-                    Log.d("SWLSS SURVEYS", "Added record: ts: " + record.get(PersonalitySurveyTable.TIMESTAMP));
+                    Log.d("SWLSS SURVEYS", "Added record: ts: " + record.get(SWLSSurveyTable.TIMESTAMP));
 
 
                     //Show thank you message
                     Toast.makeText(getContext(), "Thank you very much!", Toast.LENGTH_SHORT).show();
 
-                    /*Fragment newFragment = new SWLSSurveyFragment();
+                    Fragment newFragment = new PSSSurveyFragment();
                     FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                     ft.replace(R.id.content_frame, newFragment);
-                    ft.commit();*/
+                    ft.commit();
 
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -222,15 +222,14 @@ public class SWLSSurveyFragment extends Fragment {
         });
     }
 
-        private boolean validateSpinners () {
-            boolean valid = true;
-            valid = isSpinnerValid(question1Options);
-            valid = isSpinnerValid(question2Options);
-            valid = isSpinnerValid(question3Options);
-            valid = isSpinnerValid(question4Options);
-            valid = isSpinnerValid(question5Options);
-            return valid;
-        }
+    private boolean validateSpinners() {
+        boolean valid1 = isSpinnerValid(question1Options);
+        boolean valid2 = isSpinnerValid(question2Options);
+        boolean valid3 = isSpinnerValid(question3Options);
+        boolean valid4 = isSpinnerValid(question4Options);
+        boolean valid5 = isSpinnerValid(question5Options);
+        return valid1 && valid2 && valid3 && valid4 && valid5;
+    }
 
         private boolean isSpinnerValid(Spinner spinner){
             int selected = spinner.getSelectedItemPosition();

@@ -1,0 +1,977 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.fragments.PSQISurveyFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="30dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/pittsburgh_sleep_quality_index"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorGreen" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:paddingRight="35dp"
+                android:text="@string/psqi_instructions" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_q1" />
+
+                <EditText
+                    android:id="@+id/psqi_q1_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="time"
+                    android:scrollbars="vertical" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_q2" />
+
+                <EditText
+                    android:id="@+id/psqi_q2_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:scrollbars="vertical" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_q3" />
+
+                <EditText
+                    android:id="@+id/psqi_q3_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="time"
+                    android:scrollbars="vertical" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_q4" />
+
+                <EditText
+                    android:id="@+id/psqi_q4_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:scrollbars="vertical" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/psqi_q5" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/psqi_q5a" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/group_5a">
+
+                <RadioButton
+                    android:id="@+id/option1_q5a"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_not_during_the_past_month"/>
+
+                <RadioButton
+                    android:id="@+id/option2_q5a"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_less_than_once_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option3_q5a"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_once_or_twice_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option4_q5a"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_three_or_more_times_a_week"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/psqi_q5b" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/group_5b">
+
+                <RadioButton
+                    android:id="@+id/option1_q5b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_not_during_the_past_month"/>
+
+                <RadioButton
+                    android:id="@+id/option2_q5b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_less_than_once_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option3_q5b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_once_or_twice_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option4_q5b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_three_or_more_times_a_week"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/psqi_q5c" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/group_5c">
+
+                <RadioButton
+                    android:id="@+id/option1_q5c"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_not_during_the_past_month"/>
+
+                <RadioButton
+                    android:id="@+id/option2_q5c"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_less_than_once_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option3_q5c"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_once_or_twice_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option4_q5c"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_three_or_more_times_a_week"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/psqi_q5d" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/group_5d">
+
+                <RadioButton
+                    android:id="@+id/option1_q5d"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_not_during_the_past_month"/>
+
+                <RadioButton
+                    android:id="@+id/option2_q5d"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_less_than_once_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option3_q5d"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_once_or_twice_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option4_q5d"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_three_or_more_times_a_week"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/psqi_q5e" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/group_5e">
+
+                <RadioButton
+                    android:id="@+id/option1_q5e"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_not_during_the_past_month"/>
+
+                <RadioButton
+                    android:id="@+id/option2_q5e"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_less_than_once_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option3_q5e"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_once_or_twice_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option4_q5e"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_three_or_more_times_a_week"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/psqi_q5f" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/group_5f">
+
+                <RadioButton
+                    android:id="@+id/option1_q5f"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_not_during_the_past_month"/>
+
+                <RadioButton
+                    android:id="@+id/option2_q5f"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_less_than_once_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option3_q5f"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_once_or_twice_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option4_q5f"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_three_or_more_times_a_week"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/psqi_q5g" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/group_5g">
+
+                <RadioButton
+                    android:id="@+id/option1_q5g"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_not_during_the_past_month"/>
+
+                <RadioButton
+                    android:id="@+id/option2_q5g"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_less_than_once_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option3_q5g"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_once_or_twice_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option4_q5g"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_three_or_more_times_a_week"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/psqi_q5h" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/group_5h">
+
+                <RadioButton
+                    android:id="@+id/option1_q5h"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_not_during_the_past_month"/>
+
+                <RadioButton
+                    android:id="@+id/option2_q5h"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_less_than_once_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option3_q5h"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_once_or_twice_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option4_q5h"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_three_or_more_times_a_week"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/psqi_q5i" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/group_5i">
+
+                <RadioButton
+                    android:id="@+id/option1_q5i"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_not_during_the_past_month"/>
+
+                <RadioButton
+                    android:id="@+id/option2_q5i"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_less_than_once_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option3_q5i"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_once_or_twice_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option4_q5i"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_three_or_more_times_a_week"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/psqi_q5j" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/psqi_q5j_text"/>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/group_5j">
+
+                <RadioButton
+                    android:id="@+id/option1_q5j"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_not_during_the_past_month"/>
+
+                <RadioButton
+                    android:id="@+id/option2_q5j"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_less_than_once_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option3_q5j"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_once_or_twice_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option4_q5j"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_three_or_more_times_a_week"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/psqi_q6" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/group_6">
+
+                <RadioButton
+                    android:id="@+id/option1_q6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_very_good"/>
+
+                <RadioButton
+                    android:id="@+id/option2_q6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_fairly_good"/>
+
+                <RadioButton
+                    android:id="@+id/option3_q6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_fairly_bad"/>
+
+                <RadioButton
+                    android:id="@+id/option4_q6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_very_bad"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/psqi_q7" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/group_7">
+
+                <RadioButton
+                    android:id="@+id/option1_q7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_not_during_the_past_month"/>
+
+                <RadioButton
+                    android:id="@+id/option2_q7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_less_than_once_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option3_q7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_once_or_twice_a_week"/>
+                <RadioButton
+                    android:id="@+id/option4_q7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_three_or_more_times_a_week"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/psqi_q8" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/group_8">
+
+                <RadioButton
+                    android:id="@+id/option1_q8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_not_during_the_past_month"/>
+
+                <RadioButton
+                    android:id="@+id/option2_q8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_less_than_once_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option3_q8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_once_or_twice_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option4_q8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_three_or_more_times_a_week"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/psqi_q9" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/group_9">
+
+                <RadioButton
+                    android:id="@+id/option1_q9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_no_problem"/>
+
+                <RadioButton
+                    android:id="@+id/option2_q9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_only_slight_problem"/>
+
+                <RadioButton
+                    android:id="@+id/option3_q9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_somewhat_of_a_problem"/>
+
+                <RadioButton
+                    android:id="@+id/option4_q9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_very_big_problem"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/psqi_q10" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/group_10">
+
+                <RadioButton
+                    android:id="@+id/option1_q10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No bed partner or roommate"/>
+
+                <RadioButton
+                    android:id="@+id/option2_q10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Partner/roommate in other room"/>
+
+                <RadioButton
+                    android:id="@+id/option3_q10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Partner in same room, but not same bed"/>
+
+                <RadioButton
+                    android:id="@+id/option4_q10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Partner in same bed"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/psqi_q10a" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/group_10a">
+
+                <RadioButton
+                    android:id="@+id/option1_q10a"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_not_during_the_past_month"/>
+
+                <RadioButton
+                    android:id="@+id/option2_q10a"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_less_than_once_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option3_q10a"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_once_or_twice_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option4_q10a"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_three_or_more_times_a_week"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/psqi_q10b" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/group_10b">
+
+                <RadioButton
+                    android:id="@+id/option1_q10b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_not_during_the_past_month"/>
+
+                <RadioButton
+                    android:id="@+id/option2_q10b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_less_than_once_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option3_q10b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_once_or_twice_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option4_q10b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_three_or_more_times_a_week"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/psqi_q10c" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/group_10c">
+
+                <RadioButton
+                    android:id="@+id/option1_q10c"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_not_during_the_past_month"/>
+
+                <RadioButton
+                    android:id="@+id/option2_q10c"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_less_than_once_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option3_q10c"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_once_or_twice_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option4_q10c"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_three_or_more_times_a_week"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/psqi_q10d" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/group_10d">
+
+                <RadioButton
+                    android:id="@+id/option1_q10d"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_not_during_the_past_month"/>
+
+                <RadioButton
+                    android:id="@+id/option2_q10d"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_less_than_once_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option3_q10d"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_once_or_twice_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option4_q10d"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_three_or_more_times_a_week"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/psqi_q10e" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/group_10e">
+
+                <RadioButton
+                    android:id="@+id/option1_q10e"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_not_during_the_past_month"/>
+
+                <RadioButton
+                    android:id="@+id/option2_q10e"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_less_than_once_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option3_q10e"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_once_or_twice_a_week"/>
+
+                <RadioButton
+                    android:id="@+id/option4_q10e"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/psqi_option_three_or_more_times_a_week"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/submit_psqi"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Submit" />
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
