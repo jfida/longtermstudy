@@ -15,6 +15,7 @@ import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
 import usi.memotion.local.database.tables.FatigueSurveyTable;
 import usi.memotion.local.database.tables.OverallSurveyTable;
+import usi.memotion.local.database.tables.ProductivitySurveyTable;
 import usi.memotion.local.database.tables.SleepQualityTable;
 
 public class Surveys extends AppCompatActivity {
@@ -23,8 +24,18 @@ public class Surveys extends AppCompatActivity {
     private EditText early_morning_q2;
     private RadioGroup early_morning_q3;
     private RadioGroup early_morning_q4;
+
     private RadioGroup fatigue_q1;
+
     private RadioGroup morning_overall_q1;
+
+    private RadioGroup productivity_morning_q1;
+    private RadioGroup productivity_morning_q2;
+    private EditText productivity_morning_q3;
+    private EditText productivity_morning_q4;
+
+
+
 
     private LocalStorageController localController;
 
@@ -37,7 +48,7 @@ public class Surveys extends AppCompatActivity {
 
         if (getIntent().getStringExtra("type_daily") != null) {
             if (getIntent().getStringExtra("type_daily").equals(getString(R.string.early_morning))) {
-                AlertDialog.Builder builderSleep = new AlertDialog.Builder(this);
+                final AlertDialog.Builder builderSleep = new AlertDialog.Builder(this);
                 final AlertDialog.Builder builderFatigue = new AlertDialog.Builder(this);
 
                 builderSleep.setCancelable(false);
@@ -85,7 +96,7 @@ public class Surveys extends AppCompatActivity {
 
                         dialog.dismiss();
 
-                        builderFatigue.setPositiveButton("NEXT", new DialogInterface.OnClickListener() {
+                        builderFatigue.setPositiveButton("FINISH", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 fatigue_q1 = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.fatigue_q1);
@@ -131,13 +142,17 @@ public class Surveys extends AppCompatActivity {
                 builderSleep.create();
                 builderSleep.show();
             } else if (getIntent().getStringExtra("type_daily").equals(getString(R.string.morning))) {
-                AlertDialog.Builder builderOverall = new AlertDialog.Builder(this);
+                final AlertDialog.Builder builderOverall = new AlertDialog.Builder(this);
+                final AlertDialog.Builder builderProductivity = new AlertDialog.Builder(this);
 
                 builderOverall.setCancelable(false);
+                builderProductivity.setCancelable(false);
 
                 builderOverall.setTitle(getString(R.string.overall));
+                builderProductivity.setTitle(getString(R.string.productivity));
 
                 builderOverall.setView(inflater.inflate(R.layout.morning_questionnaire_overall, null));
+                builderProductivity.setView(inflater.inflate(R.layout.morning_productivity_survey, null));
 
                 builderOverall.setPositiveButton("NEXT", new DialogInterface.OnClickListener() {
                     @Override
@@ -160,6 +175,54 @@ public class Surveys extends AppCompatActivity {
                         Log.d("OVERALL SURVEYS", "Added record: ts: " + record.get(OverallSurveyTable.TIMESTAMP));
 
                         dialog.dismiss();
+
+                        builderProductivity.setPositiveButton("NEXT", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                productivity_morning_q1 = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.productivity_morning_q1);
+                                productivity_morning_q2 = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.productivity_morning_q2);
+                                productivity_morning_q3 = (EditText) ((AlertDialog) dialog).findViewById(R.id.productivity_morning_q3);
+                                productivity_morning_q4 = (EditText) ((AlertDialog) dialog).findViewById(R.id.productivity_morning_q4);
+
+                                ContentValues record = new ContentValues();
+                                record.put(ProductivitySurveyTable.TIMESTAMP, System.currentTimeMillis());
+                                int choiceq1 = productivity_morning_q1.getCheckedRadioButtonId();
+                                String answer1;
+                                if (choiceq1 > 0) {
+                                    RadioButton radio1 = (RadioButton) productivity_morning_q1.findViewById(choiceq1);
+                                    answer1 = radio1.getText().toString();
+                                } else {
+                                    answer1 = "UNKNOWN";
+                                }
+                                record.put(ProductivitySurveyTable.QUESTION_1, answer1);
+                                int choiceq2 = productivity_morning_q2.getCheckedRadioButtonId();
+                                String answer2;
+                                if (choiceq2 > 0) {
+                                    RadioButton radio2 = (RadioButton) productivity_morning_q2.findViewById(choiceq2);
+                                    answer2 = radio2.getText().toString();
+                                } else {
+                                    answer2 = "UNKNOWN";
+                                }
+                                record.put(ProductivitySurveyTable.QUESTION_2, answer2);
+                                record.put(ProductivitySurveyTable.QUESTION_3, productivity_morning_q3.getText().toString());
+                                record.put(ProductivitySurveyTable.QUESTION_3, productivity_morning_q4.getText().toString());
+
+                                localController.insertRecord(ProductivitySurveyTable.TABLE_PRODUCTIVITY_SURVEY, record);
+
+                                Log.d("PRODUCTIVITY SURVEYS", "Added record: ts: " + record.get(ProductivitySurveyTable.TIMESTAMP));
+
+                                dialog.dismiss();
+                            }
+                        });
+                        builderProductivity.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                                Surveys.this.finish();
+                            }
+                        });
+                        builderProductivity.create();
+                        builderProductivity.show();
                     }
                 });
                 builderOverall.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {

@@ -14,6 +14,7 @@ import usi.memotion.local.database.tables.PSSSurveyTable;
 import usi.memotion.local.database.tables.PersonalitySurveyTable;
 import usi.memotion.local.database.tables.PhoneCallLogTable;
 import usi.memotion.local.database.tables.PhoneLockTable;
+import usi.memotion.local.database.tables.ProductivitySurveyTable;
 import usi.memotion.local.database.tables.SMSTable;
 import usi.memotion.local.database.tables.SWLSSurveyTable;
 import usi.memotion.local.database.tables.SimpleMoodTable;
@@ -26,7 +27,7 @@ import usi.memotion.local.database.tables.WiFiTable;
  */
 
 public class LocalDbUtility {
-    private final static int DATA_TABLES_COUNT = 19;
+    private final static int DATA_TABLES_COUNT = 21;
 
 
     public static String getTableName(LocalTables table) {
@@ -115,6 +116,8 @@ public class LocalDbUtility {
                 return FatigueSurveyTable.getColumns();
             case TABLE_OVERALL_SURVEY:
                 return OverallSurveyTable.getColumns();
+            case TABLE_PRODUCTIVITY_SURVEY:
+                return ProductivitySurveyTable.getColumns();
             default:
                 return null;
         }

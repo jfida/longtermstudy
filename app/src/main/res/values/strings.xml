@@ -378,13 +378,19 @@
     <string name="sleep_quality">Sleep Quality</string>
     <string name="fatigue">Fatigue</string>
     <string name="overall">Overall</string>
+    <string name="productivity">Productivity</string>
+    <string name="affect">Affect</string>
+    <string name="stress">Stress</string>
+
     <string name="early_morning">early_morning</string>
     <string name="morning">morning</string>
     <string name="afternoon">afternoon</string>
+
     <string name="daily_sleep_q1">Please indicate your bedtime:</string>
     <string name="daily_sleep_q2">Please indicate your wake-up time</string>
     <string name="daily_sleep_q3">Did you have any noctural awakening?:</string>
     <string name="daily_sleep_q4">Please indicate the quality of your sleep</string>
+
     <string name="daily_fatigue_q1">How do you feel now?</string>
     <string name="fatigue_q1_option1">Fully alert, wide awake</string>
     <string name="fatigue_q1_option2">Very lively, responsive, but not at peak</string>
@@ -393,6 +399,7 @@
     <string name="fatigue_q1_option5">A little tired, less than fresh</string>
     <string name="fatigue_q1_option6">Moderately tired, very difficult to concentrate</string>
     <string name="fatigue_q1_option7">Completely exhausted, unable to function effectively</string>
+
     <string name="daily_overall_morning_q1">Overall, how would you rate this morning?</string>
     <string name="overall_option1">Really negative</string>
     <string name="overall_option2">Negative</string>
@@ -400,7 +407,17 @@
     <string name="overall_option4">Positive</string>
     <string name="overall_option5">Really positive</string>
 
-
+    <string name="productivity_morning_q1">Overall, how productive do you feel you were during the morning?</string>
+    <string name="productivityq1_option1">Not at all productive</string>
+    <string name="productivityq1_option2">Not very productive</string>
+    <string name="productivityq1_option3">Somewhat unproductive</string>
+    <string name="productivityq1_option4">Neither productive or unproductive</string>
+    <string name="productivityq1_option5">Somewhat productive</string>
+    <string name="productivityq1_option6">Very productive</string>
+    <string name="productivityq1_option7">Extremely productive</string>
+    <string name="productivity_morning_q2">Did you attend any academic activities(including classes, e-classes, sections, seminar, labs, study groups) this morning?</string>
+    <string name="productivity_morning_q3">If yes, how many?</string>
+    <string name="productivity_morning_q4">How many hours did you study by yourself this morning (not including any academic activities in the previous question)?</string>
     <string-array name="tipi_questions_choices">
         <item>Select</item>
         <item>1</item>
