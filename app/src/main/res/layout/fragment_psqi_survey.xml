@@ -131,7 +131,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/psqi_q5a" />
+                android:text="@string/psqi_q5a"
+                android:id="@+id/group_5a_tv"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -173,7 +174,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/psqi_q5b" />
+                android:text="@string/psqi_q5b"
+                android:id="@+id/group_5b_tv"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -215,7 +217,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/psqi_q5c" />
+                android:text="@string/psqi_q5c"
+                android:id="@+id/group_5c_tv"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -257,7 +260,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/psqi_q5d" />
+                android:text="@string/psqi_q5d"
+                android:id="@+id/group_5d_tv"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -299,7 +303,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/psqi_q5e" />
+                android:text="@string/psqi_q5e"
+                android:id="@+id/group_5e_tv"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -341,7 +346,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/psqi_q5f" />
+                android:text="@string/psqi_q5f"
+                android:id="@+id/group_5f_tv"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -383,7 +389,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/psqi_q5g" />
+                android:text="@string/psqi_q5g"
+                android:id="@+id/group_5g_tv"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -425,7 +432,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/psqi_q5h" />
+                android:text="@string/psqi_q5h"
+                android:id="@+id/group_5h_tv"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -467,7 +475,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/psqi_q5i" />
+                android:text="@string/psqi_q5i"
+                android:id="@+id/group_5i_tv"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -509,7 +518,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/psqi_q5j" />
+                android:text="@string/psqi_q5j"
+                android:id="@+id/group_5j_tv"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -556,7 +566,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/psqi_q6" />
+                android:text="@string/psqi_q6"
+                android:id="@+id/group_6_tv"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -598,7 +609,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/psqi_q7" />
+                android:text="@string/psqi_q7"
+                android:id="@+id/group_7_tv"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -639,7 +651,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/psqi_q8" />
+                android:text="@string/psqi_q8"
+                android:id="@+id/group_8_tv"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -681,7 +694,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/psqi_q9" />
+                android:text="@string/psqi_q9"
+                android:id="@+id/group_9_tv"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -723,7 +737,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/psqi_q10" />
+                android:text="@string/psqi_q10"
+                android:id="@+id/group_10_tv"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -765,7 +780,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/psqi_q10a" />
+                android:text="@string/psqi_q10a"
+                android:id="@+id/group_10a_tv"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -807,7 +823,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/psqi_q10b" />
+                android:text="@string/psqi_q10b"
+                android:id="@+id/group_10b_tv"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -849,7 +866,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/psqi_q10c" />
+                android:text="@string/psqi_q10c"
+                android:id="@+id/group_10c_tv"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -891,7 +909,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/psqi_q10d" />
+                android:text="@string/psqi_q10d"
+                android:id="@+id/group_10d_tv"/>
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -933,7 +952,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/psqi_q10e" />
+                android:text="@string/psqi_q10e"
+                android:id="@+id/group_10e_tv"/>
 
             <RadioGroup
                 android:layout_width="match_parent"

@@ -3,7 +3,7 @@ package usi.memotion.local.database.tables;
 import android.provider.BaseColumns;
 
 public class PSQISurveyTable {
-    public final static String TABLE_PSQUI_SURVEY = "PSQUISurvey";
+    public final static String TABLE_PSQUI_SURVEY = "PSQISurvey";
 
     public final static String _ID = BaseColumns._ID;
     public final static String TIMESTAMP = "timestamp";
