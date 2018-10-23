@@ -401,6 +401,7 @@
     <string name="fatigue_q1_option7">Completely exhausted, unable to function effectively</string>
 
     <string name="daily_overall_morning_q1">Overall, how would you rate this morning?</string>
+    <string name="daily_overall_afternoon_q1">Overall, how would you rate this afternoon?</string>
     <string name="overall_option1">Really negative</string>
     <string name="overall_option2">Negative</string>
     <string name="overall_option3">Average</string>
@@ -408,6 +409,7 @@
     <string name="overall_option5">Really positive</string>
 
     <string name="productivity_morning_q1">Overall, how productive do you feel you were during the morning?</string>
+    <string name="productivity_afternoon_q1">Overall, how productive do you feel you were during the afternoon?</string>
     <string name="productivityq1_option1">Not at all productive</string>
     <string name="productivityq1_option2">Not very productive</string>
     <string name="productivityq1_option3">Somewhat unproductive</string>
@@ -416,11 +418,14 @@
     <string name="productivityq1_option6">Very productive</string>
     <string name="productivityq1_option7">Extremely productive</string>
     <string name="productivity_morning_q2">Did you attend any academic activities(including classes, e-classes, sections, seminar, labs, study groups) this morning?</string>
-    <string name="productivity_morning_q3">If yes, how many?</string>
+    <string name="productivity_afternoon_q2">Did you attend any academic activities(including classes, e-classes, sections, seminar, labs, study groups) this afternoon?</string>
+    <string name="productivity_q3">If yes, how many?</string>
     <string name="productivity_morning_q4">How many hours did you study by yourself this morning (not including any academic activities in the previous question)?</string>
+    <string name="productivity_afternoon_q4">How many hours did you study by yourself this afternoon (not including any academic activities in the previous question)?</string>
 
 
     <string name="stress_morning_q1">How did you feel during this morning?</string>
+    <string name="stress_afternoon_q1">How did you feel during this afternoon?</string>
     <string name="stressq1_option1">Great!</string>
     <string name="stressq1_option2">Good</string>
     <string name="stressq1_option3">A little stressed</string>

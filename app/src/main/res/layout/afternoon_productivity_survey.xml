@@ -12,45 +12,45 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/productivity_morning_q1" />
+            android:text="@string/productivity_afternoon_q1" />
 
         <RadioGroup
-            android:id="@+id/productivity_morning_q1"
+            android:id="@+id/productivity_afternoon_q1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <RadioButton
-                android:id="@+id/productivity_morning_q1_option1"
+                android:id="@+id/productivity_afternoon_q1_option1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/productivityq1_option1"/>
             <RadioButton
-                android:id="@+id/productivity_morning_q1_option2"
+                android:id="@+id/productivity_afternoon_q1_option2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/productivityq1_option2"/>
             <RadioButton
-                android:id="@+id/productivity_morning_q1_option3"
+                android:id="@+id/productivity_afternoon_q1_option3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/productivityq1_option3"/>
             <RadioButton
-                android:id="@+id/productivity_morning_q1_option4"
+                android:id="@+id/productivity_afternoon_q1_option4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/productivityq1_option4"/>
             <RadioButton
-                android:id="@+id/productivity_morning_q1_option5"
+                android:id="@+id/productivity_afternoon_q1_option5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/productivityq1_option5"/>
             <RadioButton
-                android:id="@+id/productivity_morning_q1_option6"
+                android:id="@+id/productivity_afternoon_q1_option6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/productivityq1_option6"/>
             <RadioButton
-                android:id="@+id/productivity_morning_q1_option7"
+                android:id="@+id/productivity_afternoon_q1_option7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/productivityq1_option7"/>
@@ -59,21 +59,21 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/productivity_morning_q2" />
+            android:text="@string/productivity_afternoon_q2" />
 
         <RadioGroup
-            android:id="@+id/productivity_morning_q2"
+            android:id="@+id/productivity_afternoon_q2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <RadioButton
-                android:id="@+id/productivity_morning_q2_yes"
+                android:id="@+id/productivity_afternoon_q2_yes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Yes" />
 
             <RadioButton
-                android:id="@+id/productivity_morning_q2_no"
+                android:id="@+id/productivity_afternoon_q2_no"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="No" />
@@ -87,18 +87,18 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/productivity_morning_q3"
+            android:id="@+id/productivity_afternoon_q3"
             android:inputType="number"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/productivity_morning_q4" />
+            android:text="@string/productivity_afternoon_q4" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/productivity_morning_q4"
+            android:id="@+id/productivity_afternoon_q4"
             android:inputType="number"/>
     </LinearLayout>
 </ScrollView>
