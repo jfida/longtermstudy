@@ -377,6 +377,7 @@
     <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Daily surveys +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <string name="sleep_quality">Sleep Quality</string>
     <string name="fatigue">Fatigue</string>
+    <string name="overall">Overall</string>
     <string name="early_morning">early_morning</string>
     <string name="morning">morning</string>
     <string name="afternoon">afternoon</string>
@@ -385,6 +386,19 @@
     <string name="daily_sleep_q3">Did you have any noctural awakening?:</string>
     <string name="daily_sleep_q4">Please indicate the quality of your sleep</string>
     <string name="daily_fatigue_q1">How do you feel now?</string>
+    <string name="fatigue_q1_option1">Fully alert, wide awake</string>
+    <string name="fatigue_q1_option2">Very lively, responsive, but not at peak</string>
+    <string name="fatigue_q1_option3">Okay, somewhat fresh</string>
+    <string name="fatigue_q1_option4">Fully alert, wide awake</string>
+    <string name="fatigue_q1_option5">A little tired, less than fresh</string>
+    <string name="fatigue_q1_option6">Moderately tired, very difficult to concentrate</string>
+    <string name="fatigue_q1_option7">Completely exhausted, unable to function effectively</string>
+    <string name="daily_overall_morning_q1">Overall, how would you rate this morning?</string>
+    <string name="overall_option1">Really negative</string>
+    <string name="overall_option2">Negative</string>
+    <string name="overall_option3">Average</string>
+    <string name="overall_option4">Positive</string>
+    <string name="overall_option5">Really positive</string>
 
 
     <string-array name="tipi_questions_choices">
@@ -411,12 +425,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fill_answers">Please fill out all the answers!</string>
-    <string name="fatigue_q1_option1">Fully alert, wide awake</string>
-    <string name="fatigue_q1_option2">Very lively, responsive, but not at peak</string>
-    <string name="fatigue_q1_option3">Okay, somewhat fresh</string>
-    <string name="fatigue_q1_option4">Fully alert, wide awake</string>
-    <string name="fatigue_q1_option5">A little tired, less than fresh</string>
-    <string name="fatigue_q1_option6">Moderately tired, very difficult to concentrate</string>
-    <string name="fatigue_q1_option7">Completely exhausted, unable to function effectively</string>
+
 
 </resources>

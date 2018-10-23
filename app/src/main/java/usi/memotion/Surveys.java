@@ -14,6 +14,7 @@ import android.widget.RadioGroup;
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
 import usi.memotion.local.database.tables.FatigueSurveyTable;
+import usi.memotion.local.database.tables.OverallSurveyTable;
 import usi.memotion.local.database.tables.SleepQualityTable;
 
 public class Surveys extends AppCompatActivity {
@@ -23,6 +24,7 @@ public class Surveys extends AppCompatActivity {
     private RadioGroup early_morning_q3;
     private RadioGroup early_morning_q4;
     private RadioGroup fatigue_q1;
+    private RadioGroup morning_overall_q1;
 
     private LocalStorageController localController;
 
@@ -30,12 +32,11 @@ public class Surveys extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getIntent().getStringExtra("type_daily")!= null) {
+        localController = SQLiteController.getInstance(Surveys.this);
+        LayoutInflater inflater = (this).getLayoutInflater();
+
+        if (getIntent().getStringExtra("type_daily") != null) {
             if (getIntent().getStringExtra("type_daily").equals(getString(R.string.early_morning))) {
-
-                localController = SQLiteController.getInstance(Surveys.this);
-                LayoutInflater inflater = (this).getLayoutInflater();
-
                 AlertDialog.Builder builderSleep = new AlertDialog.Builder(this);
                 final AlertDialog.Builder builderFatigue = new AlertDialog.Builder(this);
 
@@ -129,9 +130,48 @@ public class Surveys extends AppCompatActivity {
                 });
                 builderSleep.create();
                 builderSleep.show();
-            } else if(getIntent().getStringExtra("type_daily").equals(getString(R.string.morning))){
+            } else if (getIntent().getStringExtra("type_daily").equals(getString(R.string.morning))) {
+                AlertDialog.Builder builderOverall = new AlertDialog.Builder(this);
 
-            } else if(getIntent().getStringExtra("type_daily").equals(getString(R.string.afternoon))){
+                builderOverall.setCancelable(false);
+
+                builderOverall.setTitle(getString(R.string.overall));
+
+                builderOverall.setView(inflater.inflate(R.layout.morning_questionnaire_overall, null));
+
+                builderOverall.setPositiveButton("NEXT", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        morning_overall_q1 = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.morning_overall_q1);
+                        ContentValues record = new ContentValues();
+                        record.put(SleepQualityTable.TIMESTAMP, System.currentTimeMillis());
+                        int choiceq1 = morning_overall_q1.getCheckedRadioButtonId();
+                        String answer1;
+                        if (choiceq1 > 0) {
+                            RadioButton radio1 = (RadioButton) morning_overall_q1.findViewById(choiceq1);
+                            answer1 = radio1.getText().toString();
+                        } else {
+                            answer1 = "UNKNOWN";
+                        }
+                        record.put(OverallSurveyTable.QUESTION_1, answer1);
+
+                        localController.insertRecord(OverallSurveyTable.TABLE_OVERALL_SURVEY, record);
+
+                        Log.d("OVERALL SURVEYS", "Added record: ts: " + record.get(OverallSurveyTable.TIMESTAMP));
+
+                        dialog.dismiss();
+                    }
+                });
+                builderOverall.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        Surveys.this.finish();
+                    }
+                });
+                builderOverall.create();
+                builderOverall.show();
+            } else if (getIntent().getStringExtra("type_daily").equals(getString(R.string.afternoon))) {
             }
         } else {
             Surveys.this.finish();

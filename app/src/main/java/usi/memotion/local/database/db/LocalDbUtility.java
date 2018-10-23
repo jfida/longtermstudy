@@ -7,6 +7,7 @@ import usi.memotion.local.database.tables.FatigueSurveyTable;
 import usi.memotion.local.database.tables.LectureSurveyTable;
 import usi.memotion.local.database.tables.LocationTable;
 import usi.memotion.local.database.tables.NotificationsTable;
+import usi.memotion.local.database.tables.OverallSurveyTable;
 import usi.memotion.local.database.tables.PAMTable;
 import usi.memotion.local.database.tables.PSQISurveyTable;
 import usi.memotion.local.database.tables.PSSSurveyTable;
@@ -64,6 +65,8 @@ public class LocalDbUtility {
                 return SleepQualityTable.TABLE_SLEEP_QUALITY_SURVEY;
             case TABLE_FATIGUE_SURVEY:
                 return FatigueSurveyTable.TABLE_FATIGUE_SURVEY;
+            case TABLE_OVERALL_SURVEY:
+                return OverallSurveyTable.TABLE_OVERALL_SURVEY;
             default:
                 return null;
         }
@@ -110,6 +113,8 @@ public class LocalDbUtility {
                 return SleepQualityTable.getColumns();
             case TABLE_FATIGUE_SURVEY:
                 return FatigueSurveyTable.getColumns();
+            case TABLE_OVERALL_SURVEY:
+                return OverallSurveyTable.getColumns();
             default:
                 return null;
         }
