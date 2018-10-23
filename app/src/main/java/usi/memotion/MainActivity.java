@@ -210,15 +210,15 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         super.onStart();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    public void expandableButton0(View view) {
-        expandableLayout0 = (ExpandableRelativeLayout) findViewById(R.id.expandableLayout0);
-        expandableLayout0.toggle(); // toggle expand and collapse
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//    }
+//
+//    public void expandableButton0(View view) {
+//        expandableLayout0 = (ExpandableRelativeLayout) findViewById(R.id.expandableLayout0);
+//        expandableLayout0.toggle(); // toggle expand and collapse
+//    }
 
     public void expandableButton1(View view) {
         expandableLayout1 = (ExpandableRelativeLayout) findViewById(R.id.expandableLayout1);

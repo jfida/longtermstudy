@@ -27,6 +27,7 @@ public class LectureSurvey extends TableHandler{
     public int question8;
     public int question9;
     public int question10;
+    public String questionnaireType;
 
 
 
@@ -71,6 +72,7 @@ public class LectureSurvey extends TableHandler{
 //        setQuestion7(q);
 //    }
 
+    public void setQuestionnaireType(String t){this.questionnaireType = t;}
     public void setTimestamp(String t){
         this.timestamp = t;
     }
@@ -111,6 +113,7 @@ public class LectureSurvey extends TableHandler{
     public String getTimestamp() {
         return timestamp;
     }
+    public String getQuestionnaireType(){return questionnaireType;}
     private String get_id(){
         return this._id;
     }
@@ -225,6 +228,10 @@ public class LectureSurvey extends TableHandler{
             question10 = attributes.getAsInteger(columns[11]);
         }
 
+        if(attributes.containsKey(columns[12])) {
+            questionnaireType = attributes.getAsString(columns[12]);
+        }
+
     }
 
     @Override
@@ -244,6 +251,8 @@ public class LectureSurvey extends TableHandler{
         attributes.put(columns[9], question8);
         attributes.put(columns[10], question9);
         attributes.put(columns[11], question10);
+        attributes.put(columns[12], questionnaireType);
+
 
         return attributes;
     }
@@ -300,7 +309,7 @@ public class LectureSurvey extends TableHandler{
         attributes.put(columns[9], cursor.getInt(9));
         attributes.put(columns[10], cursor.getInt(10));
         attributes.put(columns[11], cursor.getInt(11));
-
+        attributes.put(columns[12], cursor.getString(12));
 
         return attributes;
     }
@@ -354,6 +363,8 @@ public class LectureSurvey extends TableHandler{
                 break;
             case LectureSurveyTable.QUESTION_10:
                 question10 = attribute.getAsInteger(LectureSurveyTable.QUESTION_10);
+            case LectureSurveyTable.QUESTIONNAIRE_TYPE:
+                question10 = attribute.getAsInteger(LectureSurveyTable.QUESTIONNAIRE_TYPE);
         }
     }
 

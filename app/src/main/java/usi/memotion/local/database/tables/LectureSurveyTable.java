@@ -21,6 +21,8 @@ public class LectureSurveyTable {
     public final static String QUESTION_8 = "question8";
     public final static String QUESTION_9 = "question9";
     public final static String QUESTION_10 = "question10";
+    public final static String QUESTIONNAIRE_TYPE = "type";
+
 
 
 
@@ -54,13 +56,16 @@ public class LectureSurveyTable {
                 + QUESTION_7 + " TEXT, "
                 + QUESTION_8 + " TEXT, "
                 + QUESTION_9 + " TEXT, "
-                + QUESTION_10 + " TEXT" + ")";
+                + QUESTION_10 + " TEXT, "
+                + QUESTIONNAIRE_TYPE + " TEXT" + ")";
+
 
     }
 
 
     public static String[] getColumns(){
-        String[] columns = {_ID, TIMESTAMP, QUESTION_1, QUESTION_2, QUESTION_3, QUESTION_4, QUESTION_5, QUESTION_6, QUESTION_7, QUESTION_8, QUESTION_9, QUESTION_10};
+        String[] columns = {_ID, TIMESTAMP, QUESTION_1, QUESTION_2, QUESTION_3, QUESTION_4,
+                QUESTION_5, QUESTION_6, QUESTION_7, QUESTION_8, QUESTION_9, QUESTION_10, QUESTIONNAIRE_TYPE};
 
         return columns;
     }
