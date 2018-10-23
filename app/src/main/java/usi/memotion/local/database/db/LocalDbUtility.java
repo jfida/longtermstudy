@@ -30,7 +30,6 @@ import usi.memotion.local.database.tables.WiFiTable;
 public class LocalDbUtility {
     private final static int DATA_TABLES_COUNT = 22;
 
-
     public static String getTableName(LocalTables table) {
         switch (table) {
             case TABLE_CALL_LOG:

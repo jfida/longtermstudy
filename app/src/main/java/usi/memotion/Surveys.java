@@ -59,7 +59,7 @@ public class Surveys extends AppCompatActivity {
                 builderFatigue.setTitle(getString(R.string.fatigue));
 
                 builderSleep.setView(inflater.inflate(R.layout.early_morning_questionnaire_sleep, null));
-                builderFatigue.setView(inflater.inflate(R.layout.early_morning_questionnaire_fatigue, null));
+                builderFatigue.setView(inflater.inflate(R.layout.daily_questionnaire_fatigue, null));
 
                 builderSleep.setPositiveButton("NEXT", new DialogInterface.OnClickListener() {
                     @Override
@@ -146,18 +146,22 @@ public class Surveys extends AppCompatActivity {
                 final AlertDialog.Builder builderOverall = new AlertDialog.Builder(this);
                 final AlertDialog.Builder builderProductivity = new AlertDialog.Builder(this);
                 final AlertDialog.Builder builderStress = new AlertDialog.Builder(this);
+                final AlertDialog.Builder builderFatigue = new AlertDialog.Builder(this);
 
                 builderOverall.setCancelable(false);
                 builderProductivity.setCancelable(false);
                 builderStress.setCancelable(false);
+                builderFatigue.setCancelable(false);
 
                 builderOverall.setTitle(getString(R.string.overall));
                 builderProductivity.setTitle(getString(R.string.productivity));
                 builderStress.setTitle(getString(R.string.stress));
+                builderFatigue.setTitle(getString(R.string.fatigue));
 
                 builderOverall.setView(inflater.inflate(R.layout.morning_questionnaire_overall, null));
                 builderProductivity.setView(inflater.inflate(R.layout.morning_productivity_survey, null));
                 builderStress.setView(inflater.inflate(R.layout.morning_questionnaire_stress, null));
+                builderFatigue.setView(inflater.inflate(R.layout.daily_questionnaire_fatigue, null));
 
                 builderOverall.setPositiveButton("NEXT", new DialogInterface.OnClickListener() {
                     @Override
@@ -239,6 +243,39 @@ public class Surveys extends AppCompatActivity {
                                         Log.d("STRESS SURVEYS", "Added record: ts: " + record.get(StressSurveyTable.TIMESTAMP));
 
                                         dialog.dismiss();
+
+                                        builderFatigue.setPositiveButton("FINISH", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                fatigue_q1 = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.fatigue_q1);
+                                                ContentValues record = new ContentValues();
+                                                record.put(SleepQualityTable.TIMESTAMP, System.currentTimeMillis());
+                                                int choiceq1 = fatigue_q1.getCheckedRadioButtonId();
+                                                String answer1;
+                                                if (choiceq1 > 0) {
+                                                    RadioButton radio1 = (RadioButton) fatigue_q1.findViewById(choiceq1);
+                                                    answer1 = radio1.getText().toString();
+                                                } else {
+                                                    answer1 = "UNKNOWN";
+                                                }
+                                                record.put(FatigueSurveyTable.QUESTION_1, answer1);
+
+                                                localController.insertRecord(FatigueSurveyTable.TABLE_FATIGUE_SURVEY, record);
+
+                                                Log.d("FATIGUE SURVEYS", "Added record: ts: " + record.get(FatigueSurveyTable.TIMESTAMP));
+
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                        builderFatigue.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.dismiss();
+                                                Surveys.this.finish();
+                                            }
+                                        });
+                                        builderFatigue.create();
+                                        builderFatigue.show();
                                     }
                                 });
                                 builderStress.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
