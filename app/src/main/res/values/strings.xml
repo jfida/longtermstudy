@@ -418,6 +418,15 @@
     <string name="productivity_morning_q2">Did you attend any academic activities(including classes, e-classes, sections, seminar, labs, study groups) this morning?</string>
     <string name="productivity_morning_q3">If yes, how many?</string>
     <string name="productivity_morning_q4">How many hours did you study by yourself this morning (not including any academic activities in the previous question)?</string>
+
+
+    <string name="stress_morning_q1">How did you feel during this morning?</string>
+    <string name="stressq1_option1">Great!</string>
+    <string name="stressq1_option2">Good</string>
+    <string name="stressq1_option3">A little stressed</string>
+    <string name="stressq1_option4">Definitely stressed</string>
+    <string name="stressq1_option5">Stressed out!</string>
+
     <string-array name="tipi_questions_choices">
         <item>Select</item>
         <item>1</item>

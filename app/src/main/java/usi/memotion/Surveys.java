@@ -17,6 +17,7 @@ import usi.memotion.local.database.tables.FatigueSurveyTable;
 import usi.memotion.local.database.tables.OverallSurveyTable;
 import usi.memotion.local.database.tables.ProductivitySurveyTable;
 import usi.memotion.local.database.tables.SleepQualityTable;
+import usi.memotion.local.database.tables.StressSurveyTable;
 
 public class Surveys extends AppCompatActivity {
 
@@ -34,7 +35,7 @@ public class Surveys extends AppCompatActivity {
     private EditText productivity_morning_q3;
     private EditText productivity_morning_q4;
 
-
+    private RadioGroup stress_morning_q1;
 
 
     private LocalStorageController localController;
@@ -144,15 +145,19 @@ public class Surveys extends AppCompatActivity {
             } else if (getIntent().getStringExtra("type_daily").equals(getString(R.string.morning))) {
                 final AlertDialog.Builder builderOverall = new AlertDialog.Builder(this);
                 final AlertDialog.Builder builderProductivity = new AlertDialog.Builder(this);
+                final AlertDialog.Builder builderStress = new AlertDialog.Builder(this);
 
                 builderOverall.setCancelable(false);
                 builderProductivity.setCancelable(false);
+                builderStress.setCancelable(false);
 
                 builderOverall.setTitle(getString(R.string.overall));
                 builderProductivity.setTitle(getString(R.string.productivity));
+                builderStress.setTitle(getString(R.string.stress));
 
                 builderOverall.setView(inflater.inflate(R.layout.morning_questionnaire_overall, null));
                 builderProductivity.setView(inflater.inflate(R.layout.morning_productivity_survey, null));
+                builderStress.setView(inflater.inflate(R.layout.morning_questionnaire_stress, null));
 
                 builderOverall.setPositiveButton("NEXT", new DialogInterface.OnClickListener() {
                     @Override
@@ -212,6 +217,39 @@ public class Surveys extends AppCompatActivity {
                                 Log.d("PRODUCTIVITY SURVEYS", "Added record: ts: " + record.get(ProductivitySurveyTable.TIMESTAMP));
 
                                 dialog.dismiss();
+
+                                builderStress.setPositiveButton("NEXT", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        stress_morning_q1 = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.stress_morning_q1);
+                                        ContentValues record = new ContentValues();
+                                        record.put(StressSurveyTable.TIMESTAMP, System.currentTimeMillis());
+                                        int choiceq1 = stress_morning_q1.getCheckedRadioButtonId();
+                                        String answer1;
+                                        if (choiceq1 > 0) {
+                                            RadioButton radio1 = (RadioButton) stress_morning_q1.findViewById(choiceq1);
+                                            answer1 = radio1.getText().toString();
+                                        } else {
+                                            answer1 = "UNKNOWN";
+                                        }
+                                        record.put(StressSurveyTable.QUESTION_1, answer1);
+
+                                        localController.insertRecord(StressSurveyTable.TABLE_STRESS_SURVEY, record);
+
+                                        Log.d("STRESS SURVEYS", "Added record: ts: " + record.get(StressSurveyTable.TIMESTAMP));
+
+                                        dialog.dismiss();
+                                    }
+                                });
+                                builderStress.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+                                        Surveys.this.finish();
+                                    }
+                                });
+                                builderStress.create();
+                                builderStress.show();
                             }
                         });
                         builderProductivity.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
