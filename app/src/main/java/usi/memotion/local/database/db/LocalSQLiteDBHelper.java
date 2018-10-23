@@ -15,6 +15,7 @@ import usi.memotion.local.database.tables.ActivityRecognitionTable;
 import usi.memotion.local.database.tables.AnxietySurveyTable;
 import usi.memotion.local.database.tables.ApplicationLogsTable;
 import usi.memotion.local.database.tables.BlueToothTable;
+import usi.memotion.local.database.tables.FatigueSurveyTable;
 import usi.memotion.local.database.tables.LectureSurveyTable;
 import usi.memotion.local.database.tables.NotificationsTable;
 import usi.memotion.local.database.tables.PAMTable;
@@ -72,6 +73,7 @@ public class LocalSQLiteDBHelper extends SQLiteOpenHelper {
         db.execSQL(PSSSurveyTable.getCreateQuery());
         db.execSQL(PSQISurveyTable.getCreateQuery());
         db.execSQL(SleepQualityTable.getCreateQuery());
+        db.execSQL(FatigueSurveyTable.getCreateQuery());
 
 
         //insert init data to uploader_utility table

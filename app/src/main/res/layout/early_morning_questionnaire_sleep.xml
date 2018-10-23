@@ -18,7 +18,6 @@
             android:inputType="time"
             android:id="@+id/early_morning_q1"/>
 
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

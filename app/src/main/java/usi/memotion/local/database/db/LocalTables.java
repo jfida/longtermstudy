@@ -12,6 +12,7 @@ import usi.memotion.local.database.tables.AccelerometerTable;
 import usi.memotion.local.database.tables.ActivityRecognitionTable;
 import usi.memotion.local.database.tables.ApplicationLogsTable;
 import usi.memotion.local.database.tables.BlueToothTable;
+import usi.memotion.local.database.tables.FatigueSurveyTable;
 import usi.memotion.local.database.tables.LectureSurveyTable;
 import usi.memotion.local.database.tables.LocationTable;
 import usi.memotion.local.database.tables.PAMTable;
@@ -52,7 +53,8 @@ public enum LocalTables {
     TABLE_PSQI(PSQISurveyTable.class),
     TABLE_SWLS(SWLSSurveyTable.class),
     TABLE_PSSS(PSSSurveyTable.class),
-    TABLE_SLEEP_QUALITY(SleepQualityTable.class);
+    TABLE_SLEEP_QUALITY(SleepQualityTable.class),
+    TABLE_FATIGUE_SURVEY(FatigueSurveyTable.class);
 
 
 
@@ -106,6 +108,8 @@ public enum LocalTables {
                 return ActivityRecognitionTable.TABLE_ACTIVITY_RECOGNITION;
             case TABLE_SLEEP_QUALITY:
                 return SleepQualityTable.TABLE_SLEEP_QUALITY_SURVEY;
+            case TABLE_FATIGUE_SURVEY:
+                return FatigueSurveyTable.TABLE_FATIGUE_SURVEY;
             default:
                 throw new IllegalArgumentException("Table not found!");
         }

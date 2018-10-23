@@ -1,12 +1,9 @@
 package usi.memotion.local.database.db;
 
-import usi.memotion.UI.fragments.PSQISurveyFragment;
-import usi.memotion.UI.fragments.PSSSurveyFragment;
-import usi.memotion.UI.fragments.PersonalitySurveyFragment;
-import usi.memotion.UI.fragments.SWLSSurveyFragment;
 import usi.memotion.local.database.tables.AccelerometerTable;
 import usi.memotion.local.database.tables.ActivityRecognitionTable;
 import usi.memotion.local.database.tables.ApplicationLogsTable;
+import usi.memotion.local.database.tables.FatigueSurveyTable;
 import usi.memotion.local.database.tables.LectureSurveyTable;
 import usi.memotion.local.database.tables.LocationTable;
 import usi.memotion.local.database.tables.NotificationsTable;
@@ -28,7 +25,7 @@ import usi.memotion.local.database.tables.WiFiTable;
  */
 
 public class LocalDbUtility {
-    private final static int DATA_TABLES_COUNT = 17;
+    private final static int DATA_TABLES_COUNT = 19;
 
 
     public static String getTableName(LocalTables table) {
@@ -65,11 +62,12 @@ public class LocalDbUtility {
                 return SWLSSurveyTable.TABLE_SWLSS_SURVEY;
             case TABLE_SLEEP_QUALITY:
                 return SleepQualityTable.TABLE_SLEEP_QUALITY_SURVEY;
+            case TABLE_FATIGUE_SURVEY:
+                return FatigueSurveyTable.TABLE_FATIGUE_SURVEY;
             default:
                 return null;
         }
     }
-
 
 
     public static String[] getTableColumns(LocalTables table) {
@@ -110,6 +108,8 @@ public class LocalDbUtility {
                 return SWLSSurveyTable.getColumns();
             case TABLE_SLEEP_QUALITY:
                 return SleepQualityTable.getColumns();
+            case TABLE_FATIGUE_SURVEY:
+                return FatigueSurveyTable.getColumns();
             default:
                 return null;
         }
