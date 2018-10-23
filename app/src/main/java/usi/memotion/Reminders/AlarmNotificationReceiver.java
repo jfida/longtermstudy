@@ -51,7 +51,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
             setDailyNotification(context, "Survey about " + session, "Please tell us how you feel during the " + session + "!", 100097,context.getString(R.string.early_morning));
         }else if(session.equals("morning")){
             setDailyNotification(context, "Survey about " + session, "Please tell us how you feel during the " + session + "!", 100098,context.getString(R.string.morning));
-        }else if(session.equals("evening")){
+        }else if(session.equals("afternoon")){
             setDailyNotification(context, "Survey about " + session, "Please tell us how you feel during the " + session + "!", 100099,context.getString(R.string.afternoon));
         }
     }
