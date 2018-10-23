@@ -66,7 +66,6 @@ public class LocalSQLiteDBHelper extends SQLiteOpenHelper {
         db.execSQL(NotificationsTable.getCreateQuery());
         db.execSQL(ApplicationLogsTable.getCreateQuery());
         db.execSQL(ActivityRecognitionTable.getCreateQuery());
-        db.execSQL(AnxietySurveyTable.getCreateQuery());
         db.execSQL(PersonalitySurveyTable.getCreateQuery());
         db.execSQL(SWLSSurveyTable.getCreateQuery());
         db.execSQL(PSSSurveyTable.getCreateQuery());
@@ -95,43 +94,8 @@ public class LocalSQLiteDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d("DBHelper", "Upgrading db. Truncating accelerometer and used apps");
+        Log.d("DBHelper", "Upgrading db. Truncating accelerometer");
         db.execSQL("delete from "+ AccelerometerTable.TABLE_ACCELEROMETER);
         return;
     }
-
-//    public List<PostLectureSurvey> getAllPostlectureSurveys(){
-//        List<PostLectureSurvey> postLectureSurveyList = new ArrayList<>();
-//        String selectQuery = "SELECT * FROM "+ AccelerometerTable.TABLE_ACCELEROMETER;
-//        SQLiteDatabase db = getReadableDatabase();
-//
-//        Cursor cursor = db.rawQuery(selectQuery, null);
-//
-//        try{
-//            if(cursor.moveToPosition(0)){
-//                do{
-//                    PostLectureSurvey postlectureSurvey = new PostLectureSurvey();
-//
-//                    postlectureSurvey._id = cursor.getInt(cursor.getColumnIndex("id_used_app"));
-//                    postlectureSurvey._timestamp= cursor.getDouble(cursor.getColumnIndex("ts"));
-//                    postlectureSurvey._question1= cursor.getString(cursor.getColumnIndex("type"));
-//                    postlectureSurvey._question2 = cursor.getString(cursor.getColumnIndex("name"));
-////                    postlectureSurvey._question3 = cursor.getString(cursor.getColumnIndex("duration"));
-//
-//
-//
-//                    postLectureSurveyList.add(postlectureSurvey);
-//                }while(cursor.moveToNext());
-//
-//            }
-//        }catch (Exception e){
-//            Log.d("DB HELPER", "Error while trying to get posts from accelereometer table");
-//        }finally {
-//            if(cursor != null && !cursor.isClosed()){
-//                cursor.close();
-//            }
-//        }
-//
-//        return postLectureSurveyList;
-//    }
 }

@@ -1,5 +1,9 @@
 package usi.memotion.local.database.db;
 
+import usi.memotion.UI.fragments.PSQISurveyFragment;
+import usi.memotion.UI.fragments.PSSSurveyFragment;
+import usi.memotion.UI.fragments.PersonalitySurveyFragment;
+import usi.memotion.UI.fragments.SWLSSurveyFragment;
 import usi.memotion.local.database.tables.AccelerometerTable;
 import usi.memotion.local.database.tables.ActivityRecognitionTable;
 import usi.memotion.local.database.tables.ApplicationLogsTable;
@@ -7,9 +11,13 @@ import usi.memotion.local.database.tables.LectureSurveyTable;
 import usi.memotion.local.database.tables.LocationTable;
 import usi.memotion.local.database.tables.NotificationsTable;
 import usi.memotion.local.database.tables.PAMTable;
+import usi.memotion.local.database.tables.PSQISurveyTable;
+import usi.memotion.local.database.tables.PSSSurveyTable;
+import usi.memotion.local.database.tables.PersonalitySurveyTable;
 import usi.memotion.local.database.tables.PhoneCallLogTable;
 import usi.memotion.local.database.tables.PhoneLockTable;
 import usi.memotion.local.database.tables.SMSTable;
+import usi.memotion.local.database.tables.SWLSSurveyTable;
 import usi.memotion.local.database.tables.SimpleMoodTable;
 import usi.memotion.local.database.tables.UserTable;
 import usi.memotion.local.database.tables.WiFiTable;
@@ -24,8 +32,6 @@ public class LocalDbUtility {
 
     public static String getTableName(LocalTables table) {
         switch (table) {
-//            case TABLE_ACCELEROMETER:
-//                return AccelerometerTable.TABLE_ACCELEROMETER;
             case TABLE_CALL_LOG:
                 return PhoneCallLogTable.TABLE_CALL_LOG;
             case TABLE_LOCATION:
@@ -34,8 +40,6 @@ public class LocalDbUtility {
                 return PhoneLockTable.TABLE_PHONELOCK;
             case TABLE_SMS:
                 return SMSTable.TABLE_SMS;
-//            case TABLE_WIFI:
-//                return WiFiTable.TABLE_WIFI;
             case TABLE_PAM:
                 return PAMTable.TABLE_PAM;
             case TABLE_SIMPLE_MOOD:
@@ -46,18 +50,24 @@ public class LocalDbUtility {
                 return UserTable.TABLE_USER;
             case TABLE_LECTURE_SURVEY:
                 return LectureSurveyTable.TABLE_LECTURE_SURVEY;
-//            case TABLE_ONE_TIME_SURVEY:
-//                return
-//            case TABLE_DAILY_SURVEY:
-//                return
             case TABLE_APPLICATION_LOGS:
                 return ApplicationLogsTable.TABLE_APPLICATION_LOGS;
             case TABLE_ACTIVITY_RECOGNITION:
                 return ActivityRecognitionTable.TABLE_ACTIVITY_RECOGNITION;
+            case TABLE_PSQI:
+                return PSQISurveyTable.TABLE_PSQUI_SURVEY;
+            case TABLE_PERSONALITY:
+                return PersonalitySurveyTable.TABLE_PERSONALITY_SURVEY;
+            case TABLE_PSSS:
+                return PSSSurveyTable.TABLE_PSS_SURVEY;
+            case TABLE_SWLS:
+                return SWLSSurveyTable.TABLE_SWLSS_SURVEY;
             default:
                 return null;
         }
     }
+
+
 
     public static String[] getTableColumns(LocalTables table) {
         switch (table) {
@@ -87,6 +97,14 @@ public class LocalDbUtility {
                 return LectureSurveyTable.getColumns();
             case TABLE_USER:
                 return UserTable.getColumns();
+            case TABLE_PERSONALITY:
+                return PersonalitySurveyTable.getColumns();
+            case TABLE_PSQI:
+                return PSQISurveyTable.getColumns();
+            case TABLE_PSSS:
+                return PSSSurveyTable.getColumns();
+            case TABLE_SWLS:
+                return SWLSSurveyTable.getColumns();
             default:
                 return null;
         }

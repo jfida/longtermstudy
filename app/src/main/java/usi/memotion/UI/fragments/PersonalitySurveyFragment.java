@@ -3,7 +3,9 @@ package usi.memotion.UI.fragments;
 
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -23,7 +25,11 @@ import android.widget.Toast;
 import usi.memotion.R;
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
+import usi.memotion.local.database.db.LocalSQLiteDBHelper;
 import usi.memotion.local.database.tables.PersonalitySurveyTable;
+import usi.memotion.local.database.tables.UserTable;
+import usi.memotion.remote.database.controllers.SwitchDriveController;
+import usi.memotion.remote.database.upload.Uploader;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,7 +39,12 @@ public class PersonalitySurveyFragment extends Fragment {
     private Spinner question1Options, question2Options, question3Options, question4Options, question5Options, question6Options,
             question7Options, question8Options, question9Options, question10Options;
 
-    private String answer1, answer2, answer3, answer4, answer5, answer6, answer7, answer8, answer9, answer10;
+    LocalSQLiteDBHelper dbHelper;
+    private LocalStorageController localController;
+
+    SwitchDriveController switchDriveController;
+    String androidID;
+
 
     private Button submitButton;
 
@@ -51,6 +62,9 @@ public class PersonalitySurveyFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_personality_survey, container, false);
+
+        dbHelper = new LocalSQLiteDBHelper(getContext());
+        localController = SQLiteController.getInstance(getContext());
 
         question1Options = (Spinner) root.findViewById(R.id.tipi_q1_options);
         question2Options = (Spinner) root.findViewById(R.id.tipi_q2_options);
@@ -74,8 +88,6 @@ public class PersonalitySurveyFragment extends Fragment {
         for (Spinner s : spinners) {
             setupSpinnerOptions(s);
         }
-
-        setUpSpinnerListeners();
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +117,7 @@ public class PersonalitySurveyFragment extends Fragment {
                     FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                     ft.replace(R.id.content_frame, newFragment);
                     ft.commit();
+
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setTitle(R.string.fill_answers);
@@ -148,163 +161,6 @@ public class PersonalitySurveyFragment extends Fragment {
         tipiAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(tipiAdapter);
     }
-
-    private void setUpSpinnerListeners() {
-        question1Options.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                answer1 = selection;
-                Log.d("PersonalityFragment", "Question 1 answer: " + answer1);
-            }
-
-            // Because AdapterView is an abstract class, onNothingSelected must be defined
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                answer1 = ""; // Unknown
-            }
-        });
-
-        question2Options.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                answer2 = selection;
-                Log.d("PersonalityFragment", "Question 2 answer: " + answer2);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                answer2 = "";
-            }
-        });
-
-        question3Options.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                answer3 = selection;
-                Log.d("PersonalityFragment", "Question 3 answer: " + answer3);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                answer3 = "";
-            }
-        });
-
-        question4Options.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                answer4 = selection;
-                Log.d("PersonalityFragment", "Question 4 answer: " + answer4);
-            }
-
-            // Because AdapterView is an abstract class, onNothingSelected must be defined
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                answer4 = ""; // Unknown
-            }
-        });
-
-        question5Options.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                answer5 = selection;
-                Log.d("PersonalityFragment", "Question 5 answer: " + answer5);
-            }
-
-            // Because AdapterView is an abstract class, onNothingSelected must be defined
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                answer5 = ""; // Unknown
-            }
-        });
-
-        question6Options.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                answer6 = selection;
-                Log.d("PersonalityFragment", "Question 6 answer: " + answer6);
-            }
-
-            // Because AdapterView is an abstract class, onNothingSelected must be defined
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                answer6 = ""; // Unknown
-            }
-        });
-
-        question7Options.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                answer7 = selection;
-                Log.d("PersonalityFragment", "Question 7 answer: " + answer7);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                answer7 = "";
-            }
-        });
-
-        question8Options.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                answer8 = selection;
-                Log.d("PersonalityFragment", "Question 8 answer: " + answer8);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                answer8 = "";
-            }
-        });
-
-        question9Options.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                answer9 = selection;
-                Log.d("PersonalityFragment", "Question 9 answer: " + answer9);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                answer9 = "";
-            }
-        });
-
-        question10Options.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                answer10 = selection;
-                Log.d("PersonalityFragment", "Question 10 answer: " + answer10);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                answer10 = ""; // Unknown
-            }
-        });
-    }
-
 
     private boolean validateSpinners() {
         boolean valid1 = isSpinnerValid(question1Options);

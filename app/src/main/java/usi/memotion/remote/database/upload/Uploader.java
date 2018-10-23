@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.util.Log;
 
-import usi.memotion.local.database.db.DailyTables;
 import usi.memotion.local.database.db.LocalSQLiteDBHelper;
 import usi.memotion.local.database.tables.LocationTable;
 import usi.memotion.remote.database.controllers.SwitchDriveController;
@@ -98,6 +97,7 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
         processTable(LocalTables.TABLE_LOCATION);
         processTable(LocalTables.TABLE_PAM);
         processTable(LocalTables.TABLE_SIMPLE_MOOD);
+        processTable(LocalTables.TABLE_ACTIVITY_RECOGNITION);
     }
 
     /**
@@ -105,18 +105,17 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
      */
     public void oneTimeUpload() {
         processTable(LocalTables.TABLE_USER);
-        //process Anxiety
-        //other one time TIPI
-        // Anxiety (GAD),
-        // Stress (PSS),
-        // Satisfaction with Life (SWLS)
+        processTable(LocalTables.TABLE_SWLS);
+        processTable(LocalTables.TABLE_PERSONALITY);
+        processTable(LocalTables.TABLE_PSSS);
+        processTable(LocalTables.TABLE_PSQI);
     }
 
     private void processTable(LocalTables table) {
 
         Log.d("DATA UPLOAD SERVICE", "Processing table " + LocalDbUtility.getTableName(table));
 
-        if(table == LocalTables.TABLE_USER){
+        if(table == LocalTables.TABLE_USER || table == LocalTables.TABLE_PERSONALITY || table == LocalTables.TABLE_PSQI || table == LocalTables.TABLE_PSSS || table == LocalTables.TABLE_SWLS){
             // Upload only once, DO NOT delete
 
             String query = getQuery(table);
@@ -134,7 +133,7 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
 
         }else if(table == LocalTables.TABLE_LECTURE_SURVEY || table == LocalTables.TABLE_NOTIFICATIONS || table == LocalTables.TABLE_LOCATION ||
                 table == LocalTables.TABLE_PHONELOCK || table == LocalTables.TABLE_CALL_LOG || table == LocalTables.TABLE_SMS ||
-                table == LocalTables.TABLE_APPLICATION_LOGS) {
+                table == LocalTables.TABLE_APPLICATION_LOGS || table == LocalTables.TABLE_ACTIVITY_RECOGNITION) {
             //Here we should add also Daily Surveys
             // Upload 1 time per day, delete
             String query = getQuery(table);

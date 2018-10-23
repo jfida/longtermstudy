@@ -3,7 +3,9 @@ package usi.memotion.UI.fragments;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -21,14 +23,24 @@ import usi.memotion.MainActivity;
 import usi.memotion.R;
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
+import usi.memotion.local.database.db.LocalSQLiteDBHelper;
 import usi.memotion.local.database.tables.PSQISurveyTable;
+import usi.memotion.local.database.tables.UserTable;
+import usi.memotion.remote.database.controllers.SwitchDriveController;
 import usi.memotion.remote.database.upload.UploadAlarmReceiver;
+import usi.memotion.remote.database.upload.Uploader;
 
 public class PSQISurveyFragment extends Fragment {
     private String question1, question2, question3, question4, question5a,
             question5b, question5c, question5d, question5e, question5f, question5g, question5h, question5i,
             question5j, question5j_text, question6, question7, question8, question9, question10,
             question10a, question10b, question10c, question10d, question10e;
+
+    LocalSQLiteDBHelper dbHelper;
+    private LocalStorageController localController;
+
+    SwitchDriveController switchDriveController;
+    String androidID;
 
     private Button submitButton;
     private LocalStorageController localcontroller;
@@ -91,6 +103,9 @@ public class PSQISurveyFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_psqi_survey, container, false);
+
+        dbHelper = new LocalSQLiteDBHelper(getContext());
+        localController = SQLiteController.getInstance(getContext());
 
         localcontroller = SQLiteController.getInstance(getContext());
 
@@ -193,6 +208,8 @@ public class PSQISurveyFragment extends Fragment {
                     });
                     AlertDialog dialog = builder.create();
                     dialog.show();
+
+                    uploadRemotely();
 
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -462,5 +479,30 @@ public class PSQISurveyFragment extends Fragment {
         return q1 && q2 && q3 &&q4 &&q5a && q5b && q5c && q5d && q5e && q5f && q5g && q5h &&
                 q5i &&q6 && q7 && q8 && q9 && q10 && q10a && q10b &&q10c
                 && q10d && q10e;
+    }
+
+
+    public void uploadRemotely(){
+        androidID = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+        dbHelper = new LocalSQLiteDBHelper(getContext());
+        switchDriveController = new SwitchDriveController(getContext().getString(R.string.server_address),
+                getContext().getString(R.string.token), getContext().getString(R.string.password));
+        localController = SQLiteController.getInstance(getContext());
+
+
+        String query = "SELECT * FROM usersTable";
+        Cursor records = localController.rawQuery(query, null);
+        records.moveToFirst();
+
+        String username = null;
+
+        if (records.getCount() > 0){
+            username = records.getString(records.getColumnIndex(UserTable.USERNAME));
+
+        }
+
+        String userName = username + "_" + androidID;
+        final Uploader uploader = new Uploader(userName, switchDriveController, localController, dbHelper);
+        uploader.oneTimeUpload();
     }
 }

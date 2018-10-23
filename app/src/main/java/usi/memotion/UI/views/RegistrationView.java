@@ -55,7 +55,6 @@ public class RegistrationView extends Fragment {
     private LocalStorageController localController;
 
     SwitchDriveController switchDriveController;
-    SQLiteController sqlLiteController;
     String androidID;
 
     private EditText usernameEditText;
@@ -173,7 +172,6 @@ public class RegistrationView extends Fragment {
 //                ", Email: " + record.get(UserTable.EMAIL) + ", Switch Token: " + record.get(UserTable.SWITCH_TOKEN) + ", Switch pass: " + record.get(UserTable.SWITCH_PASSWORD)
 //
 //
-        uploadRemotely();
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
         alertDialog.setTitle("New User Account");
@@ -207,31 +205,34 @@ public class RegistrationView extends Fragment {
                 });
 
         alertDialog.show();
+
+//        uploadRemotely();
+
     }
 
-    public void uploadRemotely(){
-        androidID = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-        dbHelper = new LocalSQLiteDBHelper(getContext());
-        switchDriveController = new SwitchDriveController(getContext().getString(R.string.server_address),
-                getContext().getString(R.string.token), getContext().getString(R.string.password));
-        localController = SQLiteController.getInstance(getContext());
-
-
-        String query = "SELECT * FROM usersTable";
-        Cursor records = localController.rawQuery(query, null);
-        records.moveToFirst();
-
-        String username = null;
-
-        if (records.getCount() > 0){
-            username = records.getString(records.getColumnIndex(UserTable.USERNAME));
-
-        }
-
-        String userName = username + "_" + androidID;
-        final Uploader uploader = new Uploader(userName, switchDriveController, localController, dbHelper);
-        uploader.oneTimeUpload();
-    }
+//    public void uploadRemotely(){
+//        androidID = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+//        dbHelper = new LocalSQLiteDBHelper(getContext());
+//        switchDriveController = new SwitchDriveController(getContext().getString(R.string.server_address),
+//                getContext().getString(R.string.token), getContext().getString(R.string.password));
+//        localController = SQLiteController.getInstance(getContext());
+//
+//
+//        String query = "SELECT * FROM usersTable";
+//        Cursor records = localController.rawQuery(query, null);
+//        records.moveToFirst();
+//
+//        String username = null;
+//
+//        if (records.getCount() > 0){
+//            username = records.getString(records.getColumnIndex(UserTable.USERNAME));
+//
+//        }
+//
+//        String userName = username + "_" + androidID;
+//        final Uploader uploader = new Uploader(userName, switchDriveController, localController, dbHelper);
+//        uploader.oneTimeUpload();
+//    }
 
 
 

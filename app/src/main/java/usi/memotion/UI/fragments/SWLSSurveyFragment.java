@@ -4,7 +4,9 @@ package usi.memotion.UI.fragments;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -23,8 +25,12 @@ import android.widget.Toast;
 import usi.memotion.R;
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
+import usi.memotion.local.database.db.LocalSQLiteDBHelper;
 import usi.memotion.local.database.tables.PersonalitySurveyTable;
 import usi.memotion.local.database.tables.SWLSSurveyTable;
+import usi.memotion.local.database.tables.UserTable;
+import usi.memotion.remote.database.controllers.SwitchDriveController;
+import usi.memotion.remote.database.upload.Uploader;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,7 +39,10 @@ public class SWLSSurveyFragment extends Fragment {
 
     private Spinner question1Options, question2Options, question3Options, question4Options, question5Options;
 
-    private String answer1, answer2, answer3, answer4, answer5;
+    LocalSQLiteDBHelper dbHelper;
+    private LocalStorageController localController;
+    SwitchDriveController switchDriveController;
+    String androidID;
 
     private Button submitButton;
 
@@ -52,6 +61,9 @@ public class SWLSSurveyFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_swls_survey, container, false);
 
+        dbHelper = new LocalSQLiteDBHelper(getContext());
+        localController = SQLiteController.getInstance(getContext());
+
         question1Options = (Spinner) root.findViewById(R.id.swls_q1_options);
         question2Options = (Spinner) root.findViewById(R.id.swls_q2_options);
         question3Options = (Spinner) root.findViewById(R.id.swls_q3_options);
@@ -69,8 +81,6 @@ public class SWLSSurveyFragment extends Fragment {
         for (Spinner s : spinners) {
             setupSpinnerOptions(s);
         }
-
-        setUpSpinnerListeners();
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,88 +148,6 @@ public class SWLSSurveyFragment extends Fragment {
 
         tipiAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(tipiAdapter);
-    }
-
-    private void setUpSpinnerListeners() {
-
-        // Set the integer ageSelection to the constant values
-        question1Options.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                answer1 = selection;
-                Log.d("SWLSFragment", "Question 1 answer: " + answer1);
-            }
-
-            // Because AdapterView is an abstract class, onNothingSelected must be defined
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                answer1 = ""; // Unknown
-            }
-        });
-
-        question2Options.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                answer2 = selection;
-                Log.d("SWLSFragment", "Question 2 answer: " + answer2);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                answer2 = "";
-            }
-        });
-
-        question3Options.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                answer3 = selection;
-                Log.d("SWLSFragment", "Question 3 answer: " + answer3);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                answer3 = "";
-            }
-        });
-
-        question4Options.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                answer4 = selection;
-                Log.d("SWLSFragment", "Question 4 answer: " + answer4);
-            }
-
-            // Because AdapterView is an abstract class, onNothingSelected must be defined
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                answer4 = ""; // Unknown
-            }
-        });
-
-        question5Options.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selection = (String) parent.getItemAtPosition(position);
-                answer5 = selection;
-                Log.d("SWLSFragment", "Question 5 answer: " + answer5);
-            }
-
-            // Because AdapterView is an abstract class, onNothingSelected must be defined
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                answer5 = ""; // Unknown
-            }
-        });
     }
 
     private boolean validateSpinners() {
