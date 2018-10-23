@@ -27,7 +27,6 @@ import usi.memotion.UI.fragments.LectureSurveysFragment;
 
 public class AlarmNotificationReceiver extends BroadcastReceiver {
 
-
     @Override
     public void onReceive(Context context, Intent intent) {
         System.out.println("I am in receiver!");
@@ -49,11 +48,11 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         }else if(session.equals("E4")) {
             setE4Notification(context, "E4 charging time", "Please don't forget to charge E4 and upload the data", 100096);
         }else if(session.equals("early morning")){
-            setDailyNotification(context, "Survey about " + session, "Please tell us how you feel during the " + session + "!", 100097);
+            setDailyNotification(context, "Survey about " + session, "Please tell us how you feel during the " + session + "!", 100097,context.getString(R.string.early_morning));
         }else if(session.equals("morning")){
-            setDailyNotification(context, "Survey about " + session, "Please tell us how you feel during the " + session + "!", 100098);
+            setDailyNotification(context, "Survey about " + session, "Please tell us how you feel during the " + session + "!", 100098,context.getString(R.string.morning));
         }else if(session.equals("evening")){
-            setDailyNotification(context, "Survey about " + session, "Please tell us how you feel during the " + session + "!", 100099);
+            setDailyNotification(context, "Survey about " + session, "Please tell us how you feel during the " + session + "!", 100099,context.getString(R.string.afternoon));
         }
     }
 
@@ -145,7 +144,9 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
     }
 
 
-    public void setDailyNotification(Context context, String title, String content, final int notificationID){
+    public void setDailyNotification(Context context, String title, String content, final int notificationID,
+                                     String type){
+
         Random rand = new Random();
         int code = rand.nextInt(1000000);
         System.out.println("code: "+code);
@@ -167,7 +168,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
 
 
         Intent intent = new Intent(context, Surveys.class);
-        intent.putExtra("fragmentChoice", "dailySurveys");
+        intent.putExtra("type_daily", type);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addParentStack(MainActivity.class);

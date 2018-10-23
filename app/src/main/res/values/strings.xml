@@ -377,6 +377,9 @@
     <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Daily surveys +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <string name="sleep_quality">Sleep Quality</string>
     <string name="fatigue">Fatigue</string>
+    <string name="early_morning">early_morning</string>
+    <string name="morning">morning</string>
+    <string name="afternoon">afternoon</string>
     <string name="daily_sleep_q1">Please indicate your bedtime:</string>
     <string name="daily_sleep_q2">Please indicate your wake-up time</string>
     <string name="daily_sleep_q3">Did you have any noctural awakening?:</string>
@@ -415,4 +418,5 @@
     <string name="fatigue_q1_option5">A little tired, less than fresh</string>
     <string name="fatigue_q1_option6">Moderately tired, very difficult to concentrate</string>
     <string name="fatigue_q1_option7">Completely exhausted, unable to function effectively</string>
+
 </resources>

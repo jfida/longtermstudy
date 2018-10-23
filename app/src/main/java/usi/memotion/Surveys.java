@@ -30,28 +30,31 @@ public class Surveys extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        localController = SQLiteController.getInstance(Surveys.this);
-        LayoutInflater inflater = (this).getLayoutInflater();
+        if (getIntent().getStringExtra("type_daily")!= null) {
+            if (getIntent().getStringExtra("type_daily").equals(getString(R.string.early_morning))) {
 
-        AlertDialog.Builder builderSleep = new AlertDialog.Builder(this);
-        final AlertDialog.Builder builderFatigue = new AlertDialog.Builder(this);
+                localController = SQLiteController.getInstance(Surveys.this);
+                LayoutInflater inflater = (this).getLayoutInflater();
 
-        builderSleep.setCancelable(false);
-        builderFatigue.setCancelable(false);
+                AlertDialog.Builder builderSleep = new AlertDialog.Builder(this);
+                final AlertDialog.Builder builderFatigue = new AlertDialog.Builder(this);
 
-        builderSleep.setTitle(getString(R.string.sleep_quality));
-        builderFatigue.setTitle(getString(R.string.fatigue));
+                builderSleep.setCancelable(false);
+                builderFatigue.setCancelable(false);
 
-        builderSleep.setView(inflater.inflate(R.layout.early_morning_questionnaire_sleep, null));
-        builderFatigue.setView(inflater.inflate(R.layout.early_morning_questionnaire_fatigue, null));
+                builderSleep.setTitle(getString(R.string.sleep_quality));
+                builderFatigue.setTitle(getString(R.string.fatigue));
 
-        builderSleep.setPositiveButton("NEXT", new DialogInterface.OnClickListener() {
+                builderSleep.setView(inflater.inflate(R.layout.early_morning_questionnaire_sleep, null));
+                builderFatigue.setView(inflater.inflate(R.layout.early_morning_questionnaire_fatigue, null));
+
+                builderSleep.setPositiveButton("NEXT", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        early_morning_q1 = (EditText) ((AlertDialog)dialog).findViewById(R.id.early_morning_q1);
-                        early_morning_q2 = (EditText) ((AlertDialog)dialog).findViewById(R.id.early_morning_q2);
-                        early_morning_q3 = (RadioGroup) ((AlertDialog)dialog).findViewById(R.id.early_morning_q3);
-                        early_morning_q4 = (RadioGroup) ((AlertDialog)dialog).findViewById(R.id.early_morning_q4);
+                        early_morning_q1 = (EditText) ((AlertDialog) dialog).findViewById(R.id.early_morning_q1);
+                        early_morning_q2 = (EditText) ((AlertDialog) dialog).findViewById(R.id.early_morning_q2);
+                        early_morning_q3 = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.early_morning_q3);
+                        early_morning_q4 = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.early_morning_q4);
                         ContentValues record = new ContentValues();
                         record.put(SleepQualityTable.TIMESTAMP, System.currentTimeMillis());
                         record.put(SleepQualityTable.QUESTION_1, early_morning_q1.getText().toString());
@@ -84,7 +87,7 @@ public class Surveys extends AppCompatActivity {
                         builderFatigue.setPositiveButton("NEXT", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
-                                fatigue_q1 = (RadioGroup) ((AlertDialog)dialog).findViewById(R.id.fatigue_q1);
+                                fatigue_q1 = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.fatigue_q1);
                                 ContentValues record = new ContentValues();
                                 record.put(SleepQualityTable.TIMESTAMP, System.currentTimeMillis());
                                 int choiceq1 = fatigue_q1.getCheckedRadioButtonId();
@@ -117,14 +120,21 @@ public class Surveys extends AppCompatActivity {
                         builderFatigue.show();
                     }
                 });
-        builderSleep.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-                Surveys.this.finish();
+                builderSleep.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        Surveys.this.finish();
+                    }
+                });
+                builderSleep.create();
+                builderSleep.show();
+            } else if(getIntent().getStringExtra("type_daily").equals(getString(R.string.morning))){
+
+            } else if(getIntent().getStringExtra("type_daily").equals(getString(R.string.afternoon))){
             }
-        });
-        builderSleep.create();
-        builderSleep.show();
+        } else {
+            Surveys.this.finish();
+        }
     }
 }
