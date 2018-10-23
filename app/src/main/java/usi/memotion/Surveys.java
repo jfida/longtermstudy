@@ -10,11 +10,9 @@ import android.view.LayoutInflater;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
-import usi.memotion.local.database.tables.SWLSSurveyTable;
 import usi.memotion.local.database.tables.SleepQualityTable;
 
 public class Surveys extends AppCompatActivity {
@@ -34,11 +32,9 @@ public class Surveys extends AppCompatActivity {
         LayoutInflater inflater = (this).getLayoutInflater();
 
         AlertDialog.Builder builderSleep = new AlertDialog.Builder(this);
-        final AlertDialog.Builder builderAffect = new AlertDialog.Builder(this);
         builderSleep.setCancelable(false);
-        builderAffect.setCancelable(false);
-        builderSleep.setView(inflater.inflate(R.layout.early_morning_questionnaire, null));
-        builderAffect.setView(inflater.inflate(R.layout.pam_questions_layout, null));
+        builderSleep.setTitle("Sleep");
+        builderSleep.setView(inflater.inflate(R.layout.early_morning_questionnaire_sleep, null));
         builderSleep.setPositiveButton("NEXT", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
@@ -74,8 +70,6 @@ public class Surveys extends AppCompatActivity {
                         Log.d("SLEEP QUALITY SURVEYS", "Added record: ts: " + record.get(SleepQualityTable.TIMESTAMP));
 
                         dialog.dismiss();
-                        builderAffect.create();
-                        builderAffect.show();
                     }
                 });
         builderSleep.create();
