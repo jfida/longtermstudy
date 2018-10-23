@@ -1,5 +1,6 @@
 package usi.memotion.Reminders;
 
+import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -11,10 +12,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
+import android.util.Log;
+
 import java.util.Random;
 
 import usi.memotion.MainActivity;
 import usi.memotion.R;
+import usi.memotion.Surveys;
 import usi.memotion.UI.fragments.LectureSurveysFragment;
 
 /**
@@ -146,6 +150,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         int code = rand.nextInt(1000000);
         System.out.println("code: "+code);
 
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setContentTitle(title);
         builder.setContentText(content);
@@ -158,8 +163,10 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
 //        long[] pattern = {500,500,500,500,500,500};
 //        builder.setVibrate(pattern);
 
+// custom dialog
 
-        Intent intent = new Intent(context, MainActivity.class);
+
+        Intent intent = new Intent(context, Surveys.class);
         intent.putExtra("fragmentChoice", "dailySurveys");
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);

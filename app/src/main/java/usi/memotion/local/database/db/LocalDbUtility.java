@@ -19,6 +19,7 @@ import usi.memotion.local.database.tables.PhoneLockTable;
 import usi.memotion.local.database.tables.SMSTable;
 import usi.memotion.local.database.tables.SWLSSurveyTable;
 import usi.memotion.local.database.tables.SimpleMoodTable;
+import usi.memotion.local.database.tables.SleepQualityTable;
 import usi.memotion.local.database.tables.UserTable;
 import usi.memotion.local.database.tables.WiFiTable;
 
@@ -62,6 +63,8 @@ public class LocalDbUtility {
                 return PSSSurveyTable.TABLE_PSS_SURVEY;
             case TABLE_SWLS:
                 return SWLSSurveyTable.TABLE_SWLSS_SURVEY;
+            case TABLE_SLEEP_QUALITY:
+                return SleepQualityTable.TABLE_SLEEP_QUALITY_SURVEY;
             default:
                 return null;
         }
@@ -105,6 +108,8 @@ public class LocalDbUtility {
                 return PSSSurveyTable.getColumns();
             case TABLE_SWLS:
                 return SWLSSurveyTable.getColumns();
+            case TABLE_SLEEP_QUALITY:
+                return SleepQualityTable.getColumns();
             default:
                 return null;
         }
