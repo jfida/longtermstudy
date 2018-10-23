@@ -38,6 +38,17 @@
                 android:paddingRight="35dp"
                 android:text="@string/swls_instructions" />
 
+            <ImageButton
+                android:id="@+id/info_SWLS"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:adjustViewBounds="true"
+                android:padding="10dp"
+                android:layout_marginRight="20dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/information"
+                android:layout_gravity="end"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

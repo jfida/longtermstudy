@@ -262,7 +262,7 @@
 
     <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ PSS +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <string name="pss_explanation">Please answer the following questions by marking from 1 (never) to 5 (very often)</string>
-    <string name="pss_instructions">The questions in this scale ask you about your feelings and thoughts in general. In each case, you will be asked to indicate by selecting how often you felt or thought a certain way.</string>
+    <string name="pss_instructions">The questions in this scale ask you about your feelings and thoughts in general. In each case, you will be asked to indicate by selecting how often you felt or thought a certain way. Please answer the following questions by marking from 1 (never) to 5 (very often).</string>
     <string name="pss_q1">How often are you upset because of something that happened unexpectedly?</string>
     <string name="pss_q2">How often do you feel that you are unable to control the important things in your life?</string>
     <string name="pss_q3">How often do you feel nervous and "stressed"?</string>
@@ -273,6 +273,36 @@
     <string name="pss_q8">How often do you feel that you are on top of things?</string>
     <string name="pss_q9">How often are you angered because of things that are outside of your control?</string>
     <string name="pss_q10">How often do you feel difficulties are pilling up so high that you cannot overcome them?</string>
+
+    <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ PSQI +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <string name="psqi_explanation">Please answer the following questions by marking from 1 (never) to 5 (very often)</string>
+    <string name="psqi_instructions">The following questions relate to your usual sleep habits during the past month. Your answers should indicate the most accurate reply for the majority of days and nights in the past month.</string>
+    <string name="psqi_q1">During the past month, when have you usually gone to bed at night?</string>
+    <string name="psqi_q2">During the past month, how long (in minutes) has it usually take you to fall asleep each night?</string>
+    <string name="psqi_q3">During the past month, when have you usually gotten up in the morning?</string>
+    <string name="psqi_q4">During the past month, how many hours of actual sleep did you get at night? (This may be different than the number of hours you spend in bed.)</string>
+    <string name="psqi_q5">During the past month, how often have you had trouble sleeping because you … </string>
+    <string name="psqi_q5a">a) … cannot get to sleep within 30 minutes?</string>
+    <string name="psqi_q5b">b) … wake up in the middle of the night or early morning?</string>
+    <string name="psqi_q5c">c) … have to get up to use the bathroom?</string>
+    <string name="psqi_q5d">d) … cannot breathe comfortably?</string>
+    <string name="psqi_q5e">e) … cough or snore loudly?</string>
+    <string name="psqi_q5f">f) … feel too cold?</string>
+    <string name="psqi_q5g">g) … feel too hot?</string>
+    <string name="psqi_q5h">h) … had bad dreams?</string>
+    <string name="psqi_q5i">i) … have pain?</string>
+    <string name="psqi_q5j">j) … had trouble sleeping because of other reason(s) (please describe)? How often during the past month have you had trouble sleeping because of this?</string>
+    <string name="psqi_q6">During the past month, During the past month, how would you rate your sleep quality overall?</string>
+    <string name="psqi_q7">During the past month, how often have you taken medicine (prescribed or “over the counter”) to help you sleep?</string>
+    <string name="psqi_q8">During the past month, how often have you had trouble staying awake while driving, eating meals, or engaging in social activity?</string>
+    <string name="psqi_q9">During the past month, how much of a problem has it been for you to keep up enough enthusiasm to get things done?</string>
+    <string name="psqi_q10">Do you have a bed partner or roommate?</string>
+    <string name="psqi_q10_0">If you have a roommate or bed partner, ask him/her how often in the past month you have had …</string>
+    <string name="psqi_q10a">Load snoring</string>
+    <string name="psqi_q10b">Long pauses between breaths while asleep</string>
+    <string name="psqi_q10c">Legs twitching or jerking while you sleep</string>
+    <string name="psqi_q10d">Episodes of disorientation or confusion during sleep</string>
+    <string name="psqi_q10e">Other restlessness while you sleep; please describe:</string>
 
     <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ PHQ8 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <string name="phq8_explanation">Please answer the following questions by marking them from 1 (not at all) to 4 (nearly every day)</string>
@@ -344,14 +374,33 @@
 
     <string-array name="pss_questions_choices">
         <item>Select</item>
-        <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
         <item>4</item>
+        <item>5</item>
     </string-array>
 
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="TIPI_scale">1: Disagree strong \n 2: Disagree moderately \n 3: Disagree a little \n 4: Neither agree or disagree \n 5: Agree a little \n 6: Agree moderately \n 7: Strongly agree</string>
+    <string name="TIPI_scale_title">Personality test scale</string>
+    <string name="PSS_scale">1: Never \n 2: Almost Never \n 3: Sometimes \n 4: Fairly Often \n 5: Very Often </string>
+    <string name="PSS_scale_title">Perceived Stress Scale</string>
+    <string name="fill_answers">Please fill out all the answers!</string>
+    <string name="psqi_option_very_big_problem">A very big problem</string>
+    <string name="psqi_option_somewhat_of_a_problem">Somewhat of a problem</string>
+    <string name="psqi_option_only_slight_problem">Only a very slight problem</string>
+    <string name="psqi_option_no_problem">No problem at all</string>
+    <string name="pittsburgh_sleep_quality_index">Pittsburgh Sleep Quality Index</string>
+    <string name="psqi_option_not_during_the_past_month">Not during the past month</string>
+    <string name="psqi_option_less_than_once_a_week">Less than once a week</string>
+    <string name="psqi_option_once_or_twice_a_week">Once or twice a week</string>
+    <string name="psqi_option_three_or_more_times_a_week">Three or more times a week</string>
+    <string name="psqi_option_very_good">Very good</string>
+    <string name="psqi_option_fairly_good">Fairly good</string>
+    <string name="psqi_option_fairly_bad">Fairly bad</string>
+    <string name="psqi_option_very_bad">Very bad</string>
+    <string name="thank_you">Thank you for completing all the surveys!</string>
 </resources>
