@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     int dayOfMonth;
     FinalScheduler scheduler;
 
-    ExpandableRelativeLayout expandableLayout0, expandableLayout1, expandableLayout2,
+    ExpandableRelativeLayout expandableLayout1, expandableLayout2,
             expandableLayoutMood, expandableLayoutFatigue, expandableLayoutStress, expandableLayoutProductivity, expandableLayoutSleep;
 
 
@@ -420,7 +420,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 23);
-        cal.set(Calendar.MINUTE, 45);
+        cal.set(Calendar.MINUTE, 30);
         cal.set(Calendar.SECOND, 0);
 
         if (cal.getTimeInMillis() > System.currentTimeMillis()) { //if it is more than 19:00 o'clock, trigger it tomorrow
