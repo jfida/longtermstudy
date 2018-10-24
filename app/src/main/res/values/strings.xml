@@ -273,6 +273,8 @@
     <string name="pss_q8">How often do you feel that you are on top of things?</string>
     <string name="pss_q9">How often are you angered because of things that are outside of your control?</string>
     <string name="pss_q10">How often do you feel difficulties are pilling up so high that you cannot overcome them?</string>
+    <string name="PSS_scale">1: Never \n 2: Almost Never \n 3: Sometimes \n 4: Fairly Often \n 5: Very Often </string>
+    <string name="PSS_scale_title">Perceived Stress Scale</string>
 
     <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ PSQI +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <string name="psqi_explanation">Please answer the following questions by marking from 1 (never) to 5 (very often)</string>
@@ -292,7 +294,7 @@
     <string name="psqi_q5h">h) … had bad dreams?</string>
     <string name="psqi_q5i">i) … have pain?</string>
     <string name="psqi_q5j">j) … had trouble sleeping because of other reason(s) (please describe)? How often during the past month have you had trouble sleeping because of this?</string>
-    <string name="psqi_q6">During the past month, During the past month, how would you rate your sleep quality overall?</string>
+    <string name="psqi_q6">During the past month, how would you rate your sleep quality overall?</string>
     <string name="psqi_q7">During the past month, how often have you taken medicine (prescribed or “over the counter”) to help you sleep?</string>
     <string name="psqi_q8">During the past month, how often have you had trouble staying awake while driving, eating meals, or engaging in social activity?</string>
     <string name="psqi_q9">During the past month, how much of a problem has it been for you to keep up enough enthusiasm to get things done?</string>
@@ -303,6 +305,20 @@
     <string name="psqi_q10c">Legs twitching or jerking while you sleep</string>
     <string name="psqi_q10d">Episodes of disorientation or confusion during sleep</string>
     <string name="psqi_q10e">Other restlessness while you sleep; please describe:</string>
+    <string name="psqi_option_very_big_problem">A very big problem</string>
+    <string name="psqi_option_somewhat_of_a_problem">Somewhat of a problem</string>
+    <string name="psqi_option_only_slight_problem">Only a very slight problem</string>
+    <string name="psqi_option_no_problem">No problem at all</string>
+    <string name="pittsburgh_sleep_quality_index">Pittsburgh Sleep Quality Index</string>
+    <string name="psqi_option_not_during_the_past_month">Not during the past month</string>
+    <string name="psqi_option_less_than_once_a_week">Less than once a week</string>
+    <string name="psqi_option_once_or_twice_a_week">Once or twice a week</string>
+    <string name="psqi_option_three_or_more_times_a_week">Three or more times a week</string>
+    <string name="psqi_option_very_good">Very good</string>
+    <string name="psqi_option_fairly_good">Fairly good</string>
+    <string name="psqi_option_fairly_bad">Fairly bad</string>
+    <string name="psqi_option_very_bad">Very bad</string>
+    <string name="thank_you">Thank you for completing all the surveys!</string>
 
     <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ PHQ8 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <string name="phq8_explanation">Please answer the following questions by marking them from 1 (not at all) to 4 (nearly every day)</string>
@@ -344,7 +360,8 @@
     <string name="tipi_q8">Disorganized, careless.</string>
     <string name="tipi_q9">Calm, emotionally stable.</string>
     <string name="tipi_q10">Conventional, uncreative.</string>
-
+    <string name="TIPI_scale">1: Disagree strong \n 2: Disagree moderately \n 3: Disagree a little \n 4: Neither agree or disagree \n 5: Agree a little \n 6: Agree moderately \n 7: Strongly agree</string>
+    <string name="TIPI_scale_title">Personality test scale</string>
 
     <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ GAD +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <string name="anxiety_survey">Generalized Anxiety Disorder 7-item (GAD-7) scale</string>
@@ -357,9 +374,63 @@
     <string name="gad_q6">6. Becoming easily annoyed or irritable.</string>
     <string name="gad_q7">7. Feeling afraid as if something awful might happen.</string>
 
+    <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Daily surveys +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <string name="sleep_quality">Sleep Quality</string>
+    <string name="fatigue">Fatigue</string>
+    <string name="overall">Overall</string>
+    <string name="productivity">Productivity</string>
+    <string name="affect">Affect</string>
+    <string name="stress">Stress</string>
 
-    <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ PSQI +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <string name="early_morning">early_morning</string>
+    <string name="morning">morning</string>
+    <string name="afternoon">afternoon</string>
 
+    <string name="daily_sleep_q1">Please indicate your bedtime:</string>
+    <string name="daily_sleep_q2">Please indicate your wake-up time</string>
+    <string name="daily_sleep_q3">Did you have any noctural awakening?:</string>
+    <string name="daily_sleep_q4">Please indicate the quality of your sleep</string>
+
+    <string name="daily_fatigue_q1">How do you feel now?</string>
+    <string name="fatigue_q1_option1">Fully alert, wide awake</string>
+    <string name="fatigue_q1_option2">Very lively, responsive, but not at peak</string>
+    <string name="fatigue_q1_option3">Okay, somewhat fresh</string>
+    <string name="fatigue_q1_option4">Fully alert, wide awake</string>
+    <string name="fatigue_q1_option5">A little tired, less than fresh</string>
+    <string name="fatigue_q1_option6">Moderately tired, very difficult to concentrate</string>
+    <string name="fatigue_q1_option7">Completely exhausted, unable to function effectively</string>
+
+    <string name="daily_overall_morning_q1">Overall, how would you rate this morning?</string>
+    <string name="daily_overall_afternoon_q1">Overall, how would you rate this afternoon?</string>
+    <string name="overall_option1">Really negative</string>
+    <string name="overall_option2">Negative</string>
+    <string name="overall_option3">Average</string>
+    <string name="overall_option4">Positive</string>
+    <string name="overall_option5">Really positive</string>
+
+    <string name="productivity_morning_q1">Overall, how productive do you feel you were during the morning?</string>
+    <string name="productivity_afternoon_q1">Overall, how productive do you feel you were during the afternoon?</string>
+    <string name="productivityq1_option1">Not at all productive</string>
+    <string name="productivityq1_option2">Not very productive</string>
+    <string name="productivityq1_option3">Somewhat unproductive</string>
+    <string name="productivityq1_option4">Neither productive or unproductive</string>
+    <string name="productivityq1_option5">Somewhat productive</string>
+    <string name="productivityq1_option6">Very productive</string>
+    <string name="productivityq1_option7">Extremely productive</string>
+    <string name="productivity_morning_q2">Did you attend any academic activities(including classes, e-classes, sections, seminar, labs, study groups) this morning?</string>
+    <string name="productivity_afternoon_q2">Did you attend any academic activities(including classes, e-classes, sections, seminar, labs, study groups) this afternoon?</string>
+    <string name="productivity_q3">If yes, how many?</string>
+    <string name="productivity_morning_q4">How many hours did you study by yourself this morning (not including any academic activities in the previous question)?</string>
+    <string name="productivity_afternoon_q4">How many hours did you study by yourself this afternoon (not including any academic activities in the previous question)?</string>
+
+
+    <string name="stress_morning_q1">How did you feel during this morning?</string>
+    <string name="stress_afternoon_q1">How did you feel during this afternoon?</string>
+    <string name="stressq1_option1">Great!</string>
+    <string name="stressq1_option2">Good</string>
+    <string name="stressq1_option3">A little stressed</string>
+    <string name="stressq1_option4">Definitely stressed</string>
+    <string name="stressq1_option5">Stressed out!</string>
 
     <string-array name="tipi_questions_choices">
         <item>Select</item>
@@ -384,23 +455,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="TIPI_scale">1: Disagree strong \n 2: Disagree moderately \n 3: Disagree a little \n 4: Neither agree or disagree \n 5: Agree a little \n 6: Agree moderately \n 7: Strongly agree</string>
-    <string name="TIPI_scale_title">Personality test scale</string>
-    <string name="PSS_scale">1: Never \n 2: Almost Never \n 3: Sometimes \n 4: Fairly Often \n 5: Very Often </string>
-    <string name="PSS_scale_title">Perceived Stress Scale</string>
     <string name="fill_answers">Please fill out all the answers!</string>
-    <string name="psqi_option_very_big_problem">A very big problem</string>
-    <string name="psqi_option_somewhat_of_a_problem">Somewhat of a problem</string>
-    <string name="psqi_option_only_slight_problem">Only a very slight problem</string>
-    <string name="psqi_option_no_problem">No problem at all</string>
-    <string name="pittsburgh_sleep_quality_index">Pittsburgh Sleep Quality Index</string>
-    <string name="psqi_option_not_during_the_past_month">Not during the past month</string>
-    <string name="psqi_option_less_than_once_a_week">Less than once a week</string>
-    <string name="psqi_option_once_or_twice_a_week">Once or twice a week</string>
-    <string name="psqi_option_three_or_more_times_a_week">Three or more times a week</string>
-    <string name="psqi_option_very_good">Very good</string>
-    <string name="psqi_option_fairly_good">Fairly good</string>
-    <string name="psqi_option_fairly_bad">Fairly bad</string>
-    <string name="psqi_option_very_bad">Very bad</string>
-    <string name="thank_you">Thank you for completing all the surveys!</string>
+
+
 </resources>

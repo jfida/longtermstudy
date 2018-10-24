@@ -1,24 +1,25 @@
 package usi.memotion.local.database.db;
 
-import usi.memotion.UI.fragments.PSQISurveyFragment;
-import usi.memotion.UI.fragments.PSSSurveyFragment;
-import usi.memotion.UI.fragments.PersonalitySurveyFragment;
-import usi.memotion.UI.fragments.SWLSSurveyFragment;
 import usi.memotion.local.database.tables.AccelerometerTable;
 import usi.memotion.local.database.tables.ActivityRecognitionTable;
 import usi.memotion.local.database.tables.ApplicationLogsTable;
+import usi.memotion.local.database.tables.FatigueSurveyTable;
 import usi.memotion.local.database.tables.LectureSurveyTable;
 import usi.memotion.local.database.tables.LocationTable;
 import usi.memotion.local.database.tables.NotificationsTable;
+import usi.memotion.local.database.tables.OverallSurveyTable;
 import usi.memotion.local.database.tables.PAMTable;
 import usi.memotion.local.database.tables.PSQISurveyTable;
 import usi.memotion.local.database.tables.PSSSurveyTable;
 import usi.memotion.local.database.tables.PersonalitySurveyTable;
 import usi.memotion.local.database.tables.PhoneCallLogTable;
 import usi.memotion.local.database.tables.PhoneLockTable;
+import usi.memotion.local.database.tables.ProductivitySurveyTable;
 import usi.memotion.local.database.tables.SMSTable;
 import usi.memotion.local.database.tables.SWLSSurveyTable;
 import usi.memotion.local.database.tables.SimpleMoodTable;
+import usi.memotion.local.database.tables.SleepQualityTable;
+import usi.memotion.local.database.tables.StressSurveyTable;
 import usi.memotion.local.database.tables.UserTable;
 import usi.memotion.local.database.tables.WiFiTable;
 
@@ -27,8 +28,7 @@ import usi.memotion.local.database.tables.WiFiTable;
  */
 
 public class LocalDbUtility {
-    private final static int DATA_TABLES_COUNT = 17;
-
+    private final static int DATA_TABLES_COUNT = 22;
 
     public static String getTableName(LocalTables table) {
         switch (table) {
@@ -62,11 +62,18 @@ public class LocalDbUtility {
                 return PSSSurveyTable.TABLE_PSS_SURVEY;
             case TABLE_SWLS:
                 return SWLSSurveyTable.TABLE_SWLSS_SURVEY;
+            case TABLE_SLEEP_QUALITY:
+                return SleepQualityTable.TABLE_SLEEP_QUALITY_SURVEY;
+            case TABLE_FATIGUE_SURVEY:
+                return FatigueSurveyTable.TABLE_FATIGUE_SURVEY;
+            case TABLE_OVERALL_SURVEY:
+                return OverallSurveyTable.TABLE_OVERALL_SURVEY;
+            case TABLE_STRESS_SURVEY:
+                return StressSurveyTable.TABLE_STRESS_SURVEY;
             default:
                 return null;
         }
     }
-
 
 
     public static String[] getTableColumns(LocalTables table) {
@@ -105,6 +112,16 @@ public class LocalDbUtility {
                 return PSSSurveyTable.getColumns();
             case TABLE_SWLS:
                 return SWLSSurveyTable.getColumns();
+            case TABLE_SLEEP_QUALITY:
+                return SleepQualityTable.getColumns();
+            case TABLE_FATIGUE_SURVEY:
+                return FatigueSurveyTable.getColumns();
+            case TABLE_OVERALL_SURVEY:
+                return OverallSurveyTable.getColumns();
+            case TABLE_PRODUCTIVITY_SURVEY:
+                return ProductivitySurveyTable.getColumns();
+            case TABLE_STRESS_SURVEY:
+                return StressSurveyTable.getColumns();
             default:
                 return null;
         }

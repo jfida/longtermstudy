@@ -33,8 +33,6 @@ public class FinalScheduler {
     private Reminder eveningSurvey = new Reminder(19, 0, "afternoon");
     private Reminder e4 = new Reminder(21, 15, "E4"); //21:15
 
-
-
     private Calendar createCalendar(int day, int hour, int minute){
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour);
