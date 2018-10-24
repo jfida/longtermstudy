@@ -19,10 +19,9 @@ import java.util.Random;
 import usi.memotion.MainActivity;
 import usi.memotion.R;
 import usi.memotion.Surveys;
-import usi.memotion.UI.fragments.LectureSurveysFragment;
 
 /**
- *
+ * Created by shkurtagashi
  */
 
 public class AlarmNotificationReceiver extends BroadcastReceiver {

@@ -19,10 +19,6 @@ public class UserTable {
         public final static String _ID = BaseColumns._ID;
         public final static String ANDROID_ID = "android_id";
         public final static String USERNAME = "username";
-//        public final static String EMPATICAID = "empatica_id";
-//        public final static String EMAIL = "email";
-//        public final static String SWITCH_TOKEN = "switch_token";
-//        public final static String SWITCH_PASSWORD = "switch_password";
         public final static String COLUMN_GENDER = "gender";
         public final static String COLUMN_AGE = "age";
         public final static String COLUMN_STATUS = "status";
@@ -32,10 +28,6 @@ public class UserTable {
                     + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + ANDROID_ID + " TEXT, "
                     + USERNAME + " TEXT, "
-//                    + EMPATICAID + " TEXT, "
-//                    + SWITCH_TOKEN + " TEXT, "
-//                    + SWITCH_PASSWORD + " TEXT, "
-//                    + EMAIL + " TEXT, "
                     + COLUMN_GENDER + " TEXT, "
                     + COLUMN_AGE + " TEXT, "
                     + COLUMN_STATUS + " TEXT);";

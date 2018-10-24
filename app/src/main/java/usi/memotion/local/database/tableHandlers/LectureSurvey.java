@@ -30,48 +30,6 @@ public class LectureSurvey extends TableHandler{
     public String questionnaireType;
 
 
-
-//    public LectureSurvey(){}
-//
-//    public LectureSurvey(String id, String timestamp, int pId, int q1, int q2, int q3, int q4, int q5, int q6, int q7, int q8){
-//        setId(id);
-//        setTimestamp(timestamp);
-//        setPaperId(pId);
-//        setQuestion1(q1);
-//        setQuestion2(q2);
-//        setQuestion3(q3);
-//        setQuestion4(q4);
-//        setQuestion5(q5);
-//        setQuestion6(q6);
-//        setQuestion7(q7);
-//        setQuestion8(q8);
-//
-//
-//
-//    }
-//
-//    public LectureSurvey(String timestamp, int pId, int q1, int q2, int q3, int q4, int q5, int q6, int q7, int q8, int q9, int q10){
-//        setTimestamp(timestamp);
-//        setPaperId(pId);
-//        setQuestion1(q1);
-//        setQuestion2(q2);
-//        setQuestion3(q3);
-//        setQuestion4(q4);
-//        setQuestion5(q5);
-//        setQuestion6(q6);
-//        setQuestion7(q7);
-//        setQuestion8(q8);
-//        setQuestion9(q9);
-//        setQuestion10(q10);
-//
-//
-//    }
-//
-//    public LectureSurvey(String timestamp, int q){
-//        setTimestamp(timestamp);
-//        setQuestion7(q);
-//    }
-
     public void setQuestionnaireType(String t){this.questionnaireType = t;}
     public void setTimestamp(String t){
         this.timestamp = t;

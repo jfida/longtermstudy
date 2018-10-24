@@ -18,6 +18,10 @@ import usi.memotion.MainActivity;
 import usi.memotion.R;
 import usi.memotion.local.database.db.LocalSQLiteDBHelper;
 
+/**
+ * Created by biancastancu
+ */
+
 public class Questionnaire extends AppCompatActivity {
 
     @Override

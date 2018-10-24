@@ -24,28 +24,6 @@ public class User extends TableHandler {
     public String switch_password;
 
 
-//    public User(){}
-//
-//    public User(String android_id, String username, String empaticaID, String email, String gender, String age, String status){
-//        setAndroidId(android_id);
-//        setUsername(username);
-//        setEmpaticaID(empaticaID);
-//        setEmail(email);
-//        setGender(gender);
-//        setAge(age);
-//        setStatus(status);
-//    }
-//
-//    public User(String username, String empaticaID, String email, String gender, String age, String status){
-//        setUsername(username);
-//        setEmpaticaID(empaticaID);
-//        setEmail(email);
-//        setGender(gender);
-//        setAge(age);
-//        setStatus(status);
-//    }
-
-
 
     public void setAndroidId(String id) {
         this._android_id = id;

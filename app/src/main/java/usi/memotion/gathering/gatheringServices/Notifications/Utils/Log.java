@@ -1,10 +1,13 @@
 package usi.memotion.gathering.gatheringServices.Notifications.Utils;
 
+/**
+ * Created by abhinavmehrotra
+ */
 
 public class Log 
 {
 
-	private final String TAG = "MY_TRACES";
+	private final String TAG = "MEMOTION";
 	private final boolean debug = true;
 
 	public void d(String message)

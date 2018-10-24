@@ -2,6 +2,10 @@ package usi.memotion.local.database.tables;
 
 import android.provider.BaseColumns;
 
+/**
+ * Created by biancastancu
+ */
+
 public class PSQISurveyTable {
     public final static String TABLE_PSQUI_SURVEY = "PSQISurvey";
 

@@ -30,6 +30,9 @@ import usi.memotion.remote.database.controllers.SwitchDriveController;
 import usi.memotion.remote.database.upload.UploadAlarmReceiver;
 import usi.memotion.remote.database.upload.Uploader;
 
+/**
+ * Created by biancastancu
+ */
 public class PSQISurveyFragment extends Fragment {
     private String question1, question2, question3, question4, question5a,
             question5b, question5c, question5d, question5e, question5f, question5g, question5h, question5i,

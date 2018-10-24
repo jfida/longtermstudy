@@ -2,6 +2,9 @@ package usi.memotion.local.database.tables;
 
 import android.provider.BaseColumns;
 
+/**
+ * Created by biancastancu
+ */
 public class StressSurveyTable {
     public final static String TABLE_STRESS_SURVEY = "STRESS_SURVEY";
 

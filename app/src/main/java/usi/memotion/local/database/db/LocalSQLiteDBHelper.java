@@ -12,7 +12,6 @@ import java.util.List;
 
 import usi.memotion.local.database.tables.AccelerometerTable;
 import usi.memotion.local.database.tables.ActivityRecognitionTable;
-import usi.memotion.local.database.tables.AnxietySurveyTable;
 import usi.memotion.local.database.tables.ApplicationLogsTable;
 import usi.memotion.local.database.tables.BlueToothTable;
 import usi.memotion.local.database.tables.FatigueSurveyTable;

@@ -43,10 +43,15 @@ import usi.memotion.remote.database.controllers.SwitchDriveController;
 
 
 /**
+ * Created by shkurtagashi
+ */
+
+/**
  * An {@link IntentService} subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
  * <p>
  */
+
 public class AlarmService extends IntentService {
     Timer timer;
 

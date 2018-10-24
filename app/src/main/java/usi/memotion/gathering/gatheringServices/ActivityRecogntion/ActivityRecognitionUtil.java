@@ -2,6 +2,10 @@ package usi.memotion.gathering.gatheringServices.ActivityRecogntion;
 
 import com.google.android.gms.location.DetectedActivity;
 
+/**
+ * Created by biancastancu
+ */
+
 public class ActivityRecognitionUtil{
     public static String getActivityName(int activity) {
         switch (activity) {

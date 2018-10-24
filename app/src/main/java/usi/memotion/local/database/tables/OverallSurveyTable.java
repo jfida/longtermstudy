@@ -2,6 +2,10 @@ package usi.memotion.local.database.tables;
 
 import android.provider.BaseColumns;
 
+/**
+ * Created by biancastancu
+ */
+
 public class OverallSurveyTable {
     public final static String TABLE_OVERALL_SURVEY = "OVERALL_SURVEY";
 

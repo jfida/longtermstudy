@@ -12,6 +12,10 @@ import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
 import usi.memotion.local.database.tables.ActivityRecognitionTable;
 
+/**
+ * Created by biancastancu
+ */
+
 public class DetectedActivitiesIntentService extends IntentService {
 
     protected static final String TAG = DetectedActivitiesIntentService.class.getSimpleName();

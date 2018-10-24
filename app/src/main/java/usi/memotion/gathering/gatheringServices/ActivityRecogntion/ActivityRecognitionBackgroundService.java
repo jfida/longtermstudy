@@ -20,6 +20,10 @@ import com.google.android.gms.tasks.Task;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by biancastancu
+ */
+
 public class ActivityRecognitionBackgroundService extends Service {
     IBinder binder = new ActivityRecognitionBackgroundService.LocalBinder();
     private Intent intentService;

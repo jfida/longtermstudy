@@ -12,14 +12,6 @@
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
-
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:paddingBottom="20dp">-->
-
-
         <android.support.design.widget.TextInputLayout
             android:id="@+id/full_name"
             android:layout_width="match_parent"
@@ -28,76 +20,13 @@
 
             <EditText
                 android:id="@+id/username_value"
+                android:digits="u1234567890 "
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Username*"
                 android:inputType="textPersonName" />
         </android.support.design.widget.TextInputLayout>
-
-
-            <!--<android.support.design.widget.TextInputLayout-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp">-->
-
-                <!--<EditText-->
-                    <!--android:id="@+id/empatica_value"-->
-                    <!--android:layout_width="168dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:ems="10"-->
-                    <!--android:hint="Empatica ID*"-->
-                    <!--android:inputType="textPersonName" />-->
-            <!--</android.support.design.widget.TextInputLayout>-->
-        <!--</LinearLayout>-->
-
-
-
-        <!--<android.support.design.widget.TextInputLayout-->
-            <!--android:id="@+id/switchdrive_token"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:paddingBottom="20dp">-->
-
-            <!--<EditText-->
-                <!--android:id="@+id/switch_token_value"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:ems="10"-->
-                <!--android:hint="SWITCHdrive Token*"-->
-                <!--android:inputType="textPersonName" />-->
-        <!--</android.support.design.widget.TextInputLayout>-->
-
-
-        <!--<android.support.design.widget.TextInputLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:paddingBottom="20dp">-->
-
-            <!--<EditText-->
-                <!--android:id="@+id/switch_pass_value"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:ems="10"-->
-                <!--android:hint="SWITCHdrive Password*"-->
-                <!--android:inputType="textPersonName" />-->
-        <!--</android.support.design.widget.TextInputLayout>-->
-
-
-        <!--<android.support.design.widget.TextInputLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:paddingBottom="20dp">-->
-
-            <!--<EditText-->
-                <!--android:id="@+id/email"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:ems="10"-->
-                <!--android:hint="Email*"-->
-                <!--android:inputType="textEmailAddress" />-->
-        <!--</android.support.design.widget.TextInputLayout>-->
 
 
         <LinearLayout
@@ -113,7 +42,7 @@
                 android:layout_marginBottom="8dp"
                 android:paddingRight="35dp"
                 android:paddingTop="10dp"
-                android:text="Gender"
+                android:text="Gender*"
                 android:textSize="18sp" />
 
             <RadioGroup
@@ -157,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:text="Age"
+                android:text="Age*"
                 android:textSize="18sp" />
 
             <Spinner
@@ -181,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:text="Status"
+                android:text="Status*"
                 android:textSize="18sp" />
             <Spinner
                 android:id="@+id/status_choices"

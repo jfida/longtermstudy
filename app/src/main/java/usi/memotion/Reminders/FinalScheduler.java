@@ -18,19 +18,19 @@ import java.util.Random;
 public class FinalScheduler {
 
     /********** Mobile Computing - Day 1 ***********/
-    private Weekday preLecture1 = new Weekday(15, 20, Calendar.WEDNESDAY, "Wednesday - Pre");
-    private Weekday breakLecture1 = new Weekday(16, 15, Calendar.WEDNESDAY, "Wednesday - Break");
-    private Weekday postLecture1 = new Weekday(17, 15, Calendar.WEDNESDAY, "Wednesday - Post");
+//    private Weekday preLecture1 = new Weekday(15, 20, Calendar.WEDNESDAY, "Wednesday - Pre"); //15, 20
+    private Weekday breakLecture1 = new Weekday(16, 15, Calendar.WEDNESDAY, "Wednesday - Break"); //16, 15
+    private Weekday postLecture1 = new Weekday(17, 15, Calendar.WEDNESDAY, "Wednesday - Post"); //17, 15
 
     /********** Mobile Computing - Day 2 ***********/
-    private Weekday preLecture2 = new Weekday(13, 20, Calendar.FRIDAY, "Friday - Pre");
-    private Weekday breakLecture2 = new Weekday(14, 15, Calendar.FRIDAY, "Friday - Break");
-    private Weekday postLecture2 = new Weekday(15, 15, Calendar.FRIDAY, "Friday - Post");
+//    private Weekday preLecture2 = new Weekday(13, 20, Calendar.FRIDAY, "Friday - Pre"); // 13, 20
+    private Weekday breakLecture2 = new Weekday(14, 15, Calendar.FRIDAY, "Friday - Break"); // 14, 15
+    private Weekday postLecture2 = new Weekday(15, 15, Calendar.FRIDAY, "Friday - Post"); //15, 15
 
     /********** Daily Reminders *********/
     private Reminder morningSurvey = new Reminder(7, 15, "early morning"); //7:15
     private Reminder afternoonSurvey = new Reminder(12, 30, "morning"); //12:30
-    private Reminder eveningSurvey = new Reminder(19, 15, "afternoon");
+    private Reminder eveningSurvey = new Reminder(19, 15, "afternoon"); //19:15
     private Reminder e4 = new Reminder(21, 15, "E4"); //21:15
 
     private Calendar createCalendar(int day, int hour, int minute){
@@ -55,7 +55,9 @@ public class FinalScheduler {
       /* Creation of the reminder for lecture and daily surveys */
     public void createReminder(Context context) {
 
-        Weekday [] lectureReminders = {preLecture1, breakLecture1, postLecture1, preLecture2, breakLecture2, postLecture2};
+//        preLecture1, preLecture2,
+
+        Weekday [] lectureReminders = {breakLecture1, postLecture1, breakLecture2, postLecture2};
 
         Reminder [] dailyReminders = {morningSurvey, afternoonSurvey, eveningSurvey, e4};
 

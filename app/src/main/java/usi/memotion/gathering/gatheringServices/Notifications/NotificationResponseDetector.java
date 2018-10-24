@@ -7,6 +7,10 @@ import usi.memotion.gathering.gatheringServices.ApplicationLogs.ApplicationUsage
 import usi.memotion.gathering.gatheringServices.Notifications.Utils.Log;
 import usi.memotion.local.database.tableHandlers.NotificationData;
 
+/**
+ * Created by abhinavmerotra
+ */
+
 public class NotificationResponseDetector extends AsyncTask<Void, Void, NotificationData>
 {
 

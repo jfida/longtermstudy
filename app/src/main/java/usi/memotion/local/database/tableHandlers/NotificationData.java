@@ -7,6 +7,10 @@ import usi.memotion.local.database.db.LocalTables;
 import usi.memotion.local.database.tables.NotificationsTable;
 
 
+/**
+ * Created by shkurtagashi on  9/20/18.
+ */
+
 public class NotificationData extends TableHandler
 {
 	private static LocalTables table = LocalTables.TABLE_NOTIFICATIONS;
@@ -224,11 +228,6 @@ public class NotificationData extends TableHandler
 				", app_package: " + app_package + ")\n";
 	}
 
-
-	public String getDataType()
-	{
-		return new DataTypes().NOTIFICATION;
-	}
 
 
 	public String getTag() {

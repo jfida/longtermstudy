@@ -1,5 +1,9 @@
 package usi.memotion.local.database.tables;
 
+
+/**
+ * Created by biancastancu
+ */
 public class ActivityRecognitionTable {
     public static final String TABLE_ACTIVITY_RECOGNITION = "activityRecognition";
 

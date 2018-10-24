@@ -6,10 +6,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+/**
+ * Created by abhinavmerotra
+ */
+
 public class SharedPref {
 
 	private final SharedPreferences sp;
-	private final String sp_name = "MY_TRACES";
+	private final String sp_name = "MEMOTION";
 
 	
 	

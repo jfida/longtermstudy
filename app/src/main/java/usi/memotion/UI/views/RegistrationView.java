@@ -54,14 +54,7 @@ public class RegistrationView extends Fragment {
     LocalSQLiteDBHelper dbHelper;
     private LocalStorageController localController;
 
-    SwitchDriveController switchDriveController;
-    String androidID;
-
     private EditText usernameEditText;
-//    private EditText emailAdress;
-//    private EditText empaticaIDEditText;
-//    private EditText switchTokenEditText;
-//    private EditText switchPasswordEditText;
     private Spinner ageOptions;
     private RadioGroup genderOptions;
     private Spinner statusOptions;
@@ -70,10 +63,6 @@ public class RegistrationView extends Fragment {
     private Button cancelRegistrationFormButton;
 
     public String username;
-    public String empaticaID;
-    public String email;
-    public String switchToken;
-    public String switchPassword;
 
 
     private String genderSelection = "";
@@ -97,10 +86,6 @@ public class RegistrationView extends Fragment {
 
 
         usernameEditText = (EditText) rootview.findViewById(R.id.username_value);
-//        empaticaIDEditText = (EditText) rootview.findViewById(R.id.empatica_value);
-//        emailAdress = (EditText) rootview.findViewById(R.id.email);
-//        switchTokenEditText = (EditText) rootview.findViewById(R.id.switch_token_value);
-//        switchPasswordEditText = (EditText) rootview.findViewById(R.id.switch_pass_value);
         ageOptions = (Spinner) rootview.findViewById(R.id.age_range);
         genderOptions = (RadioGroup) rootview.findViewById(R.id.genderRadioButtons);
         statusOptions = (Spinner) rootview.findViewById(R.id.status_choices);
@@ -130,11 +115,11 @@ public class RegistrationView extends Fragment {
 
     private void registerUser() {
         username = usernameEditText.getText().toString();
-//        email = emailAdress.getText().toString();
-//        empaticaID = empaticaIDEditText.getText().toString();
-//        switchToken = switchTokenEditText.getText().toString();
-//        switchPassword = switchPasswordEditText.getText().toString();
 
+        if(username.equals("")){
+            Toast.makeText(getContext(), "Please insert your username!", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         if(genderSelection.equals("")){
             Toast.makeText(getContext(), "Please select your Gender!", Toast.LENGTH_LONG).show();
@@ -157,28 +142,18 @@ public class RegistrationView extends Fragment {
 
         record.put(UserTable.ANDROID_ID, Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID));
         record.put(UserTable.USERNAME, username);
-//        record.put(UserTable.EMPATICAID, empaticaID);
-//        record.put(UserTable.SWITCH_TOKEN, switchToken);
-//        record.put(UserTable.SWITCH_PASSWORD, switchPassword);
-//        record.put(UserTable.EMAIL, email);
         record.put(UserTable.COLUMN_AGE, ageSelection);
         record.put(UserTable.COLUMN_GENDER, genderSelection);
         record.put(UserTable.COLUMN_STATUS, statusSelection);
 
         localController.insertRecord(UserTable.TABLE_USER, record);
-        Log.d("REGISTRATION FORM", "Added record: ts: " + "username: " + record.get(UserTable.USERNAME) + ", Age: " + record.get(UserTable.COLUMN_AGE) + ", Gender: " + record.get(UserTable.COLUMN_GENDER) + ", Status: " + record.get(UserTable.COLUMN_STATUS));
+        Log.d(TAG, "Added record: ts: " + "username: " + record.get(UserTable.USERNAME) + ", Age: " + record.get(UserTable.COLUMN_AGE) + ", Gender: " + record.get(UserTable.COLUMN_GENDER) + ", Status: " + record.get(UserTable.COLUMN_STATUS));
 
-//        ", e4 id: " + record.get(UserTable.EMPATICAID)  +
-//                ", Email: " + record.get(UserTable.EMAIL) + ", Switch Token: " + record.get(UserTable.SWITCH_TOKEN) + ", Switch pass: " + record.get(UserTable.SWITCH_PASSWORD)
-//
-//
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
         alertDialog.setTitle("New User Account");
         alertDialog.setMessage("You have successfully created account with: \n \n" + "Username: " + username +"\nAge: " + ageSelection + "\nGender: " + genderSelection + "\nStatus: " + statusSelection + "\n \n \n Do you want to proceed?");
 
-//        + "\nEmpaticaID: " + empaticaID +  "\nSwitchToken: " + switchToken
-//                + "\nSwitchPass: " + switchPassword
 
         alertDialog.setIcon(R.drawable.account);
 
@@ -186,9 +161,6 @@ public class RegistrationView extends Fragment {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(getContext(), "Thank you!", Toast.LENGTH_SHORT).show();
-//                        Intent i = new Intent (getContext(), PersonalitySurveyFragment.class);
-//                        startActivity(i);
-//                        getActivity().finish();
 
                         Fragment newFragment = new PersonalitySurveyFragment();
                         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -206,33 +178,7 @@ public class RegistrationView extends Fragment {
 
         alertDialog.show();
 
-//        uploadRemotely();
-
     }
-
-//    public void uploadRemotely(){
-//        androidID = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-//        dbHelper = new LocalSQLiteDBHelper(getContext());
-//        switchDriveController = new SwitchDriveController(getContext().getString(R.string.server_address),
-//                getContext().getString(R.string.token), getContext().getString(R.string.password));
-//        localController = SQLiteController.getInstance(getContext());
-//
-//
-//        String query = "SELECT * FROM usersTable";
-//        Cursor records = localController.rawQuery(query, null);
-//        records.moveToFirst();
-//
-//        String username = null;
-//
-//        if (records.getCount() > 0){
-//            username = records.getString(records.getColumnIndex(UserTable.USERNAME));
-//
-//        }
-//
-//        String userName = username + "_" + androidID;
-//        final Uploader uploader = new Uploader(userName, switchDriveController, localController, dbHelper);
-//        uploader.oneTimeUpload();
-//    }
 
 
 

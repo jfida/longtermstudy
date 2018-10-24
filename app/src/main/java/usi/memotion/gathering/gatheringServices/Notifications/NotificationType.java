@@ -6,6 +6,9 @@ import android.service.notification.StatusBarNotification;
 
 import usi.memotion.gathering.gatheringServices.Notifications.Utils.Log;
 
+/**
+ * Created by abhinavmerotra
+ */
 
 @SuppressLint("NewApi")
 public class NotificationType 

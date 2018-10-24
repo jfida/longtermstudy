@@ -11,10 +11,8 @@
             android:id="@+id/nav_lecture_surveys"
             android:icon="@drawable/mood"
             android:title="Lecture Surveys" />
-        <item
-            android:id="@+id/nav_general_surveys"
-            android:icon="@drawable/surveys"
-            android:title="General Surveys" />
+
+
 
         <!--<item-->
             <!--android:id="@+id/nav_usage_statistics"-->
@@ -23,7 +21,7 @@
 
     </group>
 
-    <item android:title="About the study">
+    <item android:title="Information">
         <menu>
             <item
                 android:id="@+id/nav_register"

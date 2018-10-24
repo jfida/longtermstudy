@@ -42,19 +42,19 @@ import java.util.Locale;
 import usi.memotion.Reminders.FinalScheduler;
 import usi.memotion.UI.fragments.AboutApplicationFragment;
 import usi.memotion.UI.fragments.AboutFragment;
-import usi.memotion.UI.fragments.DailySurveysFragment;
 import usi.memotion.UI.fragments.LectureSurveysFragment;
 import usi.memotion.UI.fragments.HomeFragment;
 import usi.memotion.UI.fragments.ProfileFragment;
 import usi.memotion.UI.views.RegistrationView;
-import usi.memotion.gathering.gatheringServices.ActivityRecogntion.ActivityRecognitionBackgroundService;
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
 import usi.memotion.gathering.GatheringSystem;
 import usi.memotion.gathering.SensorType;
-import usi.memotion.remote.database.upload.DataUploadService;
 import usi.memotion.remote.database.upload.UploadAlarmReceiver;
 
+/**
+ * Created by shkurtagashi
+ */
 public class MainActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
     private static final String ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
     private static final String ENABLED_USAGE_LISTENERS = "enabled_usage_listeners";
@@ -77,9 +77,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     int dayOfMonth;
     FinalScheduler scheduler;
 
-    ExpandableRelativeLayout expandableLayout1, expandableLayout2,
-            expandableLayoutMood, expandableLayoutFatigue, expandableLayoutStress, expandableLayoutProductivity, expandableLayoutSleep;
-
+    ExpandableRelativeLayout expandableLayout1, expandableLayout2;
 
     private final int PERMISSION_REQUEST_STATUS = 0;
 
@@ -142,10 +140,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                 Log.d("MainActivity", "Not all permissions granted for sensor " + type);
             }
         }
-
         gSys.start();
-
-//        startService(new Intent(this, DataUploadService.class));
 
     }
 
@@ -210,15 +205,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         super.onStart();
     }
 
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//    }
-//
-//    public void expandableButton0(View view) {
-//        expandableLayout0 = (ExpandableRelativeLayout) findViewById(R.id.expandableLayout0);
-//        expandableLayout0.toggle(); // toggle expand and collapse
-//    }
 
     public void expandableButton1(View view) {
         expandableLayout1 = (ExpandableRelativeLayout) findViewById(R.id.expandableLayout1);
@@ -228,31 +214,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     public void expandableButton2(View view) {
         expandableLayout2 = (ExpandableRelativeLayout) findViewById(R.id.expandableLayout2);
         expandableLayout2.toggle(); // toggle expand and collapse
-    }
-
-    public void expandableButtonMood(View view) {
-        expandableLayoutMood = (ExpandableRelativeLayout) findViewById(R.id.expandableLayoutMood);
-        expandableLayoutMood.toggle(); // toggle expand and collapse
-    }
-
-    public void expandableButtonFatigue(View view) {
-        expandableLayoutFatigue = (ExpandableRelativeLayout) findViewById(R.id.expandableLayoutFatigue);
-        expandableLayoutFatigue.toggle(); // toggle expand and collapse
-    }
-
-    public void expandableButtonSleep(View view) {
-        expandableLayoutSleep = (ExpandableRelativeLayout) findViewById(R.id.expandableLayoutSleep);
-        expandableLayoutSleep.toggle(); // toggle expand and collapse
-    }
-
-    public void expandableButtonStress(View view) {
-        expandableLayoutStress = (ExpandableRelativeLayout) findViewById(R.id.expandableLayoutStress);
-        expandableLayoutStress.toggle(); // toggle expand and collapse
-    }
-
-    public void expandableButtonProductivity(View view) {
-        expandableLayoutProductivity = (ExpandableRelativeLayout) findViewById(R.id.expandableLayoutProductivity);
-        expandableLayoutProductivity.toggle(); // toggle expand and collapse
     }
 
     public void displayView(int viewId) {
@@ -268,11 +229,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             case R.id.nav_lecture_surveys:
                 fragment = new LectureSurveysFragment();
                 title  = "Lecture Surveys";
-                viewIsAtHome = false;
-                break;
-            case R.id.nav_general_surveys:
-                fragment = new DailySurveysFragment();
-                title = "General Surveys";
                 viewIsAtHome = false;
                 break;
 
@@ -302,7 +258,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
             case R.id.nav_about_app:
                 fragment = new AboutApplicationFragment();
-                title = "About Study";
+                title = "About App";
                 viewIsAtHome = false;
                 break;
         }
@@ -322,10 +278,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                     bundle.putString("fragmentChoice",null);
                     fragment = new LectureSurveysFragment();
                     fragment.setArguments(bundle);
-                }else if(menuFragment.equals("dailySurveys")){
-                    Bundle bundle = new Bundle();
-                    bundle.putString("fragmentChoice",null);
-                    fragment = new DailySurveysFragment();
                 }
             }
             // Activity was not launched with a menuFragment selected -- continue as if this activity was opened from a launcher (for example)

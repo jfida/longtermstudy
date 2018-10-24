@@ -19,6 +19,10 @@ import usi.memotion.local.database.tables.ProductivitySurveyTable;
 import usi.memotion.local.database.tables.SleepQualityTable;
 import usi.memotion.local.database.tables.StressSurveyTable;
 
+/**
+ * Created by biancastancu
+ */
+
 public class Surveys extends AppCompatActivity {
 
     private EditText early_morning_q1;

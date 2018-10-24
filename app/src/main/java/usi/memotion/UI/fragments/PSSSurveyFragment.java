@@ -34,6 +34,10 @@ import usi.memotion.remote.database.controllers.SwitchDriveController;
 import usi.memotion.remote.database.upload.Uploader;
 
 /**
+ * Created by biancastancu
+ */
+
+/**
  * A simple {@link Fragment} subclass.
  */
 public class PSSSurveyFragment extends Fragment {

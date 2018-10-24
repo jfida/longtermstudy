@@ -37,7 +37,6 @@ import usi.memotion.local.database.tables.LocationTable;
 import usi.memotion.stateMachines.strategies.timeBased.TBSMState;
 import usi.memotion.stateMachines.strategies.timeBased.TBSMSymbol;
 import usi.memotion.stateMachines.strategies.timeBased.TBStateMachine;
-import usi.memotion.utils.FrequencyHelper;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 import static usi.memotion.R.string.dayEnd;

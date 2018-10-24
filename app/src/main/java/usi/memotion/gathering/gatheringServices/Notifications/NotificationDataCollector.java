@@ -28,6 +28,9 @@ import usi.memotion.local.database.controllers.SQLiteController;
 import usi.memotion.local.database.tableHandlers.NotificationData;
 import usi.memotion.local.database.tables.NotificationsTable;
 
+/**
+ * Created by abhinavmerotra
+ */
 
 public class NotificationDataCollector 
 {

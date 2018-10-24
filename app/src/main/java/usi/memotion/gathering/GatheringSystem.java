@@ -85,6 +85,6 @@ public class GatheringSystem {
         context.stopService(new Intent(context, WifiGatheringService.class));
         context.stopService(new Intent(context, PhoneCallGatheringService.class));
         context.stopService(new Intent(context, NotificationMonitorService.class));
-        context.stopService(new Intent(context,ActivityRecognitionBackgroundService.class));
+        context.stopService(new Intent(context, ActivityRecognitionBackgroundService.class));
     }
 }
