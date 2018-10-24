@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION"/>
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -19,7 +19,6 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" />
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
-
 
     <application
         android:name=".MyApplication"
@@ -46,11 +45,9 @@
             android:theme="@style/Theme.AppCompat.Dialog" />
 
         <receiver android:name=".Reminders.AlarmNotificationReceiver" />
-        <receiver android:name=".remote.database.upload.UploadAlarmReceiver"></receiver>
+        <receiver android:name=".remote.database.upload.UploadAlarmReceiver" />
 
         <service android:name=".remote.database.upload.AlarmService" />
-
-
         <service
             android:name=".gathering.gatheringServices.WifiGatheringService"
             android:enabled="true"
@@ -90,7 +87,14 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
-        <service android:name=".gathering.gatheringServices.ActivityRecogntion.ActivityRecognitionBackgroundService"/>
-        <service android:name=".gathering.gatheringServices.ActivityRecogntion.DetectedActivitiesIntentService"/>
+        <service android:name=".gathering.gatheringServices.ActivityRecogntion.ActivityRecognitionBackgroundService" />
+        <service android:name=".gathering.gatheringServices.ActivityRecogntion.DetectedActivitiesIntentService" />
+
+        <activity android:name=".Surveys"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:taskAffinity=""
+            android:theme="@style/Theme.AppCompat.Dialog" />
     </application>
+
 </manifest>

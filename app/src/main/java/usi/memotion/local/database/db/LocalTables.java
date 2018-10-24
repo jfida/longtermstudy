@@ -12,17 +12,22 @@ import usi.memotion.local.database.tables.AccelerometerTable;
 import usi.memotion.local.database.tables.ActivityRecognitionTable;
 import usi.memotion.local.database.tables.ApplicationLogsTable;
 import usi.memotion.local.database.tables.BlueToothTable;
+import usi.memotion.local.database.tables.FatigueSurveyTable;
 import usi.memotion.local.database.tables.LectureSurveyTable;
 import usi.memotion.local.database.tables.LocationTable;
+import usi.memotion.local.database.tables.OverallSurveyTable;
 import usi.memotion.local.database.tables.PAMTable;
 import usi.memotion.local.database.tables.PSQISurveyTable;
 import usi.memotion.local.database.tables.PSSSurveyTable;
 import usi.memotion.local.database.tables.PersonalitySurveyTable;
 import usi.memotion.local.database.tables.PhoneCallLogTable;
 import usi.memotion.local.database.tables.PhoneLockTable;
+import usi.memotion.local.database.tables.ProductivitySurveyTable;
 import usi.memotion.local.database.tables.SMSTable;
 import usi.memotion.local.database.tables.SWLSSurveyTable;
 import usi.memotion.local.database.tables.SimpleMoodTable;
+import usi.memotion.local.database.tables.SleepQualityTable;
+import usi.memotion.local.database.tables.StressSurveyTable;
 import usi.memotion.local.database.tables.UserTable;
 import usi.memotion.local.database.tables.WiFiTable;
 import usi.memotion.local.database.tables.NotificationsTable;
@@ -50,7 +55,12 @@ public enum LocalTables {
     TABLE_PERSONALITY(PersonalitySurveyTable.class),
     TABLE_PSQI(PSQISurveyTable.class),
     TABLE_SWLS(SWLSSurveyTable.class),
-    TABLE_PSSS(PSSSurveyTable.class);
+    TABLE_PSSS(PSSSurveyTable.class),
+    TABLE_SLEEP_QUALITY(SleepQualityTable.class),
+    TABLE_FATIGUE_SURVEY(FatigueSurveyTable.class),
+    TABLE_OVERALL_SURVEY(OverallSurveyTable.class),
+    TABLE_PRODUCTIVITY_SURVEY(ProductivitySurveyTable.class),
+    TABLE_STRESS_SURVEY(StressSurveyTable.class);
 
 
 
@@ -102,7 +112,16 @@ public enum LocalTables {
                 return SWLSSurveyTable.TABLE_SWLSS_SURVEY;
             case TABLE_ACTIVITY_RECOGNITION:
                 return ActivityRecognitionTable.TABLE_ACTIVITY_RECOGNITION;
-
+            case TABLE_SLEEP_QUALITY:
+                return SleepQualityTable.TABLE_SLEEP_QUALITY_SURVEY;
+            case TABLE_FATIGUE_SURVEY:
+                return FatigueSurveyTable.TABLE_FATIGUE_SURVEY;
+            case TABLE_OVERALL_SURVEY:
+                return OverallSurveyTable.TABLE_OVERALL_SURVEY;
+            case TABLE_PRODUCTIVITY_SURVEY:
+                return ProductivitySurveyTable.TABLE_PRODUCTIVITY_SURVEY;
+            case TABLE_STRESS_SURVEY:
+                return StressSurveyTable.TABLE_STRESS_SURVEY;
             default:
                 throw new IllegalArgumentException("Table not found!");
         }
