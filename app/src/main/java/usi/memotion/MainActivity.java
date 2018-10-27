@@ -126,6 +126,15 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             }
         } else {
             initServices(grantedPermissions());
+            AlertDialog.Builder newAccountBuilder = new AlertDialog.Builder(Surveys.this);
+            newAccountBuilder.setMessage(getString(R.string.thank_you));
+            newAccountBuilder.setCancelable(false);
+            newAccountBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
         }
     }
 

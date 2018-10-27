@@ -508,5 +508,7 @@ public class Surveys extends AppCompatActivity {
                 dialogInterface.dismiss();
             }
         });
+        builderThankYou.create();
+        builderThankYou.show();
     }
 }
