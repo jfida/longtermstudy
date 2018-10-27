@@ -3,9 +3,7 @@ package usi.memotion.UI.fragments;
 
 import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -13,39 +11,29 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-
 
 import usi.memotion.R;
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
 import usi.memotion.local.database.db.LocalSQLiteDBHelper;
 import usi.memotion.local.database.tables.PersonalitySurveyTable;
-import usi.memotion.local.database.tables.UserTable;
 import usi.memotion.remote.database.controllers.SwitchDriveController;
-import usi.memotion.remote.database.upload.Uploader;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class PersonalitySurveyFragment extends Fragment {
 
-    private Spinner question1Options, question2Options, question3Options, question4Options, question5Options, question6Options,
-            question7Options, question8Options, question9Options, question10Options;
-
     LocalSQLiteDBHelper dbHelper;
-    private LocalStorageController localController;
-
     SwitchDriveController switchDriveController;
     String androidID;
-
-
+    private Spinner question1Options, question2Options, question3Options, question4Options, question5Options, question6Options,
+            question7Options, question8Options, question9Options, question10Options;
+    private LocalStorageController localController;
     private Button submitButton;
 
     private ImageButton information;
@@ -92,43 +80,26 @@ public class PersonalitySurveyFragment extends Fragment {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(validateSpinners()) {
-                    ContentValues record = new ContentValues();
-                    record.put(PersonalitySurveyTable.TIMESTAMP, System.currentTimeMillis());
-                    record.put(PersonalitySurveyTable.QUESTION_1, Integer.parseInt(question1Options.getSelectedItem().toString()));
-                    record.put(PersonalitySurveyTable.QUESTION_2, Integer.parseInt(question2Options.getSelectedItem().toString()));
-                    record.put(PersonalitySurveyTable.QUESTION_3, Integer.parseInt(question3Options.getSelectedItem().toString()));
-                    record.put(PersonalitySurveyTable.QUESTION_4, Integer.parseInt(question4Options.getSelectedItem().toString()));
-                    record.put(PersonalitySurveyTable.QUESTION_5, Integer.parseInt(question5Options.getSelectedItem().toString()));
-                    record.put(PersonalitySurveyTable.QUESTION_6, Integer.parseInt(question6Options.getSelectedItem().toString()));
-                    record.put(PersonalitySurveyTable.QUESTION_7, Integer.parseInt(question7Options.getSelectedItem().toString()));
-                    record.put(PersonalitySurveyTable.QUESTION_8, Integer.parseInt(question8Options.getSelectedItem().toString()));
-                    record.put(PersonalitySurveyTable.QUESTION_9, Integer.parseInt(question9Options.getSelectedItem().toString()));
-                    record.put(PersonalitySurveyTable.QUESTION_10, Integer.parseInt(question10Options.getSelectedItem().toString()));
-                    localcontroller.insertRecord(PersonalitySurveyTable.TABLE_PERSONALITY_SURVEY, record);
+                ContentValues record = new ContentValues();
+                record.put(PersonalitySurveyTable.TIMESTAMP, System.currentTimeMillis());
+                record.put(PersonalitySurveyTable.QUESTION_1, question1Options.getSelectedItem().toString());
+                record.put(PersonalitySurveyTable.QUESTION_2, question2Options.getSelectedItem().toString());
+                record.put(PersonalitySurveyTable.QUESTION_3, question3Options.getSelectedItem().toString());
+                record.put(PersonalitySurveyTable.QUESTION_4, question4Options.getSelectedItem().toString());
+                record.put(PersonalitySurveyTable.QUESTION_5, question5Options.getSelectedItem().toString());
+                record.put(PersonalitySurveyTable.QUESTION_6, question6Options.getSelectedItem().toString());
+                record.put(PersonalitySurveyTable.QUESTION_7, question7Options.getSelectedItem().toString());
+                record.put(PersonalitySurveyTable.QUESTION_8, question8Options.getSelectedItem().toString());
+                record.put(PersonalitySurveyTable.QUESTION_9, question9Options.getSelectedItem().toString());
+                record.put(PersonalitySurveyTable.QUESTION_10, question10Options.getSelectedItem().toString());
+                localcontroller.insertRecord(PersonalitySurveyTable.TABLE_PERSONALITY_SURVEY, record);
 
-                    Log.d("PERSONALITY SURVEYS", "Added record: ts: " + record.get(PersonalitySurveyTable.TIMESTAMP));
+                Log.d("PERSONALITY SURVEYS", "Added record: ts: " + record.get(PersonalitySurveyTable.TIMESTAMP));
 
-
-                    //Show thank you message
-                    Toast.makeText(getContext(), "Thank you very much!", Toast.LENGTH_SHORT).show();
-
-                    Fragment newFragment = new SWLSSurveyFragment();
-                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.content_frame, newFragment);
-                    ft.commit();
-
-                } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setTitle(R.string.fill_answers);
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
+                Fragment newFragment = new SWLSSurveyFragment();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.content_frame, newFragment);
+                ft.commit();
             }
         });
 
@@ -160,33 +131,6 @@ public class PersonalitySurveyFragment extends Fragment {
 
         tipiAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(tipiAdapter);
-    }
-
-    private boolean validateSpinners() {
-        boolean valid1 = isSpinnerValid(question1Options);
-        boolean valid2 = isSpinnerValid(question2Options);
-        boolean valid3 = isSpinnerValid(question3Options);
-        boolean valid4 = isSpinnerValid(question4Options);
-        boolean valid5 = isSpinnerValid(question5Options);
-        boolean valid6 = isSpinnerValid(question6Options);
-        boolean valid7 = isSpinnerValid(question7Options);
-        boolean valid8 = isSpinnerValid(question8Options);
-        boolean valid9 = isSpinnerValid(question9Options);
-        boolean valid10 = isSpinnerValid(question10Options);
-        return valid1 && valid2 && valid3 && valid4 && valid5 && valid6 && valid7
-                &&valid8 && valid9 && valid10;
-    }
-
-    private boolean isSpinnerValid(Spinner spinner){
-        int selected = spinner.getSelectedItemPosition();
-        TextView text = (TextView)spinner.getSelectedView();
-        if(((String)spinner.getItemAtPosition(selected)).equals("Select")){
-            text.setError("error");
-            return false;
-        } else {
-            text.setError(null);
-            return true;
-        }
     }
 }
 

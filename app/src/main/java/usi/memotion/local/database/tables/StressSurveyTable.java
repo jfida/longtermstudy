@@ -15,7 +15,7 @@ public class StressSurveyTable {
     public static String getCreateQuery() {
         return "CREATE TABLE " + TABLE_STRESS_SURVEY + "("
                 + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + TIMESTAMP + " REAL, "
+                + TIMESTAMP + "  INTEGER DEFAULT CURRENT_TIMESTAMP, "
                 + QUESTION_1 + " TEXT)";
     }
 

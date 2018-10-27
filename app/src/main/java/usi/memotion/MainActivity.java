@@ -3,14 +3,13 @@ package usi.memotion;
 import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -22,7 +21,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -42,45 +40,40 @@ import java.util.Locale;
 import usi.memotion.Reminders.FinalScheduler;
 import usi.memotion.UI.fragments.AboutApplicationFragment;
 import usi.memotion.UI.fragments.AboutFragment;
-import usi.memotion.UI.fragments.LectureSurveysFragment;
 import usi.memotion.UI.fragments.HomeFragment;
+import usi.memotion.UI.fragments.LectureSurveysFragment;
 import usi.memotion.UI.fragments.ProfileFragment;
 import usi.memotion.UI.views.RegistrationView;
-import usi.memotion.local.database.controllers.LocalStorageController;
-import usi.memotion.local.database.controllers.SQLiteController;
 import usi.memotion.gathering.GatheringSystem;
 import usi.memotion.gathering.SensorType;
+import usi.memotion.gathering.gatheringServices.Notifications.Utils.SharedPref;
+import usi.memotion.local.database.controllers.LocalStorageController;
+import usi.memotion.local.database.controllers.SQLiteController;
 import usi.memotion.remote.database.upload.UploadAlarmReceiver;
 
 /**
  * Created by shkurtagashi
  */
-public class MainActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
     private static final String ENABLED_USAGE_LISTENERS = "enabled_usage_listeners";
     private static final String ACTION_NOTIFICATION_LISTENER_SETTINGS = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS";
-    private AlertDialog enableNotificationListenerAlertDialog;
-    private AlertDialog enableUsageServiceAlertDialog;
-
-
-    private GatheringSystem gSys;
-    private boolean viewIsAtHome;
-
+    private final int PERMISSION_REQUEST_STATUS = 0;
+    private SharedPref sp;
     protected DrawerLayout drawerLayout;
-    private Toolbar toolbar;
     protected NavigationView navigationView;
-
     Calendar calendar;
     String weekday;
     SimpleDateFormat dayFormat;
     int month;
     int dayOfMonth;
     FinalScheduler scheduler;
-
     ExpandableRelativeLayout expandableLayout1, expandableLayout2;
-
-    private final int PERMISSION_REQUEST_STATUS = 0;
-
+    private AlertDialog enableNotificationListenerAlertDialog;
+    private AlertDialog enableUsageServiceAlertDialog;
+    private GatheringSystem gSys;
+    private boolean viewIsAtHome;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,9 +93,26 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
         displayView(R.id.nav_home);
 
+        this.sp = new SharedPref(getApplicationContext());
+
         triggerReminders();
 
-        if(!checkPermissions()) {
+        if (!checkAndroidID()) {
+            AlertDialog.Builder newAccountBuilder = new AlertDialog.Builder(MainActivity.this);
+            newAccountBuilder.setTitle("Please create an account");
+            newAccountBuilder.setCancelable(false);
+            newAccountBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                    displayView(R.id.nav_register);
+                }
+            });
+            newAccountBuilder.create();
+            newAccountBuilder.show();
+        }
+
+        if (!checkPermissions()) {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.CHANGE_WIFI_STATE,
                             Manifest.permission.ACCESS_WIFI_STATE,
@@ -113,27 +123,25 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                             Manifest.permission.ACCESS_NETWORK_STATE,
                             Manifest.permission.INTERNET},
                     PERMISSION_REQUEST_STATUS);
-
-            // If the user did not turn the notification listener service on we prompt him to do so
-            if(!isNotificationServiceEnabled()){
-                enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog();
-                enableNotificationListenerAlertDialog.show();
-            }
-
-            if(!isUsageAccessServiceEnabled()){
-                enableUsageServiceAlertDialog = buildUsageStatsManagerAlertDialog();
-                enableUsageServiceAlertDialog.show();
-            }
         } else {
             initServices(grantedPermissions());
+        }
+        // If the user did not turn the notification listener service on we prompt him to do so
+        if (!isNotificationServiceEnabled() && checkNotificationPermission()) {
+            enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog();
+            enableNotificationListenerAlertDialog.show();
+        }
+        if (!isUsageAccessServiceEnabled() && checkUsagePermission()) {
+            enableUsageServiceAlertDialog = buildUsageStatsManagerAlertDialog();
+            enableUsageServiceAlertDialog.show();
         }
     }
 
     private void initServices(List<String> grantedPermissions) {
         gSys = new GatheringSystem(getApplicationContext());
 
-        for(SensorType type: SensorType.values()) {
-            if(permissionAreGranted(grantedPermissions, type.getPermissions())) {
+        for (SensorType type : SensorType.values()) {
+            if (permissionAreGranted(grantedPermissions, type.getPermissions())) {
                 gSys.addSensor(type);
                 Log.d("MainActivity", "All permissions granted for sensor " + type);
             } else {
@@ -145,8 +153,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     }
 
     private boolean permissionAreGranted(List<String> grantedPermissions, String[] requiredPermissions) {
-        for(String permission: requiredPermissions) {
-            if(!grantedPermissions.contains(permission)) {
+        for (String permission : requiredPermissions) {
+            if (!grantedPermissions.contains(permission)) {
                 return false;
             }
         }
@@ -158,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if(requestCode == PERMISSION_REQUEST_STATUS) {
+        if (requestCode == PERMISSION_REQUEST_STATUS) {
             initServices(convertPermissionResultsToList(permissions, grantResults));
         }
     }
@@ -166,14 +174,15 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     private List<String> convertPermissionResultsToList(String[] permissions, int[] grantResults) {
         List<String> grantedPermissions = new ArrayList<>();
 
-        for(int i = 0; i < permissions.length; i++) {
-            if(grantResults[i] >= 0) {
+        for (int i = 0; i < permissions.length; i++) {
+            if (grantResults[i] >= 0) {
                 grantedPermissions.add(permissions[i]);
             }
         }
 
         return grantedPermissions;
     }
+
     private List<String> grantedPermissions() {
         List<String> granted = new ArrayList<String>();
         try {
@@ -187,6 +196,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         }
         return granted;
     }
+
     private boolean checkPermissions() {
         return ContextCompat.checkSelfPermission(this, Manifest.permission.CHANGE_WIFI_STATE) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_WIFI_STATE) == PackageManager.PERMISSION_GRANTED &&
@@ -223,12 +233,12 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         switch (viewId) {
             case R.id.nav_home:
                 fragment = new HomeFragment();
-                title  = "Welcome";
+                title = "Welcome";
                 viewIsAtHome = true;
                 break;
             case R.id.nav_lecture_surveys:
                 fragment = new LectureSurveysFragment();
-                title  = "Lecture Surveys";
+                title = "Lecture Surveys";
                 viewIsAtHome = false;
                 break;
 
@@ -239,10 +249,10 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 //                break;
 
             case R.id.nav_register:
-                if(checkAndroidID()){
+                if (checkAndroidID()) {
                     fragment = new ProfileFragment();
                     title = "Account Details";
-                }else{
+                } else {
                     fragment = new RegistrationView();
                     title = "Create Account";
                 }
@@ -264,7 +274,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         }
 
 
-        if(fragment != null){
+        if (fragment != null) {
             String menuFragment = getIntent().getStringExtra("fragmentChoice");
             String questionnaireSession = getIntent().getStringExtra("LectureSession");
 
@@ -275,7 +285,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                 if (menuFragment.equals("lectureSurveys")) {
                     Bundle bundle = new Bundle();
                     bundle.putString("LectureSession", questionnaireSession);
-                    bundle.putString("fragmentChoice",null);
+                    bundle.putString("fragmentChoice", null);
                     fragment = new LectureSurveysFragment();
                     fragment.setArguments(bundle);
                 }
@@ -299,14 +309,15 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     private boolean checkAndroidID() {
         String query = "SELECT * FROM usersTable";
 
-        LocalStorageController localController = SQLiteController.getInstance(getApplicationContext());;
+        LocalStorageController localController = SQLiteController.getInstance(getApplicationContext());
+        ;
 
         Cursor records = localController.rawQuery(query, null);
         records.moveToFirst();
 
         if (records.getCount() > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -347,7 +358,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
     }
 
-    public void triggerReminders(){
+    public void triggerReminders() {
         dayFormat = new SimpleDateFormat("EEEE", Locale.US);
         calendar = Calendar.getInstance();
         weekday = dayFormat.format(calendar.getTime());
@@ -357,14 +368,14 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
 
         //January - 0 - if(month == Calendar.SEPTEMBER && dayOfMonth >= 1 && dayOfMonth <= 30){
-        if(month == Calendar.SEPTEMBER || month == Calendar.OCTOBER || month == Calendar.NOVEMBER || month == Calendar.DECEMBER){
+        if (month == Calendar.SEPTEMBER || month == Calendar.OCTOBER || month == Calendar.NOVEMBER || month == Calendar.DECEMBER) {
             Log.v("Homeee", "Alarms Triggered");
             scheduler.createReminder(getApplicationContext());
             uploadDataEveryday();
         }
     }
 
-    public void uploadDataEveryday(){
+    public void uploadDataEveryday() {
 
         // Retrieve a PendingIntent that will perform a broadcast
         Intent intent = new Intent(getApplicationContext(), UploadAlarmReceiver.class);
@@ -393,9 +404,10 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
      * Is Notification Service Enabled.
      * Verifies if the notification listener service is enabled.
      * Got it from: https://github.com/kpbird/NotificationListenerService-Example/blob/master/NLSExample/src/main/java/com/kpbird/nlsexample/NLService.java
+     *
      * @return True if eanbled, false otherwise.
      */
-    private boolean isNotificationServiceEnabled(){
+    private boolean isNotificationServiceEnabled() {
         String pkgName = getPackageName();
         final String flat = Settings.Secure.getString(getContentResolver(),
                 ENABLED_NOTIFICATION_LISTENERS);
@@ -417,9 +429,10 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
      * Is Notification Service Enabled.
      * Verifies if the notification listener service is enabled.
      * Got it from: https://github.com/kpbird/NotificationListenerService-Example/blob/master/NLSExample/src/main/java/com/kpbird/nlsexample/NLService.java
+     *
      * @return True if eanbled, false otherwise.
      */
-    private boolean isUsageAccessServiceEnabled(){
+    private boolean isUsageAccessServiceEnabled() {
         String pkgName = getPackageName();
         final String flat = Settings.Secure.getString(getContentResolver(),
                 ENABLED_USAGE_LISTENERS);
@@ -441,15 +454,17 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
      * Build Notification Listener Alert Dialog.
      * Builds the alert dialog that pops up if the user has not turned
      * the Notification Listener Service on yet.
+     *
      * @return An alert dialog which leads to the notification enabling screen
      */
-    private AlertDialog buildNotificationServiceAlertDialog(){
+    private AlertDialog buildNotificationServiceAlertDialog() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle("Permission needed");
         alertDialogBuilder.setMessage("We need the permission to collect data about notifications.");
         alertDialogBuilder.setPositiveButton(R.string.yes,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        sp.add("notification_permission",false);
                         startActivity(new Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS));
                     }
                 });
@@ -458,24 +473,34 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                     public void onClick(DialogInterface dialog, int id) {
                         // If you choose to not enable the notification listener
                         // the app. will not work as expected
+                        sp.add("notification_permission",true);
                     }
                 });
-        return(alertDialogBuilder.create());
+        return (alertDialogBuilder.create());
+    }
+
+    private boolean checkNotificationPermission(){
+        return !sp.getBoolean("notification_permission");
     }
 
     /**
      * Build UsageStatsManager Dialog.
      * Builds the alert dialog that pops up if the user has not turned
      * the UsageStatsManager on yet.
+     *
      * @return An alert dialog which leads to the notification enabling screen
      */
-    private AlertDialog buildUsageStatsManagerAlertDialog(){
+    private AlertDialog buildUsageStatsManagerAlertDialog() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle("Permission needed");
         alertDialogBuilder.setMessage("We need the permission to collect data about the phone usage statistics.");
         alertDialogBuilder.setPositiveButton(R.string.yes,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        //Temporary fix so it doesn't always ask
+                        sp.add("usage_permission", true);
+                        //Actual code:
+                        //sp.add("usage_permission", false);
                         startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
                     }
                 });
@@ -484,9 +509,15 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                     public void onClick(DialogInterface dialog, int id) {
                         // If you choose to not enable the notification listener
                         // the app. will not work as expected
+                        sp.add("usage_permission", true);
                     }
                 });
-        return(alertDialogBuilder.create());
+        return (alertDialogBuilder.create());
     }
+
+    private boolean checkUsagePermission(){
+        return !sp.getBoolean("usage_permission");
+    }
+
 }
 

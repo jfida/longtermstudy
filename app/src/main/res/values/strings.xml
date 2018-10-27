@@ -395,9 +395,9 @@
     <string name="fatigue_q1_option1">Fully alert, wide awake</string>
     <string name="fatigue_q1_option2">Very lively, responsive, but not at peak</string>
     <string name="fatigue_q1_option3">Okay, somewhat fresh</string>
-    <string name="fatigue_q1_option4">Fully alert, wide awake</string>
-    <string name="fatigue_q1_option5">A little tired, less than fresh</string>
-    <string name="fatigue_q1_option6">Moderately tired, very difficult to concentrate</string>
+    <string name="fatigue_q1_option4">A little tired, less than fresh</string>
+    <string name="fatigue_q1_option5">Moderately tired, let down</string>
+    <string name="fatigue_q1_option6">Extremely tired, very difficult to concentrate</string>
     <string name="fatigue_q1_option7">Completely exhausted, unable to function effectively</string>
 
     <string name="daily_overall_morning_q1">Overall, how would you rate this morning?</string>

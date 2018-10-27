@@ -15,7 +15,7 @@ public class SleepQualityTable {
     public static String getCreateQuery() {
         return "CREATE TABLE " + TABLE_SLEEP_QUALITY_SURVEY + "("
                 + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + TIMESTAMP + " REAL, "
+                + TIMESTAMP + "  INTEGER DEFAULT CURRENT_TIMESTAMP, "
                 + QUESTION_1 + " TEXT, "
                 + QUESTION_2 + " TEXT, "
                 + QUESTION_3 + " TEXT, "

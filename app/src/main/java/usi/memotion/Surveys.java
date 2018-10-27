@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
@@ -129,25 +130,13 @@ public class Surveys extends AppCompatActivity {
 
                                 dialog.dismiss();
 
-                            }
-                        });
-                        builderFatigue.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                                Surveys.this.finish();
+                                sayThankYou();
+
                             }
                         });
 
                         builderFatigue.create();
                         builderFatigue.show();
-                    }
-                });
-                builderSleep.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        Surveys.this.finish();
                     }
                 });
                 builderSleep.create();
@@ -256,7 +245,7 @@ public class Surveys extends AppCompatActivity {
 
                                         builderFatigue.setPositiveButton("FINISH", new DialogInterface.OnClickListener() {
                                             @Override
-                                            public void onClick(DialogInterface dialog, int id) {
+                                            public void onClick(final DialogInterface dialog, int id) {
                                                 fatigue_q1 = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.fatigue_q1);
                                                 ContentValues record = new ContentValues();
                                                 record.put(SleepQualityTable.TIMESTAMP, System.currentTimeMillis());
@@ -275,46 +264,20 @@ public class Surveys extends AppCompatActivity {
                                                 Log.d("FATIGUE SURVEYS", "Added record: ts: " + record.get(FatigueSurveyTable.TIMESTAMP));
 
                                                 dialog.dismiss();
-                                            }
-                                        });
-                                        builderFatigue.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                dialogInterface.dismiss();
-                                                Surveys.this.finish();
+
+                                                sayThankYou();
                                             }
                                         });
                                         builderFatigue.create();
                                         builderFatigue.show();
                                     }
                                 });
-                                builderStress.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialogInterface.dismiss();
-                                        Surveys.this.finish();
-                                    }
-                                });
                                 builderStress.create();
                                 builderStress.show();
                             }
                         });
-                        builderProductivity.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                                Surveys.this.finish();
-                            }
-                        });
                         builderProductivity.create();
                         builderProductivity.show();
-                    }
-                });
-                builderOverall.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        Surveys.this.finish();
                     }
                 });
                 builderOverall.create();
@@ -442,46 +405,19 @@ public class Surveys extends AppCompatActivity {
                                                 Log.d("FATIGUE SURVEYS", "Added record: ts: " + record.get(FatigueSurveyTable.TIMESTAMP));
 
                                                 dialog.dismiss();
-                                            }
-                                        });
-                                        builderFatigue.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                dialogInterface.dismiss();
-                                                Surveys.this.finish();
+                                                sayThankYou();
                                             }
                                         });
                                         builderFatigue.create();
                                         builderFatigue.show();
                                     }
                                 });
-                                builderStress.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialogInterface.dismiss();
-                                        Surveys.this.finish();
-                                    }
-                                });
                                 builderStress.create();
                                 builderStress.show();
                             }
                         });
-                        builderProductivity.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                                Surveys.this.finish();
-                            }
-                        });
                         builderProductivity.create();
                         builderProductivity.show();
-                    }
-                });
-                builderOverall.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        Surveys.this.finish();
                     }
                 });
                 builderOverall.create();
@@ -490,5 +426,20 @@ public class Surveys extends AppCompatActivity {
         } else {
             Surveys.this.finish();
         }
+    }
+
+    private void sayThankYou() {
+        AlertDialog.Builder builderThankYou = new AlertDialog.Builder(Surveys.this);
+        builderThankYou.setMessage(getString(R.string.thank_you));
+        builderThankYou.setCancelable(false);
+        builderThankYou.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                Surveys.this.finish();
+            }
+        });
+        builderThankYou.create();
+        builderThankYou.show();
     }
 }
