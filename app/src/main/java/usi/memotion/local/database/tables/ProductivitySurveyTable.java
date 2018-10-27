@@ -19,7 +19,7 @@ public class ProductivitySurveyTable {
     public static String getCreateQuery() {
         return "CREATE TABLE " + TABLE_PRODUCTIVITY_SURVEY + "("
                 + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + TIMESTAMP + " REAL, "
+                + TIMESTAMP + "  INTEGER DEFAULT CURRENT_TIMESTAMP, "
                 + QUESTION_1 + " TEXT, "
                 + QUESTION_2 + " TEXT, "
                 + QUESTION_3 + " TEXT, "
