@@ -109,10 +109,6 @@ public class PersonalitySurveyFragment extends Fragment {
 
                     Log.d("PERSONALITY SURVEYS", "Added record: ts: " + record.get(PersonalitySurveyTable.TIMESTAMP));
 
-
-                    //Show thank you message
-                    Toast.makeText(getContext(), "Thank you very much!", Toast.LENGTH_SHORT).show();
-
                     Fragment newFragment = new SWLSSurveyFragment();
                     FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                     ft.replace(R.id.content_frame, newFragment);

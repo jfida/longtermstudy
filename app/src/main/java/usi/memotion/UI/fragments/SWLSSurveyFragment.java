@@ -101,10 +101,6 @@ public class SWLSSurveyFragment extends Fragment {
 
                     Log.d("SWLSS SURVEYS", "Added record: ts: " + record.get(SWLSSurveyTable.TIMESTAMP));
 
-
-                    //Show thank you message
-                    Toast.makeText(getContext(), "Thank you very much!", Toast.LENGTH_SHORT).show();
-
                     Fragment newFragment = new PSSSurveyFragment();
                     FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                     ft.replace(R.id.content_frame, newFragment);
