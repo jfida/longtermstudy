@@ -131,7 +131,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog();
             enableNotificationListenerAlertDialog.show();
         }
-        Log.v("okidoki","Usage permission check: "+ (isUsageAccessServiceEnabled()));
         if (!isUsageAccessServiceEnabled() && checkUsagePermission()) {
             enableUsageServiceAlertDialog = buildUsageStatsManagerAlertDialog();
             enableUsageServiceAlertDialog.show();
@@ -498,7 +497,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         alertDialogBuilder.setPositiveButton(R.string.yes,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        sp.add("usage_permission", false);
+                        //Temporary fix so it doesn't always ask
+                        sp.add("usage_permission", true);
+                        //Actual code:
+                        //sp.add("usage_permission", false);
                         startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
                     }
                 });
