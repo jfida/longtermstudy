@@ -134,23 +134,9 @@ public class Surveys extends AppCompatActivity {
 
                             }
                         });
-                        builderFatigue.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                                Surveys.this.finish();
-                            }
-                        });
 
                         builderFatigue.create();
                         builderFatigue.show();
-                    }
-                });
-                builderSleep.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        Surveys.this.finish();
                     }
                 });
                 builderSleep.create();
@@ -282,44 +268,16 @@ public class Surveys extends AppCompatActivity {
                                                 sayThankYou();
                                             }
                                         });
-                                        builderFatigue.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                dialogInterface.dismiss();
-                                                Surveys.this.finish();
-                                            }
-                                        });
                                         builderFatigue.create();
                                         builderFatigue.show();
-                                    }
-                                });
-                                builderStress.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialogInterface.dismiss();
-                                        Surveys.this.finish();
                                     }
                                 });
                                 builderStress.create();
                                 builderStress.show();
                             }
                         });
-                        builderProductivity.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                                Surveys.this.finish();
-                            }
-                        });
                         builderProductivity.create();
                         builderProductivity.show();
-                    }
-                });
-                builderOverall.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        Surveys.this.finish();
                     }
                 });
                 builderOverall.create();
@@ -450,44 +408,16 @@ public class Surveys extends AppCompatActivity {
                                                 sayThankYou();
                                             }
                                         });
-                                        builderFatigue.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                dialogInterface.dismiss();
-                                                Surveys.this.finish();
-                                            }
-                                        });
                                         builderFatigue.create();
                                         builderFatigue.show();
-                                    }
-                                });
-                                builderStress.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialogInterface.dismiss();
-                                        Surveys.this.finish();
                                     }
                                 });
                                 builderStress.create();
                                 builderStress.show();
                             }
                         });
-                        builderProductivity.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                                Surveys.this.finish();
-                            }
-                        });
                         builderProductivity.create();
                         builderProductivity.show();
-                    }
-                });
-                builderOverall.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        Surveys.this.finish();
                     }
                 });
                 builderOverall.create();
@@ -500,12 +430,13 @@ public class Surveys extends AppCompatActivity {
 
     private void sayThankYou() {
         AlertDialog.Builder builderThankYou = new AlertDialog.Builder(Surveys.this);
-        builderThankYou.setTitle(getString(R.string.thank_you));
+        builderThankYou.setMessage(getString(R.string.thank_you));
         builderThankYou.setCancelable(false);
         builderThankYou.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
+                Surveys.this.finish();
             }
         });
         builderThankYou.create();
