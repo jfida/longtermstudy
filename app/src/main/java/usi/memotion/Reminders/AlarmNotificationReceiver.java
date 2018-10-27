@@ -52,6 +52,8 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
             setDailyNotification(context, "Survey about " + session, "Please tell us how you feel during the " + session + "!", 100098,context.getString(R.string.morning));
         }else if(session.equals("afternoon")){
             setDailyNotification(context, "Survey about " + session, "Please tell us how you feel during the " + session + "!", 100099,context.getString(R.string.afternoon));
+        } else if(session.equals("weekly")){
+            setDailyNotification(context, "Weekly survey", "Please tell us how you felt this week! ", 100100,context.getString(R.string.weekly));
         }
     }
 
@@ -167,7 +169,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
 
 
         Intent intent = new Intent(context, Surveys.class);
-        intent.putExtra("type_daily", type);
+        intent.putExtra("type_survey", type);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addParentStack(MainActivity.class);

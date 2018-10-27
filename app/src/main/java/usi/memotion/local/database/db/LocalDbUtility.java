@@ -21,6 +21,7 @@ import usi.memotion.local.database.tables.SimpleMoodTable;
 import usi.memotion.local.database.tables.SleepQualityTable;
 import usi.memotion.local.database.tables.StressSurveyTable;
 import usi.memotion.local.database.tables.UserTable;
+import usi.memotion.local.database.tables.WeeklySurveyTable;
 import usi.memotion.local.database.tables.WiFiTable;
 
 /**
@@ -70,6 +71,8 @@ public class LocalDbUtility {
                 return OverallSurveyTable.TABLE_OVERALL_SURVEY;
             case TABLE_STRESS_SURVEY:
                 return StressSurveyTable.TABLE_STRESS_SURVEY;
+            case TABLE_WEEKLY_SURVEY:
+                return WeeklySurveyTable.TABLE_WEEKLY_SURVEY;
             default:
                 return null;
         }
@@ -122,6 +125,8 @@ public class LocalDbUtility {
                 return ProductivitySurveyTable.getColumns();
             case TABLE_STRESS_SURVEY:
                 return StressSurveyTable.getColumns();
+            case TABLE_WEEKLY_SURVEY:
+                return WeeklySurveyTable.getColumns();
             default:
                 return null;
         }

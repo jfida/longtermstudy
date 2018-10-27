@@ -33,6 +33,9 @@ public class FinalScheduler {
     private Reminder eveningSurvey = new Reminder(19, 15, "afternoon"); //19:15
     private Reminder e4 = new Reminder(21, 15, "E4"); //21:15
 
+    /********** Weekly Reminder *********/
+    private Weekday weeklySurvey = new Weekday(20, 00, Calendar.FRIDAY, "weekly"); //20:00
+
     private Calendar createCalendar(int day, int hour, int minute){
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour);
@@ -67,7 +70,7 @@ public class FinalScheduler {
         //Lecture reminders
         for (Weekday w: lectureReminders) {
             code = rand.nextInt(100000000);
-            setLectureAlarm(context, code, w.getDescription(), w);
+            setWeeklyAlarms(context, code, w.getDescription(), w);
             Log.v("Scheduler", "Session: "+ w.getDescription() + "code: "+code);
         }
 
@@ -78,13 +81,18 @@ public class FinalScheduler {
             Log.v("Scheduler", "Session: "+ w.getDescription() + "code: "+code);
         }
 
+        code = rand.nextInt(100000000);
+        setWeeklyAlarms(context, code, weeklySurvey.getDescription(), weeklySurvey);
+        Log.v("Scheduler", "Session: "+ weeklySurvey.getDescription() + "code: "+code);
+
 
     }
 
     /*
-        Setting the alarm for lecture related surveys, repeated every week
+        Setting the alarm for lecture related surveys, repeated every week.
+        Also used for setting weekly alarms for well-being survey.
      */
-    public void setLectureAlarm(Context context, int requestCode, String session, Weekday weekday){
+    public void setWeeklyAlarms(Context context, int requestCode, String session, Weekday weekday){
         Intent myIntent = new Intent(context, AlarmNotificationReceiver.class);
         myIntent.putExtra("Session", session);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

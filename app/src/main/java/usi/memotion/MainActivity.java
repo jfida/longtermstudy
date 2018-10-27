@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog();
             enableNotificationListenerAlertDialog.show();
         }
-        if (!isUsageAccessServiceEnabled() && checkUsagePermission()) {
+        if (checkUsagePermission()) {
             enableUsageServiceAlertDialog = buildUsageStatsManagerAlertDialog();
             enableUsageServiceAlertDialog.show();
         }
