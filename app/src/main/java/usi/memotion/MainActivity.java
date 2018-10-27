@@ -102,6 +102,21 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
         triggerReminders();
 
+        if(!checkAndroidID()){
+            AlertDialog.Builder newAccountBuilder = new AlertDialog.Builder(MainActivity.this);
+            newAccountBuilder.setTitle("Please create an account");
+            newAccountBuilder.setCancelable(false);
+            newAccountBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                    displayView(R.id.nav_register);
+                }
+            });
+            newAccountBuilder.create();
+            newAccountBuilder.show();
+        }
+
         if(!checkPermissions()) {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.CHANGE_WIFI_STATE,
@@ -126,21 +141,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             }
         } else {
             initServices(grantedPermissions());
-        }
-
-        if(!checkAndroidID()){
-            AlertDialog.Builder newAccountBuilder = new AlertDialog.Builder(MainActivity.this);
-            newAccountBuilder.setTitle("Please create an account");
-            newAccountBuilder.setCancelable(false);
-            newAccountBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                    displayView(R.id.nav_register);
-                }
-            });
-            newAccountBuilder.create();
-            newAccountBuilder.show();
         }
     }
 
