@@ -500,7 +500,7 @@ public class Surveys extends AppCompatActivity {
 
     private void sayThankYou() {
         AlertDialog.Builder builderThankYou = new AlertDialog.Builder(Surveys.this);
-        builderThankYou.setMessage(getString(R.string.thank_you));
+        builderThankYou.setTitle(getString(R.string.thank_you));
         builderThankYou.setCancelable(false);
         builderThankYou.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
