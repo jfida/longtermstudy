@@ -3,10 +3,7 @@ package usi.memotion.UI.fragments;
 
 import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -14,23 +11,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import usi.memotion.R;
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
 import usi.memotion.local.database.db.LocalSQLiteDBHelper;
-import usi.memotion.local.database.tables.PersonalitySurveyTable;
 import usi.memotion.local.database.tables.SWLSSurveyTable;
-import usi.memotion.local.database.tables.UserTable;
 import usi.memotion.remote.database.controllers.SwitchDriveController;
-import usi.memotion.remote.database.upload.Uploader;
 
 /**
  * Created by biancastancu
@@ -41,13 +32,11 @@ import usi.memotion.remote.database.upload.Uploader;
  */
 public class SWLSSurveyFragment extends Fragment {
 
-    private Spinner question1Options, question2Options, question3Options, question4Options, question5Options;
-
     LocalSQLiteDBHelper dbHelper;
-    private LocalStorageController localController;
     SwitchDriveController switchDriveController;
     String androidID;
-
+    private Spinner question1Options, question2Options, question3Options, question4Options, question5Options;
+    private LocalStorageController localController;
     private Button submitButton;
 
     private ImageButton information;
@@ -89,34 +78,21 @@ public class SWLSSurveyFragment extends Fragment {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(validateSpinners()) {
-                    ContentValues record = new ContentValues();
-                    record.put(SWLSSurveyTable.TIMESTAMP, System.currentTimeMillis());
-                    record.put(SWLSSurveyTable.QUESTION_1, Integer.parseInt(question1Options.getSelectedItem().toString()));
-                    record.put(SWLSSurveyTable.QUESTION_2, Integer.parseInt(question2Options.getSelectedItem().toString()));
-                    record.put(SWLSSurveyTable.QUESTION_3, Integer.parseInt(question3Options.getSelectedItem().toString()));
-                    record.put(SWLSSurveyTable.QUESTION_4, Integer.parseInt(question4Options.getSelectedItem().toString()));
-                    record.put(SWLSSurveyTable.QUESTION_5, Integer.parseInt(question5Options.getSelectedItem().toString()));
-                    localcontroller.insertRecord(SWLSSurveyTable.TABLE_SWLSS_SURVEY, record);
+                ContentValues record = new ContentValues();
+                record.put(SWLSSurveyTable.TIMESTAMP, System.currentTimeMillis());
+                record.put(SWLSSurveyTable.QUESTION_1, question1Options.getSelectedItem().toString());
+                record.put(SWLSSurveyTable.QUESTION_2, question2Options.getSelectedItem().toString());
+                record.put(SWLSSurveyTable.QUESTION_3, question3Options.getSelectedItem().toString());
+                record.put(SWLSSurveyTable.QUESTION_4, question4Options.getSelectedItem().toString());
+                record.put(SWLSSurveyTable.QUESTION_5, question5Options.getSelectedItem().toString());
+                localcontroller.insertRecord(SWLSSurveyTable.TABLE_SWLSS_SURVEY, record);
 
-                    Log.d("SWLSS SURVEYS", "Added record: ts: " + record.get(SWLSSurveyTable.TIMESTAMP));
+                Log.d("SWLSS SURVEYS", "Added record: ts: " + record.get(SWLSSurveyTable.TIMESTAMP));
 
-                    Fragment newFragment = new PSSSurveyFragment();
-                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.content_frame, newFragment);
-                    ft.commit();
-
-                } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setTitle(R.string.fill_answers);
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
+                Fragment newFragment = new PSSSurveyFragment();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.content_frame, newFragment);
+                ft.commit();
             }
         });
 
@@ -149,27 +125,6 @@ public class SWLSSurveyFragment extends Fragment {
         tipiAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(tipiAdapter);
     }
-
-    private boolean validateSpinners() {
-        boolean valid1 = isSpinnerValid(question1Options);
-        boolean valid2 = isSpinnerValid(question2Options);
-        boolean valid3 = isSpinnerValid(question3Options);
-        boolean valid4 = isSpinnerValid(question4Options);
-        boolean valid5 = isSpinnerValid(question5Options);
-        return valid1 && valid2 && valid3 && valid4 && valid5;
-    }
-
-        private boolean isSpinnerValid(Spinner spinner){
-            int selected = spinner.getSelectedItemPosition();
-            TextView text = (TextView)spinner.getSelectedView();
-            if(((String)spinner.getItemAtPosition(selected)).equals("Select")){
-                text.setError("error");
-                return false;
-            } else {
-                text.setError(null);
-                return true;
-            }
-        }
 
 }
 
