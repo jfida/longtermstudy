@@ -1,6 +1,7 @@
 package usi.memotion.UI.fragments;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -35,14 +36,11 @@ public class PamImageAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ImageView imageView;
 
         if (convertView == null) {
-            // if it's not recycled, initialize some attributes
             imageView = new ImageView(context);
-//            imageView.setLayoutParams(new GridView.LayoutParams(250, 250));
-//            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(8, 8, 8, 8);
         } else {
             imageView = (ImageView) convertView;

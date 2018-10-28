@@ -1,5 +1,6 @@
 package usi.memotion.local.database.db;
 
+import usi.memotion.local.database.tableHandlers.PAMSurvey;
 import usi.memotion.local.database.tables.AccelerometerTable;
 import usi.memotion.local.database.tables.ActivityRecognitionTable;
 import usi.memotion.local.database.tables.ApplicationLogsTable;
@@ -8,6 +9,7 @@ import usi.memotion.local.database.tables.LectureSurveyTable;
 import usi.memotion.local.database.tables.LocationTable;
 import usi.memotion.local.database.tables.NotificationsTable;
 import usi.memotion.local.database.tables.OverallSurveyTable;
+import usi.memotion.local.database.tables.PAMSurveyTable;
 import usi.memotion.local.database.tables.PAMTable;
 import usi.memotion.local.database.tables.PSQISurveyTable;
 import usi.memotion.local.database.tables.PSSSurveyTable;
@@ -127,6 +129,8 @@ public class LocalDbUtility {
                 return StressSurveyTable.getColumns();
             case TABLE_WEEKLY_SURVEY:
                 return WeeklySurveyTable.getColumns();
+            case TABLE_PAM_SURVEY:
+                return PAMSurveyTable.getColumns();
             default:
                 return null;
         }

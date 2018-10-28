@@ -378,6 +378,7 @@
     <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Daily surveys +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <string name="sleep_quality">Sleep Quality</string>
     <string name="fatigue">Fatigue</string>
+    <string name="PAM">PAM</string>
     <string name="overall">Overall</string>
     <string name="productivity">Productivity</string>
     <string name="affect">Affect</string>
