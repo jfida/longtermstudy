@@ -319,6 +319,7 @@
     <string name="psqi_option_fairly_bad">Fairly bad</string>
     <string name="psqi_option_very_bad">Very bad</string>
     <string name="thank_you">Thank you for completing all the surveys!</string>
+    <string name="weekly_thank_you">Thank you for completing the survey!</string>
 
     <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ PHQ8 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <string name="phq8_explanation">Please answer the following questions by marking them from 1 (not at all) to 4 (nearly every day)</string>
@@ -381,10 +382,12 @@
     <string name="productivity">Productivity</string>
     <string name="affect">Affect</string>
     <string name="stress">Stress</string>
+    <string name="weekly_survey">Weekly well-being</string>
 
     <string name="early_morning">early_morning</string>
     <string name="morning">morning</string>
     <string name="afternoon">afternoon</string>
+    <string name="weekly">weekly</string>
 
     <string name="daily_sleep_q1">Please indicate your bedtime:</string>
     <string name="daily_sleep_q2">Please indicate your wake-up time</string>
@@ -431,6 +434,26 @@
     <string name="stressq1_option3">A little stressed</string>
     <string name="stressq1_option4">Definitely stressed</string>
     <string name="stressq1_option5">Stressed out!</string>
+
+    <string name="weeklyq1">I’ve been feeling optimistic about the future</string>
+    <string name="weeklyq2">I’ve been feeling useful</string>
+    <string name="weeklyq3">I’ve been feeling relaxed</string>
+    <string name="weeklyq4">I’ve been feeling interested in other people</string>
+    <string name="weeklyq5">I’ve had energy to spare</string>
+    <string name="weeklyq6">I’ve been dealing with problems well</string>
+    <string name="weeklyq7">I’ve been thinking clearly</string>
+    <string name="weeklyq8">I’ve been feeling good about myself</string>
+    <string name="weeklyq9">I’ve been feeling close to other people</string>
+    <string name="weeklyq10">I’ve been feeling confident</string>
+    <string name="weeklyq11">I’ve been able to make up my mind about things</string>
+    <string name="weeklyq12">I’ve been feeling loved</string>
+    <string name="weeklyq13">I’ve been interested in new things</string>
+    <string name="weeklyq14">I’ve been feeling cheerful</string>
+    <string name="weekly_option1">None of the time</string>
+    <string name="weekly_option2">Rarely</string>
+    <string name="weekly_option3">Some of the time</string>
+    <string name="weekly_option4">Often</string>
+    <string name="weekly_option5">All of the time</string>
 
     <string-array name="tipi_questions_choices">
         <item>Select</item>

@@ -29,6 +29,7 @@ import usi.memotion.local.database.tables.SimpleMoodTable;
 import usi.memotion.local.database.tables.SleepQualityTable;
 import usi.memotion.local.database.tables.StressSurveyTable;
 import usi.memotion.local.database.tables.UserTable;
+import usi.memotion.local.database.tables.WeeklySurveyTable;
 import usi.memotion.local.database.tables.WiFiTable;
 import usi.memotion.local.database.tables.NotificationsTable;
 
@@ -60,7 +61,8 @@ public enum LocalTables {
     TABLE_FATIGUE_SURVEY(FatigueSurveyTable.class),
     TABLE_OVERALL_SURVEY(OverallSurveyTable.class),
     TABLE_PRODUCTIVITY_SURVEY(ProductivitySurveyTable.class),
-    TABLE_STRESS_SURVEY(StressSurveyTable.class);
+    TABLE_STRESS_SURVEY(StressSurveyTable.class),
+    TABLE_WEEKLY_SURVEY(WeeklySurveyTable.class);
 
 
 
@@ -122,6 +124,8 @@ public enum LocalTables {
                 return ProductivitySurveyTable.TABLE_PRODUCTIVITY_SURVEY;
             case TABLE_STRESS_SURVEY:
                 return StressSurveyTable.TABLE_STRESS_SURVEY;
+            case TABLE_WEEKLY_SURVEY:
+                return WeeklySurveyTable.TABLE_WEEKLY_SURVEY;
             default:
                 throw new IllegalArgumentException("Table not found!");
         }
