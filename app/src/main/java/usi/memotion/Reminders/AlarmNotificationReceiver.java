@@ -47,13 +47,13 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         }else if(session.equals("E4")) {
             setE4Notification(context, "E4 charging time", "Please don't forget to charge E4 and upload the data", 100096);
         }else if(session.equals("early morning")){
-            setDailyNotification(context, "Survey about " + session, "Please tell us how you feel during the " + session + "!", 100097,context.getString(R.string.early_morning));
+            setDailyNotification(context, "Morning survey", " ", 100097,context.getString(R.string.early_morning));
         }else if(session.equals("morning")){
-            setDailyNotification(context, "Survey about " + session, "Please tell us how you feel during the " + session + "!", 100098,context.getString(R.string.morning));
+            setDailyNotification(context, "Midday survey", " ", 100098,context.getString(R.string.morning));
         }else if(session.equals("afternoon")){
-            setDailyNotification(context, "Survey about " + session, "Please tell us how you feel during the " + session + "!", 100099,context.getString(R.string.afternoon));
+            setDailyNotification(context, "Afternoon survey", " ", 100099,context.getString(R.string.afternoon));
         } else if(session.equals("weekly")){
-            setDailyNotification(context, "Weekly survey", "Please tell us how you felt this week! ", 100100,context.getString(R.string.weekly));
+            setDailyNotification(context, "Weekly survey", " ", 100100,context.getString(R.string.weekly));
         }
     }
 
