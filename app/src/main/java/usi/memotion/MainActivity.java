@@ -40,6 +40,7 @@ import java.util.Locale;
 import usi.memotion.Reminders.FinalScheduler;
 import usi.memotion.UI.fragments.AboutApplicationFragment;
 import usi.memotion.UI.fragments.AboutFragment;
+import usi.memotion.UI.fragments.EdiaryFragment;
 import usi.memotion.UI.fragments.HomeFragment;
 import usi.memotion.UI.fragments.LectureSurveysFragment;
 import usi.memotion.UI.fragments.ProfileFragment;
@@ -257,6 +258,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     title = "Create Account";
                 }
 
+                viewIsAtHome = false;
+                break;
+
+            case R.id.nav_ediary:
+                fragment = new EdiaryFragment();
+                title = "E-diary";
                 viewIsAtHome = false;
                 break;
 
