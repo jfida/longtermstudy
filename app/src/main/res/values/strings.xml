@@ -579,4 +579,27 @@
     <string name="menu_ediary">E-Diary</string>
     <string name="menu_about_study">About study</string>
     <string name="menu_about_app">About app</string>
+
+    <!-- ++++++++++++++++++Activities List ++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <string-array name="activities_list">
+        <item>Select</item>
+        <item>Sleep</item>
+        <item>Physical exercise</item>
+        <item>Study</item>
+        <item>Attend lecture</item>
+        <item>Commute</item>
+        <item>Socialize</item>
+        <item>Eat</item>
+        <item>Chores</item>
+        <item>Work</item>
+        <item>Relaxation</item>
+        <item>Other</item>
+    </string-array>
+
+    <!-- ++++++++++++++++++ Ediary ++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <string name="activity_choose">What activity do you want to register?</string>
+    <string name="activity_other">Other:</string>
+    <string name="activity_interaction">Were you interacting with anyone?</string>
+    <string name="activity_emotion">How did you feel during this activity?</string>
+    <string name="activity_comments">Additional comments</string>
 </resources>
