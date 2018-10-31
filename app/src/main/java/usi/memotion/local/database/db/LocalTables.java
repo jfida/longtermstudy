@@ -1,5 +1,6 @@
 package usi.memotion.local.database.db;
 
+import usi.memotion.UI.fragments.EdiaryFragment;
 import usi.memotion.UI.fragments.PSQISurveyFragment;
 import usi.memotion.UI.fragments.PSSSurveyFragment;
 import usi.memotion.UI.fragments.PersonalitySurveyFragment;
@@ -12,6 +13,7 @@ import usi.memotion.local.database.tables.AccelerometerTable;
 import usi.memotion.local.database.tables.ActivityRecognitionTable;
 import usi.memotion.local.database.tables.ApplicationLogsTable;
 import usi.memotion.local.database.tables.BlueToothTable;
+import usi.memotion.local.database.tables.EdiaryTable;
 import usi.memotion.local.database.tables.FatigueSurveyTable;
 import usi.memotion.local.database.tables.LectureSurveyTable;
 import usi.memotion.local.database.tables.LocationTable;
@@ -64,7 +66,8 @@ public enum LocalTables {
     TABLE_PRODUCTIVITY_SURVEY(ProductivitySurveyTable.class),
     TABLE_STRESS_SURVEY(StressSurveyTable.class),
     TABLE_WEEKLY_SURVEY(WeeklySurveyTable.class),
-    TABLE_PAM_SURVEY(PAMSurveyTable.class);
+    TABLE_PAM_SURVEY(PAMSurveyTable.class),
+    TABLE_EDIARY_TABLE(EdiaryTable.class);
 
 
 
@@ -130,6 +133,8 @@ public enum LocalTables {
                 return WeeklySurveyTable.TABLE_WEEKLY_SURVEY;
             case TABLE_PAM_SURVEY:
                 return PAMSurveyTable.TABLE_PAM_SURVEY;
+            case TABLE_EDIARY_TABLE:
+                return EdiaryTable.TABLE_EDIARY_TABLE;
             default:
                 throw new IllegalArgumentException("Table not found!");
         }

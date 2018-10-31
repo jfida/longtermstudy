@@ -1,5 +1,6 @@
 package usi.memotion.UI.fragments;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,8 +18,14 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import usi.memotion.R;
+import usi.memotion.local.database.controllers.LocalStorageController;
+import usi.memotion.local.database.controllers.SQLiteController;
+import usi.memotion.local.database.tables.EdiaryTable;
+import usi.memotion.local.database.tables.PSSSurveyTable;
+import usi.memotion.local.database.tables.SWLSSurveyTable;
 
 public class EdiaryFragment extends Fragment {
+    private LocalStorageController localController;
 
 
     public EdiaryFragment() {
@@ -31,6 +38,7 @@ public class EdiaryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_ediary, container, false);
+        localController = SQLiteController.getInstance(getContext());
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.add_activity_button);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -83,10 +91,30 @@ public class EdiaryFragment extends Fragment {
                         int choice_emotion = ediary_emotion_group.getCheckedRadioButtonId();
                         String emotion = "";
                         if (choice > 0) {
-                            RadioButton radio = (RadioButton) ediary_emotion_group.findViewById(choice_emotion);
-                            emotion = radio.getText().toString();
+                            switch(choice){
+                                case R.id.ediary_emotion_very_happy:
+                                    emotion = "very_happy";
+                                case R.id.ediary_emotion_happy:
+                                    emotion = "happy";
+                                case R.id.ediary_emotion_neutral:
+                                    emotion = "neutral";
+                                case R.id.ediary_emotion_sad:
+                                    emotion = "sad";
+                                case R.id.ediary_emotion_very_sad:
+                                    emotion = "very_sad";
+                            }
                         }
                         EdiaryActivity entry = new EdiaryActivity(emotion, activity, start_time, end_time, interaction, comments);
+                        ContentValues record = new ContentValues();
+                        record.put(EdiaryTable.TIMESTAMP, System.currentTimeMillis());
+                        record.put(EdiaryTable.ACTIVITY, entry.getActivity());
+                        record.put(EdiaryTable.START_TIME, entry.getStart_time());
+                        record.put(EdiaryTable.END_TIME, entry.getEnd_time());
+                        record.put(EdiaryTable.SOCIAL_INTERACTION, entry.getSocial_interaction());
+                        record.put(EdiaryTable.COMMENTS, entry.getComments());
+                        localController.insertRecord(EdiaryTable.TABLE_EDIARY_TABLE, record);
+                        Log.d("EDIARY ENTRY", "Added record: ts: " + record.get(EdiaryTable.TIMESTAMP));
+
                     }
                 });
                 builderAdd.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -140,15 +168,28 @@ public class EdiaryFragment extends Fragment {
             this.comments = comments;
         }
 
-        @Override
-        public String toString() {
-            return "EdiaryActivity{" +
-                    "emotion='" + emotion + '\'' +
-                    ", activity='" + activity + '\'' +
-                    ", start_time='" + start_time + '\'' +
-                    ", end_time='" + end_time + '\'' +
-                    ", social_interaction='" + social_interaction + '\'' +
-                    '}';
+        public String getEmotion() {
+            return emotion;
+        }
+
+        public String getActivity() {
+            return activity;
+        }
+
+        public String getStart_time() {
+            return start_time;
+        }
+
+        public String getEnd_time() {
+            return end_time;
+        }
+
+        public String getSocial_interaction() {
+            return social_interaction;
+        }
+
+        public String getComments() {
+            return comments;
         }
     }
 
