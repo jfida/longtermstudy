@@ -602,4 +602,6 @@
     <string name="activity_interaction">Were you interacting with anyone?</string>
     <string name="activity_emotion">How did you feel during this activity?</string>
     <string name="activity_comments">Additional comments</string>
+    <string name="activity_start">Start time of activity:</string>
+    <string name="activity_end">End time of activity:</string>
 </resources>
