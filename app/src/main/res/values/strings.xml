@@ -389,6 +389,7 @@
     <string name="morning">morning</string>
     <string name="afternoon">afternoon</string>
     <string name="weekly">weekly</string>
+    <string name="ediary">ediary</string>
 
     <string name="daily_sleep_q1">Please indicate your bedtime:</string>
     <string name="daily_sleep_q2">Please indicate your wake-up time</string>

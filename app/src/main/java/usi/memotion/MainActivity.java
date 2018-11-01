@@ -295,6 +295,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     bundle.putString("fragmentChoice", null);
                     fragment = new LectureSurveysFragment();
                     fragment.setArguments(bundle);
+                } else if (menuFragment.equals("ediary")){
+                    fragment = new EdiaryFragment();
                 }
             }
             // Activity was not launched with a menuFragment selected -- continue as if this activity was opened from a launcher (for example)
