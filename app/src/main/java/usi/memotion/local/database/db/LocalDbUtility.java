@@ -4,6 +4,7 @@ import usi.memotion.local.database.tableHandlers.PAMSurvey;
 import usi.memotion.local.database.tables.AccelerometerTable;
 import usi.memotion.local.database.tables.ActivityRecognitionTable;
 import usi.memotion.local.database.tables.ApplicationLogsTable;
+import usi.memotion.local.database.tables.EdiaryTable;
 import usi.memotion.local.database.tables.FatigueSurveyTable;
 import usi.memotion.local.database.tables.LectureSurveyTable;
 import usi.memotion.local.database.tables.LocationTable;
@@ -75,6 +76,8 @@ public class LocalDbUtility {
                 return StressSurveyTable.TABLE_STRESS_SURVEY;
             case TABLE_WEEKLY_SURVEY:
                 return WeeklySurveyTable.TABLE_WEEKLY_SURVEY;
+            case TABLE_EDIARY_TABLE:
+                return EdiaryTable.TABLE_EDIARY_TABLE;
             default:
                 return null;
         }
@@ -131,6 +134,8 @@ public class LocalDbUtility {
                 return WeeklySurveyTable.getColumns();
             case TABLE_PAM_SURVEY:
                 return PAMSurveyTable.getColumns();
+            case TABLE_EDIARY_TABLE:
+                return EdiaryTable.getColumns();
             default:
                 return null;
         }
