@@ -11,7 +11,9 @@ public class EdiaryTable {
     public final static String START_TIME = "start_time";
     public final static String END_TIME = "end_time";
     public final static String SOCIAL_INTERACTION = "social_interaction";
+    public final static String ENTRY_DATE = "entry_date";
     public final static String COMMENTS = "comments";
+    public final static String EMOTION = "emotion";
 
     public static String getCreateQuery() {
         return "CREATE TABLE " + TABLE_EDIARY_TABLE + "("
@@ -20,12 +22,14 @@ public class EdiaryTable {
                 + ACTIVITY + " TEXT,"
                 + START_TIME + " TEXT,"
                 + END_TIME + " TEXT,"
+                + ENTRY_DATE + " TEXT, "
+                + EMOTION + " TEXT, "
                 + SOCIAL_INTERACTION + " TEXT,"
                 + COMMENTS + " TEXT)";
     }
 
     public static String[] getColumns() {
-        String[] columns = {_ID, TIMESTAMP, TIMESTAMP,ACTIVITY,START_TIME,END_TIME,SOCIAL_INTERACTION,COMMENTS};
+        String[] columns = {_ID, TIMESTAMP, TIMESTAMP,ACTIVITY,START_TIME,END_TIME,SOCIAL_INTERACTION,COMMENTS, ENTRY_DATE};
         return columns;
     }
 }
