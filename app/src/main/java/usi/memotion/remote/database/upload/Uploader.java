@@ -95,13 +95,20 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
         processTable(LocalTables.TABLE_CALL_LOG);
         processTable(LocalTables.TABLE_SMS);
         processTable(LocalTables.TABLE_LOCATION);
-        processTable(LocalTables.TABLE_PAM);
+        processTable(LocalTables.TABLE_PAM_SURVEY);
         processTable(LocalTables.TABLE_SIMPLE_MOOD);
         processTable(LocalTables.TABLE_ACTIVITY_RECOGNITION);
+        processTable(LocalTables.TABLE_EDIARY_TABLE);
+        processTable(LocalTables.TABLE_STRESS_SURVEY);
+        processTable(LocalTables.TABLE_SLEEP_QUALITY);
+        processTable(LocalTables.TABLE_OVERALL_SURVEY);
+        processTable(LocalTables.TABLE_FATIGUE_SURVEY);
+        processTable(LocalTables.TABLE_PRODUCTIVITY_SURVEY);
+
     }
 
     /**
-     * This method uploads only the tables that need to be uploaded at the end of the day
+     * This method uploads only the tables that need to be uploaded after account creation and surveys completion
      */
     public void oneTimeUpload() {
         processTable(LocalTables.TABLE_USER);
@@ -111,11 +118,17 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
         processTable(LocalTables.TABLE_PSQI);
     }
 
+
+    public void weeklyUpload() {
+        processTable(LocalTables.TABLE_WEEKLY_SURVEY);
+    }
+
     private void processTable(LocalTables table) {
 
         Log.d("DATA UPLOAD SERVICE", "Processing table " + LocalDbUtility.getTableName(table));
 
-        if(table == LocalTables.TABLE_USER || table == LocalTables.TABLE_PERSONALITY || table == LocalTables.TABLE_PSQI || table == LocalTables.TABLE_PSSS || table == LocalTables.TABLE_SWLS){
+        if(table == LocalTables.TABLE_USER || table == LocalTables.TABLE_PERSONALITY || table == LocalTables.TABLE_PSQI
+                || table == LocalTables.TABLE_PSSS || table == LocalTables.TABLE_SWLS || table == LocalTables.TABLE_WEEKLY_SURVEY){
             // Upload only once, DO NOT delete
 
             String query = getQuery(table);
@@ -133,7 +146,10 @@ public class Uploader implements SwitchDriveController.OnTransferCompleted {
 
         }else if(table == LocalTables.TABLE_LECTURE_SURVEY || table == LocalTables.TABLE_NOTIFICATIONS || table == LocalTables.TABLE_LOCATION ||
                 table == LocalTables.TABLE_PHONELOCK || table == LocalTables.TABLE_CALL_LOG || table == LocalTables.TABLE_SMS ||
-                table == LocalTables.TABLE_APPLICATION_LOGS || table == LocalTables.TABLE_ACTIVITY_RECOGNITION) {
+                table == LocalTables.TABLE_APPLICATION_LOGS || table == LocalTables.TABLE_ACTIVITY_RECOGNITION || table == LocalTables.TABLE_EDIARY_TABLE
+                || table == LocalTables.TABLE_SIMPLE_MOOD || table == LocalTables.TABLE_FATIGUE_SURVEY || table == LocalTables.TABLE_OVERALL_SURVEY
+                || table == LocalTables.TABLE_SLEEP_QUALITY || table == LocalTables.TABLE_PRODUCTIVITY_SURVEY || table == LocalTables.TABLE_STRESS_SURVEY
+                || table  == LocalTables.TABLE_PAM_SURVEY) {
             //Here we should add also Daily Surveys
             // Upload 1 time per day, delete
             String query = getQuery(table);

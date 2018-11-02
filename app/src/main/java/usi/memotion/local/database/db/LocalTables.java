@@ -69,22 +69,7 @@ public enum LocalTables {
     TABLE_PAM_SURVEY(PAMSurveyTable.class),
     TABLE_EDIARY_TABLE(EdiaryTable.class);
 
-
-
     LocalTables(Class a) {
-    }
-
-    public static TableHandler getTableHandler(LocalTables table) {
-        switch(table) {
-            case TABLE_PAM:
-                return new PAMSurvey(true);
-            case TABLE_USER:
-                return new User(true);
-            case TABLE_LECTURE_SURVEY:
-                return new LectureSurvey(true);
-            default:
-                throw new IllegalArgumentException("Table not found!");
-        }
     }
 
     public String getTableName() {

@@ -2,7 +2,10 @@ package usi.memotion;
 
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,20 +17,26 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import usi.memotion.UI.fragments.PamSurveyView;
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
+import usi.memotion.local.database.db.LocalSQLiteDBHelper;
 import usi.memotion.local.database.tables.FatigueSurveyTable;
+import usi.memotion.local.database.tables.LectureSurveyTable;
 import usi.memotion.local.database.tables.OverallSurveyTable;
 import usi.memotion.local.database.tables.PAMSurveyTable;
 import usi.memotion.local.database.tables.PAMTable;
 import usi.memotion.local.database.tables.ProductivitySurveyTable;
 import usi.memotion.local.database.tables.SleepQualityTable;
 import usi.memotion.local.database.tables.StressSurveyTable;
+import usi.memotion.local.database.tables.UserTable;
 import usi.memotion.local.database.tables.WeeklySurveyTable;
+import usi.memotion.remote.database.controllers.SwitchDriveController;
+import usi.memotion.remote.database.upload.Uploader;
 
 /**
  * Created by biancastancu
@@ -37,11 +46,18 @@ public class Surveys extends AppCompatActivity {
 
     private LocalStorageController localController;
 
+    LocalSQLiteDBHelper dbHelper;
+    SwitchDriveController switchDriveController;
+    String androidID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         localController = SQLiteController.getInstance(Surveys.this);
+        dbHelper = new LocalSQLiteDBHelper(getApplicationContext());
+
+
         LayoutInflater inflater = (this).getLayoutInflater();
 
         if (getIntent().getStringExtra("type_survey") != null) {
@@ -54,13 +70,26 @@ public class Surveys extends AppCompatActivity {
                 builderFatigue.setCancelable(false);
                 builderPAM.setCancelable(false);
 
-                builderSleep.setTitle(getString(R.string.sleep_quality));
-                builderFatigue.setTitle(getString(R.string.fatigue));
-                builderPAM.setTitle(getString(R.string.PAM));
+                builderSleep.setTitle(getString(R.string.morning_survey));
+                builderFatigue.setTitle(getString(R.string.morning_survey));
+                builderPAM.setTitle(getString(R.string.morning_survey));
 
                 builderSleep.setView(inflater.inflate(R.layout.early_morning_questionnaire_sleep, null));
                 builderFatigue.setView(inflater.inflate(R.layout.daily_questionnaire_fatigue, null));
                 builderPAM.setView(inflater.inflate(R.layout.surveys_pam_child_layout, null));
+
+
+                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                alertDialog.setTitle(getString(R.string.morning_survey));
+                alertDialog.setMessage("Please answer the following questionnaires about your: sleep quality, mood and fatigue.");
+                alertDialog.setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                builderSleep.create();
+                                builderSleep.show();
+                            }
+                        });
+
 
                 builderPAM.setPositiveButton("SKIP", new DialogInterface.OnClickListener() {
                     @Override
@@ -154,8 +183,10 @@ public class Surveys extends AppCompatActivity {
                         }
                     }
                 });
-                builderSleep.create();
-                builderSleep.show();
+
+                alertDialog.create();
+                alertDialog.show();
+
             } else if (getIntent().getStringExtra("type_survey").equals(getString(R.string.morning))) {
                 final AlertDialog.Builder builderOverall = new AlertDialog.Builder(this);
                 final AlertDialog.Builder builderProductivity = new AlertDialog.Builder(this);
@@ -169,17 +200,30 @@ public class Surveys extends AppCompatActivity {
                 builderFatigue.setCancelable(false);
                 builderPAM.setCancelable(false);
 
-                builderOverall.setTitle(getString(R.string.overall));
-                builderProductivity.setTitle(getString(R.string.productivity));
-                builderStress.setTitle(getString(R.string.stress));
-                builderFatigue.setTitle(getString(R.string.fatigue));
-                builderPAM.setTitle(getString(R.string.PAM));
+                builderOverall.setTitle(getString(R.string.midday_survey));
+                builderProductivity.setTitle(getString(R.string.midday_survey));
+                builderStress.setTitle(getString(R.string.midday_survey));
+                builderFatigue.setTitle(getString(R.string.midday_survey));
+                builderPAM.setTitle(getString(R.string.midday_survey));
 
                 builderOverall.setView(inflater.inflate(R.layout.morning_questionnaire_overall, null));
                 builderProductivity.setView(inflater.inflate(R.layout.morning_productivity_survey, null));
                 builderStress.setView(inflater.inflate(R.layout.morning_questionnaire_stress, null));
                 builderFatigue.setView(inflater.inflate(R.layout.daily_questionnaire_fatigue, null));
                 builderPAM.setView(inflater.inflate(R.layout.surveys_pam_child_layout, null));
+
+                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                alertDialog.setTitle(getString(R.string.midday_survey));
+                alertDialog.setMessage("Please answer the following questionnaires about your: ovverall well-being, mood, productivity, stress and fatigue during this afternoon.");
+                alertDialog.setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                builderOverall.create();
+                                builderOverall.show();
+                            }
+                        });
+
+
 
                 builderOverall.setPositiveButton("NEXT", new DialogInterface.OnClickListener() {
                     @Override
@@ -326,8 +370,9 @@ public class Surveys extends AppCompatActivity {
                         }
                     }
                 });
-                builderOverall.create();
-                builderOverall.show();
+                alertDialog.create();
+                alertDialog.show();
+
             } else if (getIntent().getStringExtra("type_survey").equals(getString(R.string.afternoon))) {
                 final AlertDialog.Builder builderOverall = new AlertDialog.Builder(this);
                 final AlertDialog.Builder builderProductivity = new AlertDialog.Builder(this);
@@ -341,17 +386,28 @@ public class Surveys extends AppCompatActivity {
                 builderFatigue.setCancelable(false);
                 builderPAM.setCancelable(false);
 
-                builderOverall.setTitle(getString(R.string.overall));
-                builderProductivity.setTitle(getString(R.string.productivity));
-                builderStress.setTitle(getString(R.string.stress));
-                builderFatigue.setTitle(getString(R.string.fatigue));
-                builderPAM.setTitle(getString(R.string.PAM));
+                builderOverall.setTitle(getString(R.string.afternoon_survey));
+                builderProductivity.setTitle(getString(R.string.afternoon_survey));
+                builderStress.setTitle(getString(R.string.afternoon_survey));
+                builderFatigue.setTitle(getString(R.string.afternoon_survey));
+                builderPAM.setTitle(getString(R.string.afternoon_survey));
 
                 builderOverall.setView(inflater.inflate(R.layout.afternoon_questionnaire_overall, null));
                 builderProductivity.setView(inflater.inflate(R.layout.afternoon_productivity_survey, null));
                 builderStress.setView(inflater.inflate(R.layout.afternoon_questionnaire_stress, null));
                 builderFatigue.setView(inflater.inflate(R.layout.daily_questionnaire_fatigue, null));
                 builderPAM.setView(inflater.inflate(R.layout.surveys_pam_child_layout, null));
+
+                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                alertDialog.setTitle(getString(R.string.afternoon_survey));
+                alertDialog.setMessage("Please answer the following questionnaires about your: ovverall well-being, mood, productivity, stress and fatigue during this afternoon.");
+                alertDialog.setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                builderOverall.create();
+                                builderOverall.show();
+                            }
+                        });
 
                 builderOverall.setPositiveButton("NEXT", new DialogInterface.OnClickListener() {
                     @Override
@@ -497,8 +553,8 @@ public class Surveys extends AppCompatActivity {
                         }
                     }
                 });
-                builderOverall.create();
-                builderOverall.show();
+                alertDialog.create();
+                alertDialog.show();
             } else if (getIntent().getStringExtra("type_survey").equals(getString(R.string.weekly))) {
                 final AlertDialog.Builder builderWeekly = new AlertDialog.Builder(this);
                 builderWeekly.setCancelable(false);
@@ -542,7 +598,11 @@ public class Surveys extends AppCompatActivity {
 
                         localController.insertRecord(WeeklySurveyTable.TABLE_WEEKLY_SURVEY, record);
 
+
                         Log.d("WEEKLY SURVEYS", "Added record: ts: " + record.get(WeeklySurveyTable.TIMESTAMP));
+
+                        //Upload weekly survey
+                        uploadRemotely();
 
                         dialog.dismiss();
                         sayThankYou(getString(R.string.weekly_thank_you));
@@ -550,7 +610,151 @@ public class Surveys extends AppCompatActivity {
                 });
                 builderWeekly.create();
                 builderWeekly.show();
-            } else {
+            } else if (getIntent().getStringExtra("type_survey").equals("Wednesday - Break") ||
+                    getIntent().getStringExtra("type_survey").equals("Wednesday - Post") ||
+                    getIntent().getStringExtra("type_survey").equals("Friday - Break") ||
+                    getIntent().getStringExtra("type_survey").equals("Friday - Post")) {
+
+                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                final AlertDialog.Builder builderPAM = new AlertDialog.Builder(this);
+                final AlertDialog.Builder builderWeekly = new AlertDialog.Builder(this);
+
+                builderPAM.setCancelable(false);
+                builderWeekly.setCancelable(false);
+
+                alertDialog.setTitle(getString(R.string.lecture_survey));
+                builderPAM.setTitle(getString(R.string.PAM));
+                builderWeekly.setTitle(getString(R.string.lecture_survey));
+
+                builderPAM.setView(inflater.inflate(R.layout.surveys_pam_child_layout, null));
+                builderWeekly.setView(inflater.inflate(R.layout.lecture_surveys_view, null));
+
+                alertDialog.setMessage("Did you attend today's Mobile Computing lecture?");
+                alertDialog.setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                final AlertDialog PAMdialog = builderPAM.create();
+                                PAMdialog.show();
+                                if (PAMdialog.isShowing()) {
+                                    PamSurveyView view = (PamSurveyView) (PAMdialog.findViewById(R.id.pamSurveyView));
+                                    PamSurveyView.OnPAMSelectionListener changeListener = new PamSurveyView.OnPAMSelectionListener() {
+                                        @Override
+                                        public void onPAMSelection(int position) {
+                                            ContentValues record = new ContentValues();
+                                            record.put(PAMSurveyTable.TIMESTAMP, System.currentTimeMillis());
+                                            record.put(PAMSurveyTable.IMAGE_CHOSEN, position);
+                                            localController.insertRecord(PAMSurveyTable.TABLE_PAM_SURVEY, record);
+                                            Log.d("PAM SURVEYS", "Added record: ts: " + record.get(PAMSurveyTable.TIMESTAMP));
+                                            PAMdialog.dismiss();
+
+                                            builderWeekly.create();
+                                            builderWeekly.show();
+                                        }
+                                    };
+                                    view.setOnPAMSelectionListener(changeListener);
+                                }
+                            }
+                        });
+
+
+                alertDialog.setNegativeButton("No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                                Toast.makeText(getApplicationContext(), "Thank you very much for your answer!", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        });
+
+                alertDialog.create();
+                alertDialog.show();
+
+                builderPAM.setPositiveButton("SKIP", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ((AlertDialog) dialogInterface).dismiss();
+                        builderWeekly.create();
+                        builderWeekly.show();
+                    }
+                });
+
+                builderWeekly.setPositiveButton("FINISH", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        ContentValues record = new ContentValues();
+                        record.put(LectureSurveyTable.TIMESTAMP, System.currentTimeMillis());
+
+                        RadioGroup weeklyq1 = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.question1Options);
+                        RadioGroup weeklyq2 = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.question2Options);
+                        RadioGroup weeklyq3 = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.question3Options);
+                        RadioGroup weeklyq4 = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.question4Options);
+                        RadioGroup weeklyq5 = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.question5Options);
+                        RadioGroup weeklyq6 = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.question6Options);
+                        RadioGroup weeklyq7 = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.question7Options);
+                        RadioGroup weeklyq8 = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.question8Options);
+                        RadioGroup weeklyq9 = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.question9Options);
+                        RadioGroup weeklyq10 = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.question10Options);
+
+                        record.put(LectureSurveyTable.QUESTION_1, getAnswer(weeklyq1));
+                        record.put(LectureSurveyTable.QUESTION_2, getAnswer(weeklyq2));
+                        record.put(LectureSurveyTable.QUESTION_3, getAnswer(weeklyq3));
+                        record.put(LectureSurveyTable.QUESTION_4, getAnswer(weeklyq4));
+                        record.put(LectureSurveyTable.QUESTION_5, getAnswer(weeklyq5));
+                        record.put(LectureSurveyTable.QUESTION_6, getAnswer(weeklyq6));
+                        record.put(LectureSurveyTable.QUESTION_7, getAnswer(weeklyq7));
+                        record.put(LectureSurveyTable.QUESTION_8, getAnswer(weeklyq8));
+                        record.put(LectureSurveyTable.QUESTION_9, getAnswer(weeklyq9));
+                        record.put(LectureSurveyTable.QUESTION_10, getAnswer(weeklyq10));
+
+                        localController.insertRecord(LectureSurveyTable.TABLE_LECTURE_SURVEY, record);
+
+                        Log.d("LECTURE SURVEYS", "Added record: ts: " + record.get(LectureSurveyTable.TIMESTAMP));
+
+                        dialog.dismiss();
+                        sayThankYou(getString(R.string.weekly_thank_you));
+                    }
+                });
+
+
+            }  else if (getIntent().getStringExtra("type_survey").equals("Friday - Pre") ||
+                    getIntent().getStringExtra("type_survey").equals("Wednesday - Pre") ) {
+
+                final AlertDialog.Builder builderPAM = new AlertDialog.Builder(this);
+                builderPAM.setCancelable(false);
+                builderPAM.setTitle(getString(R.string.PAM));
+
+                builderPAM.setView(inflater.inflate(R.layout.surveys_pam_child_layout, null));
+
+
+                builderPAM.setPositiveButton("SKIP", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ((AlertDialog) dialogInterface).dismiss();
+                    }
+                });
+
+                final AlertDialog PAMdialog = builderPAM.create();
+                PAMdialog.show();
+                if (PAMdialog.isShowing()) {
+                    PamSurveyView view = (PamSurveyView) (PAMdialog.findViewById(R.id.pamSurveyView));
+                    PamSurveyView.OnPAMSelectionListener changeListener = new PamSurveyView.OnPAMSelectionListener() {
+                        @Override
+                        public void onPAMSelection(int position) {
+                            ContentValues record = new ContentValues();
+                            record.put(PAMSurveyTable.TIMESTAMP, System.currentTimeMillis());
+                            record.put(PAMSurveyTable.IMAGE_CHOSEN, position);
+                            localController.insertRecord(PAMSurveyTable.TABLE_PAM_SURVEY, record);
+                            Log.d("PAM SURVEYS", "Added record: ts: " + record.get(PAMSurveyTable.TIMESTAMP));
+                            PAMdialog.dismiss();
+
+                            sayThankYou(getString(R.string.thank_you));
+                        }
+                    };
+                    view.setOnPAMSelectionListener(changeListener);
+                }
+
+            }else {
                 Surveys.this.finish();
             }
         }
@@ -571,13 +775,37 @@ public class Surveys extends AppCompatActivity {
             builderThankYou.show();
         }
 
-        private String getAnswer(RadioGroup radioGroup){
-            int choice = radioGroup.getCheckedRadioButtonId();
-            if (choice > 0) {
-                RadioButton radio = (RadioButton) radioGroup.findViewById(choice);
-                return radio.getText().toString();
-            } else {
-                return "UNKNOWN";
-            }
+    private String getAnswer(RadioGroup radioGroup){
+        int choice = radioGroup.getCheckedRadioButtonId();
+        if (choice > 0) {
+            RadioButton radio = (RadioButton) radioGroup.findViewById(choice);
+            return radio.getText().toString();
+        } else {
+            return "UNKNOWN";
         }
     }
+
+    public void uploadRemotely() {
+        androidID = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+        dbHelper = new LocalSQLiteDBHelper(getApplicationContext());
+        switchDriveController = new SwitchDriveController(getApplicationContext().getString(R.string.server_address),
+                getApplicationContext().getString(R.string.token), getApplicationContext().getString(R.string.password));
+        localController = SQLiteController.getInstance(getApplicationContext());
+
+
+        String query = "SELECT * FROM usersTable";
+        Cursor records = localController.rawQuery(query, null);
+        records.moveToFirst();
+
+        String username = null;
+
+        if (records.getCount() > 0) {
+            username = records.getString(records.getColumnIndex(UserTable.USERNAME));
+
+        }
+
+        String userName = username + "_" + androidID;
+        final Uploader uploader = new Uploader(userName, switchDriveController, localController, dbHelper);
+        uploader.weeklyUpload();
+    }
+}

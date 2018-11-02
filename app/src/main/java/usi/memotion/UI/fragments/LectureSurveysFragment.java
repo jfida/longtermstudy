@@ -189,7 +189,21 @@ public class LectureSurveysFragment extends Fragment {
 
 //                                    //Close this activity
 //                                    getActivity().finish();
+
+                                    question1Options.clearCheck();
+                                    question2Options.clearCheck();
+                                    question3Options.clearCheck();
+                                    question4Options.clearCheck();
+                                    question5Options.clearCheck();
+                                    question6Options.clearCheck();
+                                    question7Options.clearCheck();
+                                    question8Options.clearCheck();
+                                    question9Options.clearCheck();
+                                    question10Options.clearCheck();
+
                                     expandableLayout1.setExpanded(false);
+
+
 
                                 }
                             });
@@ -260,9 +274,21 @@ public class LectureSurveysFragment extends Fragment {
                                     //Show thank you message
                                     Toast.makeText(getContext(), "Thank you very much!", Toast.LENGTH_SHORT).show();
 
-//                                    //Close this activity
-//                                    getActivity().finish();
+
+                                    question12Options.clearCheck();
+                                    question22Options.clearCheck();
+                                    question32Options.clearCheck();
+                                    question42Options.clearCheck();
+                                    question52Options.clearCheck();
+                                    question62Options.clearCheck();
+                                    question72Options.clearCheck();
+                                    question82Options.clearCheck();
+                                    question92Options.clearCheck();
+                                    question102Options.clearCheck();
+
                                     expandableLayout2.setExpanded(false);
+
+
 
                                 }
                             });
