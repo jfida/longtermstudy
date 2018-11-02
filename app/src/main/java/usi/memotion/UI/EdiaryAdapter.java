@@ -51,41 +51,41 @@ public class EdiaryAdapter extends ArrayAdapter<EdiaryFragment.EdiaryActivity> {
                 entry_emotion.setImageResource(R.drawable.activity_very_happy);
                 break;
         }
-//        switch (entry.getActivity()) {
-//            case "Sleep":
-//                entry_activity.setImageResource(R.drawable.sleep);
-//                break;
-//            case "Physical exercise":
-//                entry_activity.setImageResource(R.drawable.physical_exercise);
-//                break;
-//            case "Study":
-//                entry_activity.setImageResource(R.drawable.study);
-//                break;
-//            case "Attend lecture":
-//                entry_activity.setImageResource(R.drawable.attend_lecture);
-//                break;
-//            case "Commute":
-//                entry_activity.setImageResource(R.drawable.commute);
-//                break;
-//            case "Socialize":
-//                entry_activity.setImageResource(R.drawable.socialize);
-//                break;
-//            case "Eat":
-//                entry_activity.setImageResource(R.drawable.eat);
-//                break;
-//            //case "Chores":
-//            // entry_emotion.setImageResource(R.drawable.chores);
-//            //  break;
-//            case "Work":
-//                entry_activity.setImageResource(R.drawable.work);
-//                break;
-//            case "Relaxation":
-//                entry_activity.setImageResource(R.drawable.relaxation);
-//                break;
-//            //case "Other":
-//            //  entry_emotion.setImageResource(R.drawable.other);
-//            // break;
-//        }
+        switch (entry.getActivity()) {
+            case "Sleep":
+                entry_activity.setImageResource(R.drawable.sleep);
+                break;
+            case "Physical exercise":
+                entry_activity.setImageResource(R.drawable.physical_exercise);
+                break;
+            case "Study":
+                entry_activity.setImageResource(R.drawable.study);
+                break;
+            case "Attend lecture":
+                entry_activity.setImageResource(R.drawable.attend_lecture);
+                break;
+            case "Commute":
+                entry_activity.setImageResource(R.drawable.commute);
+                break;
+            case "Socialize":
+                entry_activity.setImageResource(R.drawable.socialize);
+                break;
+            case "Eat":
+                entry_activity.setImageResource(R.drawable.eat);
+                break;
+            //case "Chores":
+            // entry_emotion.setImageResource(R.drawable.chores);
+            //  break;
+            case "Work":
+                entry_activity.setImageResource(R.drawable.work);
+                break;
+            case "Relaxation":
+                entry_activity.setImageResource(R.drawable.relaxation);
+                break;
+            //case "Other":
+            //  entry_emotion.setImageResource(R.drawable.other);
+            // break;
+        }
         entry_activity.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
         return convertView;
     }

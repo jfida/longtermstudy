@@ -22,10 +22,10 @@ public class NotificationData extends TableHandler
 	private long arrivalTime;
 	private long removalTime;
 	private int clicked;
-	private boolean led;
-	private boolean vibrate;
-	private boolean sound; 
-	private boolean unique_sound; 
+//	private boolean led;
+//	private boolean vibrate;
+//	private boolean sound;
+//	private boolean unique_sound;
 	private String app_name; 
 	private String app_package;
 
@@ -70,28 +70,28 @@ public class NotificationData extends TableHandler
 			clicked = attributes.getAsInteger(columns[7]);
 		}
 
+//		if(attributes.containsKey(columns[8])) {
+//			led = attributes.getAsBoolean(columns[8]);
+//		}
+//
+//		if(attributes.containsKey(columns[9])) {
+//			vibrate = attributes.getAsBoolean(columns[9]);
+//		}
+//
+//		if(attributes.containsKey(columns[10])) {
+//			sound = attributes.getAsBoolean(columns[10]);
+//		}
+//
+//		if(attributes.containsKey(columns[11])) {
+//			unique_sound = attributes.getAsBoolean(columns[11]);
+//		}
+
 		if(attributes.containsKey(columns[8])) {
-			led = attributes.getAsBoolean(columns[8]);
+			app_name = attributes.getAsString(columns[8]);
 		}
 
 		if(attributes.containsKey(columns[9])) {
-			vibrate = attributes.getAsBoolean(columns[9]);
-		}
-
-		if(attributes.containsKey(columns[10])) {
-			sound = attributes.getAsBoolean(columns[10]);
-		}
-
-		if(attributes.containsKey(columns[11])) {
-			unique_sound = attributes.getAsBoolean(columns[11]);
-		}
-
-		if(attributes.containsKey(columns[12])) {
-			app_name = attributes.getAsString(columns[12]);
-		}
-
-		if(attributes.containsKey(columns[13])) {
-			app_package = attributes.getAsString(columns[13]);
+			app_package = attributes.getAsString(columns[9]);
 		}
 	}
 
@@ -108,12 +108,12 @@ public class NotificationData extends TableHandler
 		attributes.put(columns[5], arrivalTime);
 		attributes.put(columns[6], removalTime);
 		attributes.put(columns[7], clicked);
-		attributes.put(columns[8], led);
-		attributes.put(columns[9], vibrate);
-		attributes.put(columns[10], sound);
-		attributes.put(columns[11], unique_sound);
-		attributes.put(columns[12], app_name);
-		attributes.put(columns[13], app_package);
+//		attributes.put(columns[8], led);
+//		attributes.put(columns[9], vibrate);
+//		attributes.put(columns[10], sound);
+//		attributes.put(columns[11], unique_sound);
+		attributes.put(columns[8], app_name);
+		attributes.put(columns[9], app_package);
 
 
 		return attributes;
@@ -131,12 +131,12 @@ public class NotificationData extends TableHandler
 		attributes.put(columns[5], cursor.getLong(5));
 		attributes.put(columns[6], cursor.getLong(6));
 		attributes.put(columns[7], cursor.getInt(7));
-		attributes.put(columns[8], cursor.getInt(8));
-		attributes.put(columns[9], cursor.getInt(9));
-		attributes.put(columns[10], cursor.getInt(10));
-		attributes.put(columns[11], cursor.getInt(11));
-		attributes.put(columns[12], cursor.getString(12));
-		attributes.put(columns[13], cursor.getString(13));
+//		attributes.put(columns[8], cursor.getInt(8));
+//		attributes.put(columns[9], cursor.getInt(9));
+//		attributes.put(columns[10], cursor.getInt(10));
+//		attributes.put(columns[11], cursor.getInt(11));
+		attributes.put(columns[8], cursor.getString(8));
+		attributes.put(columns[9], cursor.getString(9));
 
 
 		return attributes;
@@ -183,18 +183,18 @@ public class NotificationData extends TableHandler
 			case NotificationsTable.KEY_NOTIF_CLICKED:
 				clicked = attribute.getAsInteger(NotificationsTable.KEY_NOTIF_CLICKED);
 				break;
-			case NotificationsTable.KEY_NOTIF_LED:
-				led = attribute.getAsBoolean(NotificationsTable.KEY_NOTIF_LED);
-				break;
-			case NotificationsTable.KEY_NOTIF_VIBRATE:
-				vibrate = attribute.getAsBoolean(NotificationsTable.KEY_NOTIF_VIBRATE);
-				break;
-			case NotificationsTable.KEY_NOTIF_SOUND:
-				sound = attribute.getAsBoolean(NotificationsTable.KEY_NOTIF_SOUND);
-				break;
-			case NotificationsTable.KEY_NOTIF_UNIQUE_SOUND:
-				unique_sound = attribute.getAsBoolean(NotificationsTable.KEY_NOTIF_UNIQUE_SOUND);
-				break;
+//			case NotificationsTable.KEY_NOTIF_LED:
+//				led = attribute.getAsBoolean(NotificationsTable.KEY_NOTIF_LED);
+//				break;
+//			case NotificationsTable.KEY_NOTIF_VIBRATE:
+//				vibrate = attribute.getAsBoolean(NotificationsTable.KEY_NOTIF_VIBRATE);
+//				break;
+//			case NotificationsTable.KEY_NOTIF_SOUND:
+//				sound = attribute.getAsBoolean(NotificationsTable.KEY_NOTIF_SOUND);
+//				break;
+//			case NotificationsTable.KEY_NOTIF_UNIQUE_SOUND:
+//				unique_sound = attribute.getAsBoolean(NotificationsTable.KEY_NOTIF_UNIQUE_SOUND);
+//				break;
 			case NotificationsTable.KEY_NOTIF_APP_NAME:
 				app_name = attribute.getAsString(NotificationsTable.KEY_NOTIF_APP_NAME);
 				break;
@@ -223,8 +223,7 @@ public class NotificationData extends TableHandler
 	@Override
 	public String toString() {
 		return "Notification(id: " + id +  ", tag: " + tag + ", key: "  + key + ", priority: " + priority + ", title: " + title +
-				", arrivalTime: " + arrivalTime + ", removalTime: " + removalTime + ", clicked: " + clicked + ", led: " + led +
-				", vibrate: " + vibrate +  ", sound: " + sound +  ", unique_sound: " + unique_sound +  ", app_name: " + app_name +
+				", arrivalTime: " + arrivalTime + ", removalTime: " + removalTime + ", clicked: " + clicked + ", app_name: " + app_name +
 				", app_package: " + app_package + ")\n";
 	}
 
@@ -258,23 +257,20 @@ public class NotificationData extends TableHandler
 		return clicked;
 	}
 
-
-	public boolean isLed() {
-		return led;
-	}
-
-
-	public boolean isVibrate() {
-		return vibrate;
-	}
-
-
-	public boolean isSound() {
-		return sound;
-	}
-	public boolean isUnique_sound() {
-		return unique_sound;
-	}
+//
+//	public boolean isLed() {
+//		return led;
+//	}
+//
+//	public boolean isVibrate() {
+//		return vibrate;
+//	}
+//	public boolean isSound() {
+//		return sound;
+//	}
+//	public boolean isUnique_sound() {
+//		return unique_sound;
+//	}
 	public String getAppName() {
 		return app_name;
 	}
@@ -304,18 +300,19 @@ public class NotificationData extends TableHandler
 	public void setClicked(int clicked) {
 		this.clicked = clicked;
 	}
-	public void setLed(boolean led) {
-		this.led = led;
-	}
-	public void setVibrate(boolean vibrate) {
-		this.vibrate = vibrate;
-	}
-	public void setSound(boolean sound) {
-		this.sound = sound;
-	}
-	public void setUnique_sound(boolean unique_sound) {
-		this.unique_sound = unique_sound;
-	}
+
+//	public void setLed(boolean led) {
+//		this.led = led;
+//	}
+//	public void setVibrate(boolean vibrate) {
+//		this.vibrate = vibrate;
+//	}
+//	public void setSound(boolean sound) {
+//		this.sound = sound;
+//	}
+//	public void setUnique_sound(boolean unique_sound) {
+//		this.unique_sound = unique_sound;
+//	}
 	public void setAppName(String app_name) {
 		this.app_name = app_name;
 	}

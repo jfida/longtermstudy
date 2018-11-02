@@ -149,7 +149,8 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
         builder.setAutoCancel(true);
         builder.setOngoing(true);
-      
+
+        Intent intent = new Intent(context, Surveys.class);
         intent.putExtra("type_survey", type);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);

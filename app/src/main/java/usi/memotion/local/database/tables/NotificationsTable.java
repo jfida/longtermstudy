@@ -14,10 +14,10 @@ public class NotificationsTable {
     public static final String KEY_NOTIF_ARRIVAL_TIME = "arrival_time";
     public static final String KEY_NOTIF_REMOVAL_TIME = "removal_time";
     public static final String KEY_NOTIF_CLICKED = "clicked";
-    public static final String KEY_NOTIF_LED = "led";
-    public static final String KEY_NOTIF_VIBRATE = "vibrate";
-    public static final String KEY_NOTIF_SOUND = "sound";
-    public static final String KEY_NOTIF_UNIQUE_SOUND = "unique_sound";
+//    public static final String KEY_NOTIF_LED = "led";
+//    public static final String KEY_NOTIF_VIBRATE = "vibrate";
+//    public static final String KEY_NOTIF_SOUND = "sound";
+//    public static final String KEY_NOTIF_UNIQUE_SOUND = "unique_sound";
     public static final String KEY_NOTIF_APP_NAME = "app_name";
     public static final String KEY_NOTIF_APP_PACKAGE = "app_package";
 
@@ -33,10 +33,10 @@ public class NotificationsTable {
                 KEY_NOTIF_ARRIVAL_TIME + " INTEGER, " +
                 KEY_NOTIF_REMOVAL_TIME + " INTEGER, " +
                 KEY_NOTIF_CLICKED + " INTEGER, " +
-                KEY_NOTIF_LED + " TEXT, " +
-                KEY_NOTIF_VIBRATE + " TEXT, " +
-                KEY_NOTIF_SOUND + " TEXT, " +
-                KEY_NOTIF_UNIQUE_SOUND + " TEXT, " +
+//                KEY_NOTIF_LED + " TEXT, " +
+//                KEY_NOTIF_VIBRATE + " TEXT, " +
+//                KEY_NOTIF_SOUND + " TEXT, " +
+//                KEY_NOTIF_UNIQUE_SOUND + " TEXT, " +
                 KEY_NOTIF_APP_NAME + " TEXT, " +
                 KEY_NOTIF_APP_PACKAGE + " TEXT " + ")";
     }
@@ -51,10 +51,10 @@ public class NotificationsTable {
                 KEY_NOTIF_ARRIVAL_TIME,
                 KEY_NOTIF_REMOVAL_TIME,
                 KEY_NOTIF_CLICKED,
-                KEY_NOTIF_LED,
-                KEY_NOTIF_VIBRATE,
-                KEY_NOTIF_SOUND,
-                KEY_NOTIF_UNIQUE_SOUND,
+//                KEY_NOTIF_LED,
+//                KEY_NOTIF_VIBRATE,
+//                KEY_NOTIF_SOUND,
+//                KEY_NOTIF_UNIQUE_SOUND,
                 KEY_NOTIF_APP_NAME,
                 KEY_NOTIF_APP_PACKAGE
         };

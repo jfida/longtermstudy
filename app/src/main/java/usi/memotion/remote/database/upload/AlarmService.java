@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -36,7 +37,9 @@ import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
 import usi.memotion.local.database.db.LocalSQLiteDBHelper;
 import usi.memotion.local.database.tableHandlers.ApplicationLogData;
+import usi.memotion.local.database.tableHandlers.NotificationData;
 import usi.memotion.local.database.tables.ApplicationLogsTable;
+import usi.memotion.local.database.tables.EdiaryTable;
 import usi.memotion.local.database.tables.NotificationsTable;
 import usi.memotion.local.database.tables.UserTable;
 import usi.memotion.remote.database.controllers.SwitchDriveController;
@@ -98,6 +101,10 @@ public class AlarmService extends IntentService {
         //Insert data from UsageStats to ApplicationLogs table
         getUsageStatistics(UsageStatsManager.INTERVAL_DAILY);
 
+
+        // Delete Notifications titles
+        deleteNotificationsTitle();
+
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -143,6 +150,12 @@ public class AlarmService extends IntentService {
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
         notificationManager.notify(notificationID, builder.build());
+
+    }
+
+    public void deleteNotificationsTitle(){
+
+        localController.rawQuery("UPDATE notifications SET title = ''", null);
 
     }
 

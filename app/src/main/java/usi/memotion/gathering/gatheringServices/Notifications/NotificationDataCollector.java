@@ -16,6 +16,8 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.PowerManager;
 import android.service.notification.StatusBarNotification;
@@ -25,8 +27,11 @@ import usi.memotion.gathering.gatheringServices.Notifications.Utils.Log;
 import usi.memotion.gathering.gatheringServices.Notifications.Utils.SharedPref;
 import usi.memotion.local.database.controllers.LocalStorageController;
 import usi.memotion.local.database.controllers.SQLiteController;
+import usi.memotion.local.database.db.LocalDbUtility;
+import usi.memotion.local.database.db.LocalSQLiteDBHelper;
 import usi.memotion.local.database.tableHandlers.NotificationData;
 import usi.memotion.local.database.tables.NotificationsTable;
+import usi.memotion.local.database.tables.UploaderUtilityTable;
 
 /**
  * Created by abhinavmerotra
@@ -86,7 +91,7 @@ public class NotificationDataCollector
 				title = n.extras.getCharSequence(Notification.EXTRA_TEXT).toString();
 			title = title.replace("\n", " ").trim();
 
-            insertRecord(tag, key, priority, title, arrivalTime, removalTime, clicked, led, vibrate, sound, unique_sound, app_name, app_package);
+            insertRecord(tag, key, priority, title, arrivalTime, removalTime, clicked, app_name, app_package);
 			new Log().i("Saving notification in database: ");
 
 		} 
@@ -115,8 +120,6 @@ public class NotificationDataCollector
 		PowerManager powerManager = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
 		@SuppressWarnings("deprecation")
 		boolean isSceenAwake = (Build.VERSION.SDK_INT < 20 ? powerManager.isScreenOn():powerManager.isInteractive());
-
-
 		new Log().e("Screen awake: " + isSceenAwake );
 
 		final String app_name = getAppNameFromPackage(context, sbn.getPackageName());
@@ -140,36 +143,8 @@ public class NotificationDataCollector
 		}
 
 		if(n_data != null){
-//			removeNotificationData(app_name, title);
-
-//			 set removal time
 			n_data.setRemovalTime(Calendar.getInstance().getTimeInMillis());
-			if(!isSceenAwake){ // device is locked
-				n_data.setClicked(-1);
-//              updateClicked(app_name, title, -1);
-//				logNotificationData(context, n_data);
-			}
-			if(isSceenAwake){
-				final NotificationResponseDetector async_task = new NotificationResponseDetector(context, n_data)
-				{	
-					@Override
-					protected void onPostExecute(NotificationData n_data) 
-					{
-//						logNotificationData(context, n_data);
-                        updateNotification(n_data);
-					}
-				};
-				int corePoolSize = 60;
-				int maximumPoolSize = 80;
-				int keepAliveTime = 10;
-				BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<Runnable>(maximumPoolSize);
-				Executor threadPoolExecutor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, 
-						keepAliveTime, TimeUnit.SECONDS, workQueue);
-				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-					async_task.executeOnExecutor(threadPoolExecutor);
-				else
-					async_task.execute();
-			}
+			updateNotification(n_data);
 		}
 		else
 		{
@@ -180,7 +155,7 @@ public class NotificationDataCollector
 	}
 
 
-	private void insertRecord(String tag, String key, int priority, String title, long arrival_time, long removal_time, int click, boolean led, boolean vibrate, boolean sound, boolean u_sound, String app_n, String app_p) {
+	private void insertRecord(String tag, String key, int priority, String title, long arrival_time, long removal_time, int click, String app_n, String app_p) {
 		ContentValues record = new ContentValues();
 
 		record.put(NotificationsTable.KEY_NOTIF_TAG, tag);
@@ -190,10 +165,6 @@ public class NotificationDataCollector
         record.put(NotificationsTable.KEY_NOTIF_ARRIVAL_TIME, arrival_time);
         record.put(NotificationsTable.KEY_NOTIF_REMOVAL_TIME, removal_time);
         record.put(NotificationsTable.KEY_NOTIF_CLICKED, click);
-        record.put(NotificationsTable.KEY_NOTIF_LED, led);
-        record.put(NotificationsTable.KEY_NOTIF_VIBRATE, vibrate);
-        record.put(NotificationsTable.KEY_NOTIF_SOUND, sound);
-        record.put(NotificationsTable.KEY_NOTIF_UNIQUE_SOUND, u_sound);
         record.put(NotificationsTable.KEY_NOTIF_APP_NAME, app_n);
         record.put(NotificationsTable.KEY_NOTIF_APP_PACKAGE, app_p);
 
@@ -202,29 +173,28 @@ public class NotificationDataCollector
 		android.util.Log.d("NOTIFICATIONS SERVICE", "Added record: ID: " + record.get(NotificationsTable.KEY_NOTIF_ID) + ", TAG: " + record.get(NotificationsTable.KEY_NOTIF_TAG)
                 + ", KEY: " + record.get(NotificationsTable.KEY_NOTIF_KEY) + ", PRIORITY: " + record.get(NotificationsTable.KEY_NOTIF_PRIORITY) + ", TITLE: " + record.get(NotificationsTable.KEY_NOTIF_TITLE)
                 + ", ARRIVAL_TIME: " + record.get(NotificationsTable.KEY_NOTIF_ARRIVAL_TIME) + ", REMOVAL_TIME: " + record.get(NotificationsTable.KEY_NOTIF_REMOVAL_TIME)
-                + ", CLICKED: " + record.get(NotificationsTable.KEY_NOTIF_CLICKED) + ", LED: " + record.get(NotificationsTable.KEY_NOTIF_LED) + ", VIBRATE: " + record.get(NotificationsTable.KEY_NOTIF_VIBRATE)
-                + ", SOUND: " + record.get(NotificationsTable.KEY_NOTIF_SOUND) + ", UNIQUE_S: " + record.get(NotificationsTable.KEY_NOTIF_UNIQUE_SOUND)
+                + ", CLICKED: " + record.get(NotificationsTable.KEY_NOTIF_CLICKED) + ", LED: "
                 + ", APP_NAME: " + record.get(NotificationsTable.KEY_NOTIF_APP_NAME) + ", APP_Package: " + record.get(NotificationsTable.KEY_NOTIF_APP_PACKAGE));
 	}
 
     private void updateNotification(NotificationData data){
-        String clause = NotificationsTable.KEY_NOTIF_APP_NAME + " = \"" + data.getAppName()  + "\" AND " + NotificationsTable.KEY_NOTIF_TITLE + " = \"" + data.getAppPackageName()  + "\"";
+        String clause = NotificationsTable.KEY_NOTIF_APP_NAME + " = \"" + data.getAppName()  + "\" AND " + NotificationsTable.KEY_NOTIF_TITLE + " = \"" + data.getTitle()  + "\"";
 
-        ContentValues val = new ContentValues();
+		ContentValues val = new ContentValues();
         val.put(NotificationsTable.KEY_NOTIF_APP_NAME, data.getAppName());
         val.put(NotificationsTable.KEY_NOTIF_APP_PACKAGE, data.getAppPackageName());
         val.put(NotificationsTable.KEY_NOTIF_TAG, data.getTag());
         val.put(NotificationsTable.KEY_NOTIF_KEY, data.getKey());
         val.put(NotificationsTable.KEY_NOTIF_PRIORITY, data.getPriority());
-        val.put(NotificationsTable.KEY_NOTIF_TITLE, data.getTitle());
+        val.put(NotificationsTable.KEY_NOTIF_TITLE, " ");
         val.put(NotificationsTable.KEY_NOTIF_ARRIVAL_TIME, data.getArrivalTime());
         val.put(NotificationsTable.KEY_NOTIF_REMOVAL_TIME, data.getRemovalTime());
         val.put(NotificationsTable.KEY_NOTIF_CLICKED, data.getClicked());
 
         localStorageController.update(NotificationsTable.TABLE_NOTIFICATIONS, val, clause);
+
         android.util.Log.d("NOTIFICATIONS SERVICE", "Updated record: APP: " + val.get(NotificationsTable.KEY_NOTIF_APP_NAME) + ", TITLE: " + val.get(NotificationsTable.KEY_NOTIF_TITLE)
                 + ", ARRIVAL TIME: " + val.get(NotificationsTable.KEY_NOTIF_ARRIVAL_TIME) + ", REMOVAL TIME: " + val.get(NotificationsTable.KEY_NOTIF_REMOVAL_TIME));
-
     }
 
     private NotificationData getRecord(String app_name, String title){
@@ -243,12 +213,6 @@ public class NotificationDataCollector
         data.setArrivalTime(records.getLong(records.getColumnIndex(NotificationsTable.KEY_NOTIF_ARRIVAL_TIME)));
         data.setRemovalTime(records.getLong(records.getColumnIndex(NotificationsTable.KEY_NOTIF_REMOVAL_TIME)));
         data.setClicked(records.getInt(records.getColumnIndex(NotificationsTable.KEY_NOTIF_CLICKED)));
-//        data.setLed(records.getInt(records.getColumnIndex(NotificationsTable.KEY_NOTIF_LED)));//
-//        private boolean led;
-//        private boolean vibrate;
-//        private boolean sound;
-//        private boolean unique_sound;
-
         data.setAppName(records.getString(records.getColumnIndex(NotificationsTable.KEY_NOTIF_APP_NAME)));
         data.setAppPackage(records.getString(records.getColumnIndex(NotificationsTable.KEY_NOTIF_APP_PACKAGE)));
 
