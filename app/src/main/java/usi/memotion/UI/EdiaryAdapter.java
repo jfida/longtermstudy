@@ -39,13 +39,13 @@ public class EdiaryAdapter extends ArrayAdapter<EdiaryFragment.EdiaryActivity> {
                 entry_emotion.setImageResource(R.drawable.activity_very_sad);
                 break;
             case "happy":
-                entry_emotion.setImageResource(R.drawable.activity_sad);
+                entry_emotion.setImageResource(R.drawable.activity_happy);
                 break;
             case "neutral":
                 entry_emotion.setImageResource(R.drawable.activity_neutral);
                 break;
             case "sad":
-                entry_emotion.setImageResource(R.drawable.activity_happy);
+                entry_emotion.setImageResource(R.drawable.activity_sad);
                 break;
             case "very_happy":
                 entry_emotion.setImageResource(R.drawable.activity_very_happy);
