@@ -28,19 +28,19 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
 
         String session = intent.getExtras().get("Session").toString();
 
-        if (session.equals("Wednesday - Pre")) {
-            setLectureNotification(context, "Lecture Survey", "Please tell us how was your lecture - " + session + "!", session, 100090);
-        } else if (session.equals("Wednesday - Break")) {
-            setLectureNotification(context, "Lecture Survey", "Please tell us how was your lecture - " + session + "!", session, 100091);
-        } else if (session.equals("Wednesday - Post")) {
-            setLectureNotification(context, "Lecture Survey", "Please tell us how was your lecture - " + session + "!", session, 100092);
-        } else if (session.equals("Friday - Pre")) {
-            setLectureNotification(context, "Lecture Survey", "Please tell us how was your lecture - " + session + "!", session, 100093);
-        } else if (session.equals("Friday - Break")) {
-            setLectureNotification(context, "Lecture Survey", "Please tell us how was your lecture - " + session + "!", session, 100094);
-        } else if (session.equals("Friday - Post")) {
-            setLectureNotification(context, "Lecture Survey", "Please tell us how was your lecture - " + session + "!", session, 100095);
-        } else if (session.equals("E4")) {
+        if(session.equals("Wednesday - Pre")){
+            setLectureNotification(context, "Lecture Survey", " ", session, 100090);
+        }else if(session.equals("Wednesday - Break")){
+            setLectureNotification(context, "Lecture Survey", " ", session, 100091);
+        }else if(session.equals("Wednesday - Post")){
+            setLectureNotification(context, "Lecture Survey", " ", session, 100092);
+        }else if(session.equals("Friday - Pre")){
+            setLectureNotification(context, "Lecture Survey", " ", session, 100093);
+        }else if(session.equals("Friday - Break")){
+            setLectureNotification(context, "Lecture Survey", " ", session, 100094);
+        }else if(session.equals("Friday - Post")){
+            setLectureNotification(context, "Lecture Survey", " ", session, 100095);
+        }else if(session.equals("E4")) {
             setE4Notification(context, "E4 charging time", "Please don't forget to charge E4 and upload the data", 100096);
         } else if (session.equals("early morning")) {
             setDailyNotification(context, "Morning survey", " ", 100097, context.getString(R.string.early_morning));
@@ -67,18 +67,12 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
         builder.setAutoCancel(true);
         builder.setOngoing(true);
-//        builder.setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
-
-
-//        long[] pattern = {500,500,500,500,500,500};
-//        builder.setVibrate(pattern);
-
-
         /*
         When notification clicked, open Lecture Surveys Fragment
          */
-        Intent intent = new Intent(context, Questionnaire.class);
-        intent.putExtra("LectureSession", session);
+        Intent intent = new Intent(context, Surveys.class);
+        intent.putExtra("type_survey", session);
+
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addParentStack(MainActivity.class);
@@ -155,15 +149,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
         builder.setAutoCancel(true);
         builder.setOngoing(true);
-//        builder.setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
-
-
-//        long[] pattern = {500,500,500,500,500,500};
-//        builder.setVibrate(pattern);
-
-// custom dialog
-        Intent intent;
-        intent = new Intent(context, Surveys.class);
+      
         intent.putExtra("type_survey", type);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);

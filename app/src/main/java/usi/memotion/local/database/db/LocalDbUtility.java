@@ -32,7 +32,7 @@ import usi.memotion.local.database.tables.WiFiTable;
  */
 
 public class LocalDbUtility {
-    private final static int DATA_TABLES_COUNT = 22;
+    private final static int DATA_TABLES_COUNT = 23;
 
     public static String getTableName(LocalTables table) {
         switch (table) {
@@ -78,6 +78,10 @@ public class LocalDbUtility {
                 return WeeklySurveyTable.TABLE_WEEKLY_SURVEY;
             case TABLE_EDIARY_TABLE:
                 return EdiaryTable.TABLE_EDIARY_TABLE;
+            case TABLE_PAM_SURVEY:
+                return PAMSurveyTable.TABLE_PAM_SURVEY;
+            case TABLE_PRODUCTIVITY_SURVEY:
+                return ProductivitySurveyTable.TABLE_PRODUCTIVITY_SURVEY;
             default:
                 return null;
         }
