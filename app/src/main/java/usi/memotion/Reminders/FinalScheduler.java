@@ -18,12 +18,12 @@ import java.util.Random;
 public class FinalScheduler {
 
     /********** Mobile Computing - Day 1 ***********/
-//    private Weekday preLecture1 = new Weekday(15, 20, Calendar.WEDNESDAY, "Wednesday - Pre"); //15, 20
+    private Weekday preLecture1 = new Weekday(15, 20, Calendar.WEDNESDAY, "Wednesday - Pre"); //15, 20
     private Weekday breakLecture1 = new Weekday(16, 15, Calendar.WEDNESDAY, "Wednesday - Break"); //16, 15
     private Weekday postLecture1 = new Weekday(17, 15, Calendar.WEDNESDAY, "Wednesday - Post"); //17, 15
 
     /********** Mobile Computing - Day 2 ***********/
-//    private Weekday preLecture2 = new Weekday(13, 20, Calendar.FRIDAY, "Friday - Pre"); // 13, 20
+    private Weekday preLecture2 = new Weekday(13, 20, Calendar.FRIDAY, "Friday - Pre"); // 13, 20
     private Weekday breakLecture2 = new Weekday(14, 15, Calendar.FRIDAY, "Friday - Break"); // 14, 15
     private Weekday postLecture2 = new Weekday(15, 15, Calendar.FRIDAY, "Friday - Post"); //15, 15
 
@@ -33,8 +33,16 @@ public class FinalScheduler {
     private Reminder eveningSurvey = new Reminder(19, 15, "afternoon"); //19:15
     private Reminder e4 = new Reminder(21, 15, "E4"); //21:15
 
+//    private Reminder morningSurvey = new Reminder(14, 52, "early morning"); //7:15
+//    private Reminder afternoonSurvey = new Reminder(14, 53, "morning"); //12:30
+//    private Reminder eveningSurvey = new Reminder(14, 54, "afternoon"); //19:15
+//    private Reminder e4 = new Reminder(14, 23, "E4"); //21:15
+
     /********** Weekly Reminder *********/
     private Weekday weeklySurvey = new Weekday(20, 00, Calendar.FRIDAY, "weekly"); //20:00
+
+
+    //Morning, midday, afternoon
 
     private Calendar createCalendar(int day, int hour, int minute){
         Calendar calendar = Calendar.getInstance();
@@ -60,7 +68,7 @@ public class FinalScheduler {
 
 //        preLecture1, preLecture2,
 
-        Weekday [] lectureReminders = {breakLecture1, postLecture1, breakLecture2, postLecture2};
+        Weekday [] lectureReminders = {preLecture1, breakLecture1, postLecture1, preLecture2, breakLecture2, postLecture2};
 
         Reminder [] dailyReminders = {morningSurvey, afternoonSurvey, eveningSurvey, e4};
 
@@ -85,7 +93,6 @@ public class FinalScheduler {
         setWeeklyAlarms(context, code, weeklySurvey.getDescription(), weeklySurvey);
         Log.v("Scheduler", "Session: "+ weeklySurvey.getDescription() + "code: "+code);
 
-
     }
 
     /*
@@ -106,7 +113,6 @@ public class FinalScheduler {
             calendar1.add(Calendar.DAY_OF_MONTH, 7);
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), pendingIntent1);
         }
-
     }
 
     /*

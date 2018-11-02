@@ -152,27 +152,21 @@ public class RegistrationView extends Fragment {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
         alertDialog.setTitle("New User Account");
-        alertDialog.setMessage("You have successfully created account with: \n \n" + "Username: " + username +"\nAge: " + ageSelection + "\nGender: " + genderSelection + "\nStatus: " + statusSelection + "\n \n \n Do you want to proceed?");
+        alertDialog.setMessage("You have successfully created account with: \n \n" + "Username: " + username +"\nAge: " + ageSelection + "\nGender: " + genderSelection + "\nOccupation: " + statusSelection);
 
 
         alertDialog.setIcon(R.drawable.account);
 
-        alertDialog.setNegativeButton(R.string.yes,
+        alertDialog.setNegativeButton(R.string.ok,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+
                         Toast.makeText(getContext(), "Thank you!", Toast.LENGTH_SHORT).show();
 
                         Fragment newFragment = new PersonalitySurveyFragment();
                         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                         ft.replace(R.id.content_frame, newFragment);
                         ft.commit();
-                    }
-                });
-
-        alertDialog.setPositiveButton(R.string.no,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
                     }
                 });
 

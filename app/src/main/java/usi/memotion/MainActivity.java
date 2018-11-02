@@ -242,13 +242,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 title = "Lecture Surveys";
                 viewIsAtHome = false;
                 break;
-
-//            case R.id.nav_usage_statistics:
-//                fragment = new AppUsageStatisticsFragment();
-//                title = "Application Logs";
-//                viewIsAtHome = false;
-//                break;
-
+            case R.id.nav_ediary:
+                fragment = new EdiaryFragment();
+                title = "E-diary";
+                viewIsAtHome = false;
+                break;
             case R.id.nav_register:
                 if (checkAndroidID()) {
                     fragment = new ProfileFragment();
@@ -258,12 +256,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     title = "Create Account";
                 }
 
-                viewIsAtHome = false;
-                break;
-
-            case R.id.nav_ediary:
-                fragment = new EdiaryFragment();
-                title = "E-diary";
                 viewIsAtHome = false;
                 break;
 
@@ -390,7 +382,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 23);
-        cal.set(Calendar.MINUTE, 30);
+        cal.set(Calendar.MINUTE, 10);
         cal.set(Calendar.SECOND, 0);
 
         if (cal.getTimeInMillis() > System.currentTimeMillis()) { //if it is more than 19:00 o'clock, trigger it tomorrow
