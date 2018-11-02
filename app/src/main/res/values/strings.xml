@@ -392,6 +392,7 @@
     <string name="morning">morning</string>
     <string name="afternoon">afternoon</string>
     <string name="weekly">weekly</string>
+    <string name="ediary">ediary</string>
 
     <string name="morning_survey">Morning survey</string>
     <string name="midday_survey">Mid-day survey</string>

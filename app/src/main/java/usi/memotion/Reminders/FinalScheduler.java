@@ -41,8 +41,9 @@ public class FinalScheduler {
     /********** Weekly Reminder *********/
     private Weekday weeklySurvey = new Weekday(20, 00, Calendar.FRIDAY, "weekly"); //20:00
 
+    /********** Ediary Reminder *********/
+    private Reminder ediarySurvey = new Reminder(21, 00, "ediary"); //21:00
 
-    //Morning, midday, afternoon
 
     private Calendar createCalendar(int day, int hour, int minute){
         Calendar calendar = Calendar.getInstance();
@@ -70,7 +71,7 @@ public class FinalScheduler {
 
         Weekday [] lectureReminders = {preLecture1, breakLecture1, postLecture1, preLecture2, breakLecture2, postLecture2};
 
-        Reminder [] dailyReminders = {morningSurvey, afternoonSurvey, eveningSurvey, e4};
+        Reminder [] dailyReminders = {morningSurvey, afternoonSurvey, eveningSurvey, e4, ediarySurvey};
 
         Random rand = new Random();
         int code;
