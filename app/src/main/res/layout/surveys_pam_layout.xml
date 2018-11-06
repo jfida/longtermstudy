@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/pam_image_explanation"/>
+        android:id="@+id/pam_explanation"/>
     <GridView
         android:id="@+id/pamImageGrid"
         android:layout_width="match_parent"

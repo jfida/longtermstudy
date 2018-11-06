@@ -17,7 +17,10 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -95,8 +98,15 @@ public class Surveys extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         ((AlertDialog) dialogInterface).dismiss();
-                        builderFatigue.create();
-                        builderFatigue.show();
+                        final AlertDialog dialogFatigue = builderFatigue.create();
+                        dialogFatigue.setOnShowListener(new DialogInterface.OnShowListener() {
+                            @Override
+                            public void onShow(DialogInterface dialogInterface) {
+                                TextView explanation = (TextView)(((AlertDialog)dialogInterface).findViewById(R.id.fatigue_explanation));
+                                explanation.setText(getString(R.string.daily_fatigue_q1));
+                            }
+                        });
+                        dialogFatigue.show();
                     }
                 });
                 builderFatigue.setPositiveButton("FINISH", new DialogInterface.OnClickListener() {
@@ -166,6 +176,7 @@ public class Surveys extends AppCompatActivity {
                         PAMdialog.show();
                         if (PAMdialog.isShowing()) {
                             PamSurveyView view = (PamSurveyView) (PAMdialog.findViewById(R.id.pamSurveyView));
+                            view.setPAMExplanation(PamSurveyView.EARLY_MORNING);
                             PamSurveyView.OnPAMSelectionListener changeListener = new PamSurveyView.OnPAMSelectionListener() {
                                 @Override
                                 public void onPAMSelection(int position) {
@@ -175,8 +186,15 @@ public class Surveys extends AppCompatActivity {
                                     localController.insertRecord(PAMSurveyTable.TABLE_PAM_SURVEY, record);
                                     Log.d("PAM SURVEYS", "Added record: ts: " + record.get(PAMSurveyTable.TIMESTAMP));
                                     PAMdialog.dismiss();
-                                    builderFatigue.create();
-                                    builderFatigue.show();
+                                    final AlertDialog dialogFatigue = builderFatigue.create();
+                                    dialogFatigue.setOnShowListener(new DialogInterface.OnShowListener() {
+                                        @Override
+                                        public void onShow(DialogInterface dialogInterface) {
+                                            TextView explanation = (TextView)(((AlertDialog)dialogInterface).findViewById(R.id.fatigue_explanation));
+                                            explanation.setText(getString(R.string.daily_fatigue_q1));
+                                        }
+                                    });
+                                    dialogFatigue.show();
                                 }
                             };
                             view.setOnPAMSelectionListener(changeListener);
@@ -331,8 +349,15 @@ public class Surveys extends AppCompatActivity {
                                                 sayThankYou(getString(R.string.thank_you));
                                             }
                                         });
-                                        builderFatigue.create();
-                                        builderFatigue.show();
+                                        final AlertDialog dialogFatigue = builderFatigue.create();
+                                        dialogFatigue.setOnShowListener(new DialogInterface.OnShowListener() {
+                                            @Override
+                                            public void onShow(DialogInterface dialogInterface) {
+                                                TextView explanation = (TextView)(((AlertDialog)dialogInterface).findViewById(R.id.fatigue_explanation));
+                                                explanation.setText(getString(R.string.daily_fatigue_q1_morning));
+                                            }
+                                        });
+                                        dialogFatigue.show();
                                     }
                                 });
                                 builderStress.create();
@@ -353,6 +378,7 @@ public class Surveys extends AppCompatActivity {
                         PAMdialog.show();
                         if (PAMdialog.isShowing()) {
                             PamSurveyView view = (PamSurveyView) (PAMdialog.findViewById(R.id.pamSurveyView));
+                            view.setPAMExplanation(PamSurveyView.MORNING);
                             PamSurveyView.OnPAMSelectionListener changeListener = new PamSurveyView.OnPAMSelectionListener() {
                                 @Override
                                 public void onPAMSelection(int position) {
@@ -514,8 +540,15 @@ public class Surveys extends AppCompatActivity {
                                                 sayThankYou(getString(R.string.thank_you));
                                             }
                                         });
-                                        builderFatigue.create();
-                                        builderFatigue.show();
+                                        final AlertDialog dialogFatigue = builderFatigue.create();
+                                        dialogFatigue.setOnShowListener(new DialogInterface.OnShowListener() {
+                                            @Override
+                                            public void onShow(DialogInterface dialogInterface) {
+                                                TextView explanation = (TextView)(((AlertDialog)dialogInterface).findViewById(R.id.fatigue_explanation));
+                                                explanation.setText(getString(R.string.daily_fatigue_q1_afternoon));
+                                            }
+                                        });
+                                        dialogFatigue.show();
                                     }
                                 });
                                 builderStress.create();
@@ -536,6 +569,7 @@ public class Surveys extends AppCompatActivity {
                         PAMdialog.show();
                         if (PAMdialog.isShowing()) {
                             PamSurveyView view = (PamSurveyView) (PAMdialog.findViewById(R.id.pamSurveyView));
+                            view.setPAMExplanation(PamSurveyView.AFTERNOON);
                             PamSurveyView.OnPAMSelectionListener changeListener = new PamSurveyView.OnPAMSelectionListener() {
                                 @Override
                                 public void onPAMSelection(int position) {
@@ -801,7 +835,6 @@ public class Surveys extends AppCompatActivity {
 
         if (records.getCount() > 0) {
             username = records.getString(records.getColumnIndex(UserTable.USERNAME));
-
         }
 
         String userName = username + "_" + androidID;
