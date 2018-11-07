@@ -18,6 +18,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import usi.memotion2.AccountUtils;
 import usi.memotion2.MainActivity;
 import usi.memotion2.R;
 import usi.memotion2.local.database.controllers.LocalStorageController;
@@ -345,7 +346,7 @@ public class PSQISurveyFragment extends Fragment {
         androidID = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         dbHelper = new LocalSQLiteDBHelper(getContext());
         switchDriveController = new SwitchDriveController(getContext().getString(R.string.server_address),
-                getContext().getString(R.string.token), getContext().getString(R.string.password));
+                getContext().getString(R.string.token),  AccountUtils.getPassword(getContext()));
         localController = SQLiteController.getInstance(getContext());
 
 

@@ -823,7 +823,7 @@ public class Surveys extends AppCompatActivity {
         androidID = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         dbHelper = new LocalSQLiteDBHelper(getApplicationContext());
         switchDriveController = new SwitchDriveController(getApplicationContext().getString(R.string.server_address),
-                getApplicationContext().getString(R.string.token), getApplicationContext().getString(R.string.password));
+                getApplicationContext().getString(R.string.token),AccountUtils.getPassword(getApplicationContext()));
         localController = SQLiteController.getInstance(getApplicationContext());
 
 

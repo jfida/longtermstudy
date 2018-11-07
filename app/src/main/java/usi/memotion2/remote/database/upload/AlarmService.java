@@ -30,6 +30,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import usi.memotion2.AccountUtils;
 import usi.memotion2.MainActivity;
 import usi.memotion2.R;
 import usi.memotion2.gathering.gatheringServices.ApplicationLogs.CustomUsageStats;
@@ -79,7 +80,7 @@ public class AlarmService extends IntentService {
 
         androidID = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         dbHelper = new LocalSQLiteDBHelper(getApplicationContext());
-        switchDriveController = new SwitchDriveController(getApplicationContext().getString(R.string.server_address), getApplicationContext().getString(R.string.token), getApplicationContext().getString(R.string.password));
+        switchDriveController = new SwitchDriveController(getApplicationContext().getString(R.string.server_address), getApplicationContext().getString(R.string.token), AccountUtils.getPassword(getApplicationContext()));
         localController = SQLiteController.getInstance(getApplicationContext());
         String query = "SELECT * FROM usersTable";
         Cursor records = localController.rawQuery(query, null);
