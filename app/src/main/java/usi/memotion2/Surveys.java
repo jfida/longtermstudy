@@ -672,6 +672,8 @@ public class Surveys extends AppCompatActivity {
                                 PAMdialog.show();
                                 if (PAMdialog.isShowing()) {
                                     PamSurveyView view = (PamSurveyView) (PAMdialog.findViewById(R.id.pamSurveyView));
+                                    view.setPAMExplanation(PamSurveyView.LECTURE);
+
                                     PamSurveyView.OnPAMSelectionListener changeListener = new PamSurveyView.OnPAMSelectionListener() {
                                         @Override
                                         public void onPAMSelection(int position) {
@@ -772,6 +774,7 @@ public class Surveys extends AppCompatActivity {
                 PAMdialog.show();
                 if (PAMdialog.isShowing()) {
                     PamSurveyView view = (PamSurveyView) (PAMdialog.findViewById(R.id.pamSurveyView));
+                    view.setPAMExplanation(PamSurveyView.LECTURE);
                     PamSurveyView.OnPAMSelectionListener changeListener = new PamSurveyView.OnPAMSelectionListener() {
                         @Override
                         public void onPAMSelection(int position) {

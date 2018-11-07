@@ -36,6 +36,9 @@ public class PamSurveyView extends LinearLayout {
     public final static int EARLY_MORNING = 0;
     public final static int MORNING = 1;
     public final static int AFTERNOON = 2;
+    public final static int LECTURE = 3;
+
+
 
     OnPAMSelectionListener listener;
 
@@ -105,6 +108,9 @@ public class PamSurveyView extends LinearLayout {
                 break;
             case AFTERNOON:
                 textView.setText(context.getString(R.string.pam_image_explanation_afternoon));
+                break;
+            case LECTURE:
+                textView.setText(context.getString(R.string.pam_image_explanation_lecture));
                 break;
             default:
                 textView.setText(context.getString(R.string.pam_image_explanation));

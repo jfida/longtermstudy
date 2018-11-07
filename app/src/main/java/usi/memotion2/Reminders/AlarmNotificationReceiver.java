@@ -85,6 +85,15 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         builder.setSmallIcon(R.drawable.surveys);
 
         final NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            String CHANNEL_ID = "memotion_channel";// The id of the channel.
+            CharSequence name = "memotion";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+            notificationManager.createNotificationChannel(mChannel);
+            builder.setChannelId(CHANNEL_ID);
+        }
+
         notificationManager.notify(notificationID, builder.build());
 
         Handler h = new Handler();
@@ -126,6 +135,15 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         builder.setSmallIcon(R.drawable.surveys);
 
         final NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            String CHANNEL_ID = "memotion_channel";// The id of the channel.
+            CharSequence name = "memotion";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+            notificationManager.createNotificationChannel(mChannel);
+            builder.setChannelId(CHANNEL_ID);
+        }
+
         notificationManager.notify(notificationID, builder.build());
 
         Handler h = new Handler();
@@ -208,6 +226,15 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         builder.setSmallIcon(R.drawable.surveys);
 
         final NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            String CHANNEL_ID = "memotion_channel";// The id of the channel.
+            CharSequence name = "memotion";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+            notificationManager.createNotificationChannel(mChannel);
+            builder.setChannelId(CHANNEL_ID);
+        }
+
         notificationManager.notify(notificationID, builder.build());
 
         Handler h = new Handler();
