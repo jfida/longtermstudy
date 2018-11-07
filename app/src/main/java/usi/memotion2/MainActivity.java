@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
@@ -60,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final String ENABLED_USAGE_LISTENERS = "enabled_usage_listeners";
     private static final String ACTION_NOTIFICATION_LISTENER_SETTINGS = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS";
     private final int PERMISSION_REQUEST_STATUS = 0;
-    private SharedPref sp;
     protected DrawerLayout drawerLayout;
     protected NavigationView navigationView;
     Calendar calendar;
@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     int dayOfMonth;
     FinalScheduler scheduler;
     ExpandableRelativeLayout expandableLayout1, expandableLayout2;
+    private SharedPref sp;
     private AlertDialog enableNotificationListenerAlertDialog;
     private AlertDialog enableUsageServiceAlertDialog;
     private GatheringSystem gSys;
@@ -136,7 +137,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             enableUsageServiceAlertDialog = buildUsageStatsManagerAlertDialog();
             enableUsageServiceAlertDialog.show();
         }
-    }
+
+        if (AccountUtils.getPassword(getApplicationContext()) == null) {
+            buildDrivePasswordAlertDialog();
+        } else {
+            navigationView.getMenu().findItem(R.id.nav_upload).setVisible(false);
+        }
+        }
 
     private void initServices(List<String> grantedPermissions) {
         gSys = new GatheringSystem(getApplicationContext());
@@ -270,6 +277,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 title = "About App";
                 viewIsAtHome = false;
                 break;
+            case R.id.nav_upload:
+                buildDrivePasswordAlertDialog();
+                viewIsAtHome = false;
+                break;
         }
 
 
@@ -287,7 +298,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     bundle.putString("fragmentChoice", null);
                     fragment = new LectureSurveysFragment();
                     fragment.setArguments(bundle);
-                } else if (menuFragment.equals("ediary")){
+                } else if (menuFragment.equals("ediary")) {
                     fragment = new EdiaryFragment();
                 }
             }
@@ -465,7 +476,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         alertDialogBuilder.setPositiveButton(R.string.yes,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        sp.add("notification_permission",false);
+                        sp.add("notification_permission", false);
                         startActivity(new Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS));
                     }
                 });
@@ -474,13 +485,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     public void onClick(DialogInterface dialog, int id) {
                         // If you choose to not enable the notification listener
                         // the app. will not work as expected
-                        sp.add("notification_permission",true);
+                        sp.add("notification_permission", true);
                     }
                 });
         return (alertDialogBuilder.create());
     }
 
-    private boolean checkNotificationPermission(){
+    private boolean checkNotificationPermission() {
         return !sp.getBoolean("notification_permission");
     }
 
@@ -516,7 +527,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return (alertDialogBuilder.create());
     }
 
-    private boolean checkUsagePermission(){
+    private void buildDrivePasswordAlertDialog() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Password needed");
+        alertDialogBuilder.setMessage("Please enter the SwitchDrive password:");
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setView(R.layout.drive_password_layout);
+        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                TextView passTextView = (TextView) ((AlertDialog) dialogInterface).findViewById(R.id.drive_password);
+                String pass = passTextView.getText().toString();
+                if (!pass.isEmpty()) {
+                    AccountUtils.addAccount(getApplicationContext(), "user", pass);
+                    navigationView.getMenu().findItem(R.id.nav_upload).setVisible(false);
+                }
+            }
+        });
+        AlertDialog dialog = alertDialogBuilder.create();
+        dialog.show();
+
+    }
+
+    private boolean checkUsagePermission() {
         return !sp.getBoolean("usage_permission");
     }
 
