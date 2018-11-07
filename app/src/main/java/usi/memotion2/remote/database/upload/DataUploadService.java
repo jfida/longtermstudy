@@ -6,6 +6,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import usi.memotion2.AccountUtils;
 import usi.memotion2.R;
 import usi.memotion2.local.database.controllers.SQLiteController;
 import usi.memotion2.remote.database.controllers.SwitchDriveController;
@@ -61,7 +62,7 @@ public class DataUploadService extends Service {
 
         uploader = new Uploader(
                 Secure.getString(getApplicationContext().getContentResolver(), Secure.ANDROID_ID),
-                new SwitchDriveController(getApplicationContext().getString(R.string.server_address), getApplicationContext().getString(R.string.token), getApplicationContext().getString(R.string.password)),
+                new SwitchDriveController(getApplicationContext().getString(R.string.server_address), getApplicationContext().getString(R.string.token),  AccountUtils.getPassword(getApplicationContext())),
                 SQLiteController.getInstance(getApplicationContext()),
                 uploadTreshold);
 

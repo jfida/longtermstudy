@@ -167,6 +167,8 @@
 
     <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ PAM +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <string name="pam_image_explanation">Please choose the picture that best represents your current mood</string>
+    <string name="pam_image_explanation_morning">Please choose the picture that best represents your mood this morning</string>
+    <string name="pam_image_explanation_afternoon">Please choose the picture that best represents your mood this afternoon </string>
     <string name="pam_q1_morning">1. Which is your level of stress?</string>
     <string name="pam_q2_morning">2. How long have you slept tonight?</string>
     <string name="pam_q3_morning">3. Where are you?</string>
@@ -405,6 +407,8 @@
     <string name="daily_sleep_q4">Please indicate the quality of your sleep</string>
 
     <string name="daily_fatigue_q1">How do you feel now?</string>
+    <string name="daily_fatigue_q1_morning">How did you feel this morning?</string>
+    <string name="daily_fatigue_q1_afternoon">How did you feel this afternoon?</string>
     <string name="fatigue_q1_option1">Fully alert, wide awake</string>
     <string name="fatigue_q1_option2">Very lively, responsive, but not at peak</string>
     <string name="fatigue_q1_option3">Okay, somewhat fresh</string>
@@ -587,6 +591,7 @@
     <string name="menu_ediary">E-Diary</string>
     <string name="menu_about_study">About study</string>
     <string name="menu_about_app">About app</string>
+    <string name="menu_upload">Upload remotely</string>
 
     <!-- ++++++++++++++++++Activities List ++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <string-array name="activities_list">

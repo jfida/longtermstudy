@@ -1,10 +1,13 @@
 package usi.memotion2.Reminders;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
@@ -162,6 +165,15 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         builder.setSmallIcon(R.drawable.surveys);
 
         final NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            String CHANNEL_ID = "memotion_channel";// The id of the channel.
+            CharSequence name = "memotion";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+            notificationManager.createNotificationChannel(mChannel);
+            builder.setChannelId(CHANNEL_ID);
+        }
+
         notificationManager.notify(notificationID, builder.build());
 
         Handler h = new Handler();
