@@ -16,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,10 @@ import usi.memotion2.local.database.controllers.LocalStorageController;
  */
 
 public class PamSurveyView extends LinearLayout {
+
+    public final static int EARLY_MORNING = 0;
+    public final static int MORNING = 1;
+    public final static int AFTERNOON = 2;
 
     OnPAMSelectionListener listener;
 
@@ -61,6 +68,7 @@ public class PamSurveyView extends LinearLayout {
 
     private Context context;
     private GridView imageGrid;
+    private TextView textView;
     private int chosen = -1;
 
     public PamSurveyView(Context context, AttributeSet attrs) {
@@ -75,6 +83,7 @@ public class PamSurveyView extends LinearLayout {
         LayoutInflater li = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View root = li.inflate(R.layout.surveys_pam_layout, this, true);
         imageGrid = (GridView) root.findViewById(R.id.pamImageGrid);
+        textView = (TextView) root.findViewById(R.id.pam_explanation);
         imageGrid.setVerticalScrollBarEnabled(false);
         imageGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -88,6 +97,21 @@ public class PamSurveyView extends LinearLayout {
         });
         initSurvey();
     }
+
+    public void setPAMExplanation(int type){
+        switch (type){
+            case MORNING:
+                textView.setText(context.getString(R.string.pam_image_explanation_morning));
+                break;
+            case AFTERNOON:
+                textView.setText(context.getString(R.string.pam_image_explanation_afternoon));
+                break;
+            default:
+                textView.setText(context.getString(R.string.pam_image_explanation));
+                break;
+        }
+    }
+
 
     public void initSurvey() {
         Random r = new Random();

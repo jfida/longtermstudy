@@ -33,10 +33,10 @@ public class FinalScheduler {
     private Reminder eveningSurvey = new Reminder(19, 15, "afternoon"); //19:15
     private Reminder e4 = new Reminder(21, 15, "E4"); //21:15
 
-//    private Reminder morningSurvey = new Reminder(14, 52, "early morning"); //7:15
-//    private Reminder afternoonSurvey = new Reminder(14, 53, "morning"); //12:30
-//    private Reminder eveningSurvey = new Reminder(14, 54, "afternoon"); //19:15
-//    private Reminder e4 = new Reminder(14, 23, "E4"); //21:15
+    //private Reminder morningSurvey = new Reminder(7, 26, "early morning"); //7:15
+   // private Reminder afternoonSurvey = new Reminder(7, 26, "morning"); //12:30
+    //private Reminder eveningSurvey = new Reminder(7, 26, "afternoon"); //19:15
+    //private Reminder e4 = new Reminder(7, 26, "E4"); //21:15
 
     /********** Weekly Reminder *********/
     private Weekday weeklySurvey = new Weekday(20, 00, Calendar.FRIDAY, "weekly"); //20:00

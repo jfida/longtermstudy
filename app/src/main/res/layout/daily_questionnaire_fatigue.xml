@@ -10,7 +10,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/daily_fatigue_q1" />
+            android:id="@+id/fatigue_explanation"/>
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
