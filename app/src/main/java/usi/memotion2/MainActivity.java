@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     new String[]{Manifest.permission.CHANGE_WIFI_STATE,
                             Manifest.permission.ACCESS_WIFI_STATE,
                             Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.RECEIVE_SMS,
                             Manifest.permission.PROCESS_OUTGOING_CALLS,
                             Manifest.permission.READ_PHONE_STATE,
