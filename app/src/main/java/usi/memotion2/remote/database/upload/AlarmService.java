@@ -94,6 +94,15 @@ public class AlarmService extends IntentService {
 
         String userName = username + "_" + androidID;
 
+
+        Cursor notifications = localController.rawQuery("UPDATE notifications SET title = ?", new String[] {" "});
+        if(notifications.getCount() > 0){
+            notifications.getString(notifications.getColumnIndex(NotificationsTable.KEY_NOTIF_TITLE));
+        }
+
+        localController.rawQuery("UPDATE " + NotificationsTable.TABLE_NOTIFICATIONS + " SET " + NotificationsTable.KEY_NOTIF_TITLE + " = 0", null);
+
+
         final Uploader uploader = new Uploader(userName, switchDriveController, localController, dbHelper);
 
         localStorageController = SQLiteController.getInstance(getApplicationContext());
@@ -102,9 +111,6 @@ public class AlarmService extends IntentService {
         //Insert data from UsageStats to ApplicationLogs table
         getUsageStatistics(UsageStatsManager.INTERVAL_DAILY);
 
-
-        // Delete Notifications titles
-        deleteNotificationsTitle();
 
         timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -156,7 +162,9 @@ public class AlarmService extends IntentService {
 
     public void deleteNotificationsTitle(){
 
-        localController.rawQuery("UPDATE notifications SET title = ''", null);
+//        rawQuery("SELECT id, name FROM people WHERE name = ? AND id = ?", new String[] {"David", "2"});
+
+
 
     }
 

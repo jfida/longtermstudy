@@ -118,9 +118,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.CHANGE_WIFI_STATE,
                             Manifest.permission.ACCESS_WIFI_STATE,
+                            Manifest.permission.SEND_SMS,
                             Manifest.permission.ACCESS_COARSE_LOCATION,
                             Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.RECEIVE_SMS,
+                            Manifest.permission.BLUETOOTH,
                             Manifest.permission.PROCESS_OUTGOING_CALLS,
                             Manifest.permission.READ_PHONE_STATE,
                             Manifest.permission.ACCESS_NETWORK_STATE,
@@ -412,6 +414,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_ONE_SHOT));
         }
     }
+
 
     /**
      * Is Notification Service Enabled.
