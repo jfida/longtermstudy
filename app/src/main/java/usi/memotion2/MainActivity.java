@@ -397,8 +397,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         AlarmManager am = (AlarmManager) getSystemService(getApplicationContext().ALARM_SERVICE);
 
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 9);
-        cal.set(Calendar.MINUTE, 48);
+        cal.set(Calendar.HOUR_OF_DAY, 23);
+        cal.set(Calendar.MINUTE, 10);
         cal.set(Calendar.SECOND, 0);
 
         if (cal.getTimeInMillis() > System.currentTimeMillis()) { //if it is more than 19:00 o'clock, trigger it tomorrow
