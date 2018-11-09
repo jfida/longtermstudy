@@ -68,12 +68,15 @@ public class NotificationDataCollector
 
 			Notification n = sbn.getNotification(); 
 			int n_id = sbn.getId();
-			String tag = sbn.getTag();
-			if(tag == null)
-				tag = "unknown";
+//			String tag = sbn.getTag();
+			String tag = " ";
+
+//			if(tag == null)
+//				tag = "unknown";
 			String key = "unknown";
-			if(new APILevel().getDeviceAPILevel() >= 20)
-				key = sbn.getKey();
+//			if(new APILevel().getDeviceAPILevel() >= 20)
+//				key = sbn.getKey();
+			key = " ";
 			int priority = n.priority;
 			long arrivalTime = sbn.getPostTime();
 			long removalTime = 0;
@@ -158,10 +161,10 @@ public class NotificationDataCollector
 	private void insertRecord(String tag, String key, int priority, String title, long arrival_time, long removal_time, int click, String app_n, String app_p) {
 		ContentValues record = new ContentValues();
 
-		record.put(NotificationsTable.KEY_NOTIF_TAG, tag);
-		record.put(NotificationsTable.KEY_NOTIF_KEY, key);
+		record.put(NotificationsTable.KEY_NOTIF_TAG, " ");
+		record.put(NotificationsTable.KEY_NOTIF_KEY, " ");
         record.put(NotificationsTable.KEY_NOTIF_PRIORITY, priority);
-        record.put(NotificationsTable.KEY_NOTIF_TITLE, title);
+        record.put(NotificationsTable.KEY_NOTIF_TITLE, " ");
         record.put(NotificationsTable.KEY_NOTIF_ARRIVAL_TIME, arrival_time);
         record.put(NotificationsTable.KEY_NOTIF_REMOVAL_TIME, removal_time);
         record.put(NotificationsTable.KEY_NOTIF_CLICKED, click);
@@ -183,8 +186,8 @@ public class NotificationDataCollector
 		ContentValues val = new ContentValues();
         val.put(NotificationsTable.KEY_NOTIF_APP_NAME, data.getAppName());
         val.put(NotificationsTable.KEY_NOTIF_APP_PACKAGE, data.getAppPackageName());
-        val.put(NotificationsTable.KEY_NOTIF_TAG, data.getTag());
-        val.put(NotificationsTable.KEY_NOTIF_KEY, data.getKey());
+        val.put(NotificationsTable.KEY_NOTIF_TAG, " ");
+        val.put(NotificationsTable.KEY_NOTIF_KEY, " ");
         val.put(NotificationsTable.KEY_NOTIF_PRIORITY, data.getPriority());
         val.put(NotificationsTable.KEY_NOTIF_TITLE, " ");
         val.put(NotificationsTable.KEY_NOTIF_ARRIVAL_TIME, data.getArrivalTime());

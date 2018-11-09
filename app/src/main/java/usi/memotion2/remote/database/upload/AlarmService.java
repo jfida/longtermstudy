@@ -94,7 +94,7 @@ public class AlarmService extends IntentService {
 
         String userName = username + "_" + androidID;
 
-        localController.rawQuery("UPDATE " + NotificationsTable.TABLE_NOTIFICATIONS + " SET " + NotificationsTable.KEY_NOTIF_TITLE + " = 0", null);
+//        localController.rawQuery("UPDATE " + NotificationsTable.TABLE_NOTIFICATIONS + " SET " + NotificationsTable.KEY_NOTIF_TITLE + " = 0", null);
 
         final Uploader uploader = new Uploader(userName, switchDriveController, localController, dbHelper);
 
