@@ -5,7 +5,7 @@ package usi.memotion2.gathering;
  * Created by Luca Dotti on 30/12/16.
  */
 public enum SensorType {
-    LOCATION(android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION),
+    LOCATION(android.Manifest.permission.ACCESS_FINE_LOCATION),
     WIFI(android.Manifest.permission.CHANGE_WIFI_STATE, android.Manifest.permission.ACCESS_WIFI_STATE),
     ACCELEROMETER(),
     BLUETOOTH(android.Manifest.permission.BLUETOOTH, android.Manifest.permission.BLUETOOTH_ADMIN),

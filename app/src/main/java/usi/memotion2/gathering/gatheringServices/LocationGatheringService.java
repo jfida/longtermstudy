@@ -11,36 +11,30 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
-import android.os.HandlerThread;
 import android.os.IBinder;
-import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+
 import java.util.Calendar;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import usi.memotion2.MyApplication;
 import usi.memotion2.R;
-import usi.memotion2.stateMachines.strategies.timeBased.TBStateMachineListener;
 import usi.memotion2.local.database.controllers.LocalStorageController;
 import usi.memotion2.local.database.controllers.SQLiteController;
 import usi.memotion2.local.database.tables.LocationTable;
 import usi.memotion2.stateMachines.strategies.timeBased.TBSMState;
 import usi.memotion2.stateMachines.strategies.timeBased.TBSMSymbol;
 import usi.memotion2.stateMachines.strategies.timeBased.TBStateMachine;
+import usi.memotion2.stateMachines.strategies.timeBased.TBStateMachineListener;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 import static usi.memotion2.R.string.dayEnd;
-import static usi.memotion2.R.string.stateMachineFreq;
 
 /**
  * Created by Luca Dotti on 03/01/17.
@@ -54,7 +48,7 @@ public class LocationGatheringService extends Service {
     private BroadcastReceiver broadcastReceiver;
 
     private LocalStorageController localStorageController;
-    private LocationManager mgr;
+    private FusedLocationProviderClient locationClient;
     private AlarmManager alarmManager;
     private Context context;
     private long dayFreq;
@@ -69,7 +63,7 @@ public class LocationGatheringService extends Service {
         Log.d("Locationservice", "INITIALIZED");
         context = MyApplication.getContext();
         localStorageController = SQLiteController.getInstance(MyApplication.getContext());
-        mgr = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        locationClient = LocationServices.getFusedLocationProviderClient(context);
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         broadcastReceiver = new LocationBroadcastReceiver();
@@ -130,7 +124,7 @@ public class LocationGatheringService extends Service {
 
     private PendingIntent getIntent(boolean day) {
         Intent intent = new Intent(LocationGatheringService.LOCATION_ALARM_INTENT);
-        if(day) {
+        if (day) {
             intent.putExtra("freq", dayFreq);
             intent.putExtra("day", true);
             return PendingIntent.getBroadcast(context,
@@ -147,17 +141,14 @@ public class LocationGatheringService extends Service {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                Location location = mgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                Log.d("Locationservice", "" + location);
-                if(location == null) {
-                    location = mgr.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                    Log.d("Locationservice", "" + location);
-                    saveLocation(location);
-                } else {
-                    saveLocation(location);
-                }
-
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                locationClient.getLastLocation()
+                        .addOnSuccessListener(new OnSuccessListener<Location>() {
+                            @Override
+                            public void onSuccess(Location location) {
+                                saveLocation(location);
+                            }
+                        });
                 boolean day = intent.getBooleanExtra("day", true);
                 long freq = intent.getLongExtra("freq", 0);
                 PendingIntent pIntent = getIntent(day);
@@ -171,7 +162,7 @@ public class LocationGatheringService extends Service {
 
             record.put(LocationTable.KEY_LOCATION_TIMESTAMP, Long.toString(System.currentTimeMillis()));
 
-            if(location == null) {
+            if (location == null) {
                 record.put(LocationTable.KEY_LOCATION_LATITUDE, 0);
                 record.put(LocationTable.KEY_LOCATION_LONGITUDE, 0);
                 record.put(LocationTable.KEY_LOCATION_PROVIDER, "unknown");
@@ -183,7 +174,7 @@ public class LocationGatheringService extends Service {
 
 
             localStorageController.insertRecord(LocationTable.TABLE_LOCATION, record);
-            Log.d("Locationservice", "ADDED RECORD: ts:" + record.get(LocationTable.KEY_LOCATION_TIMESTAMP) + ", lat: " + record.get(LocationTable.KEY_LOCATION_LATITUDE) + ", long: " + record.get(LocationTable.KEY_LOCATION_LONGITUDE));
+            Log.d("Locationservice", "ADDED RECORD: ts:" + record.get(LocationTable.KEY_LOCATION_TIMESTAMP) + "from provider:" + record.get(LocationTable.KEY_LOCATION_PROVIDER) + " , lat: " + record.get(LocationTable.KEY_LOCATION_LATITUDE) + ", long: " + record.get(LocationTable.KEY_LOCATION_LONGITUDE));
         }
     }
 
@@ -195,7 +186,7 @@ public class LocationGatheringService extends Service {
         public LocationTBStateMachineListener(long dayFreq, long nightFreq) {
             super(dayFreq, nightFreq);
             Calendar now = Calendar.getInstance();
-            if(now.getTimeInMillis() < getNightStartDateTime().getTimeInMillis()) {
+            if (now.getTimeInMillis() < getNightStartDateTime().getTimeInMillis()) {
                 isDay = true;
             } else {
                 isDay = false;
@@ -207,7 +198,7 @@ public class LocationGatheringService extends Service {
         protected void processDayState() {
             Log.d("Locationservice", "Day");
 
-            if(init || !isDay) {
+            if (init || !isDay) {
                 Log.d("Locationservice", "really day");
                 PendingIntent nightIntent = getIntent(false);
                 alarmManager.cancel(nightIntent);
@@ -225,7 +216,7 @@ public class LocationGatheringService extends Service {
         protected void processNightState() {
             Log.d("Locationservice", "Night");
 
-            if(init || isDay) {
+            if (init || isDay) {
                 Log.d("Locationservice", "really night");
                 PendingIntent dayIntent = getIntent(true);
                 alarmManager.cancel(dayIntent);

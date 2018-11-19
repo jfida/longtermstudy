@@ -119,7 +119,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     new String[]{Manifest.permission.CHANGE_WIFI_STATE,
                             Manifest.permission.ACCESS_WIFI_STATE,
                             Manifest.permission.SEND_SMS,
-                            Manifest.permission.ACCESS_COARSE_LOCATION,
                             Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.RECEIVE_SMS,
                             Manifest.permission.BLUETOOTH,
@@ -197,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private List<String> grantedPermissions() {
         List<String> granted = new ArrayList<String>();
         try {
-            PackageInfo pi = getPackageManager().getPackageInfo("usi.memotion", PackageManager.GET_PERMISSIONS);
+            PackageInfo pi = getPackageManager().getPackageInfo("usi.memotion2", PackageManager.GET_PERMISSIONS);
             for (int i = 0; i < pi.requestedPermissions.length; i++) {
                 if ((pi.requestedPermissionsFlags[i] & PackageInfo.REQUESTED_PERMISSION_GRANTED) != 0) {
                     granted.add(pi.requestedPermissions[i]);
@@ -211,7 +210,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private boolean checkPermissions() {
         return ContextCompat.checkSelfPermission(this, Manifest.permission.CHANGE_WIFI_STATE) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_WIFI_STATE) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, Manifest.permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED &&
