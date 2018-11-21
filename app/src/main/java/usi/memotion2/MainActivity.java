@@ -10,6 +10,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -28,6 +30,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
@@ -51,16 +54,21 @@ import usi.memotion2.gathering.SensorType;
 import usi.memotion2.gathering.gatheringServices.Notifications.Utils.SharedPref;
 import usi.memotion2.local.database.controllers.LocalStorageController;
 import usi.memotion2.local.database.controllers.SQLiteController;
+import usi.memotion2.local.database.db.LocalSQLiteDBHelper;
+import usi.memotion2.local.database.tables.UserTable;
+import usi.memotion2.remote.database.controllers.SwitchDriveController;
 import usi.memotion2.remote.database.upload.UploadAlarmReceiver;
+import usi.memotion2.remote.database.upload.Uploader;
 
 /**
  * Created by shkurtagashi
  */
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SwitchDriveController.OnUpload {
     private static final String ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
     private static final String ENABLED_USAGE_LISTENERS = "enabled_usage_listeners";
     private static final String ACTION_NOTIFICATION_LISTENER_SETTINGS = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS";
     private final int PERMISSION_REQUEST_STATUS = 0;
+    private LocalStorageController localController;
     protected DrawerLayout drawerLayout;
     protected NavigationView navigationView;
     Calendar calendar;
@@ -76,6 +84,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private GatheringSystem gSys;
     private boolean viewIsAtHome;
     private Toolbar toolbar;
+    boolean okDisplay = true;
+
+    LocalSQLiteDBHelper dbHelper;
+    SwitchDriveController switchDriveController;
+    String androidID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +105,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        localController = SQLiteController.getInstance(this);
+        dbHelper = new LocalSQLiteDBHelper(getApplicationContext());
 
         displayView(R.id.nav_home);
 
@@ -143,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (AccountUtils.getPassword(getApplicationContext()) == null) {
             buildDrivePasswordAlertDialog();
         } else {
-            navigationView.getMenu().findItem(R.id.nav_upload).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_setup_upload).setVisible(false);
         }
         }
 
@@ -278,8 +294,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 title = "About App";
                 viewIsAtHome = false;
                 break;
-            case R.id.nav_upload:
+            case R.id.nav_setup_upload:
                 buildDrivePasswordAlertDialog();
+                viewIsAtHome = false;
+                break;
+            case R.id.nav_upload:
+                uploadRemotely();
                 viewIsAtHome = false;
                 break;
         }
@@ -542,7 +562,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 String pass = passTextView.getText().toString();
                 if (!pass.isEmpty()) {
                     AccountUtils.addAccount(getApplicationContext(), "user", pass);
-                    navigationView.getMenu().findItem(R.id.nav_upload).setVisible(false);
+                    navigationView.getMenu().findItem(R.id.nav_setup_upload).setVisible(false);
                 }
             }
         });
@@ -551,9 +571,59 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+
+    private void displayMessage(String message) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Upload remotely");
+        alertDialogBuilder.setMessage(message);
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        AlertDialog dialog = alertDialogBuilder.create();
+        dialog.show();
+
+    }
+
+    public void uploadRemotely() {
+        androidID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        dbHelper = new LocalSQLiteDBHelper(getApplicationContext());
+        switchDriveController = new SwitchDriveController(getString(R.string.server_address),
+                getApplicationContext().getString(R.string.token),  AccountUtils.getPassword(getApplicationContext()));
+        localController = SQLiteController.getInstance(getApplicationContext());
+        String query = "SELECT * FROM usersTable";
+        Cursor records = localController.rawQuery(query, null);
+        records.moveToFirst();
+        String username = null;
+        if (records.getCount() > 0) {
+            username = records.getString(records.getColumnIndex(UserTable.USERNAME));
+
+        }
+
+        String userName = username + "_" + androidID;
+        final Uploader uploader = new Uploader(userName, switchDriveController, localController, dbHelper);
+        switchDriveController.setInterface(this);
+        uploader.upload();
+    }
     private boolean checkUsagePermission() {
         return !sp.getBoolean("usage_permission");
     }
 
+    @Override
+    public void sendResponse(final String message) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run(){
+                if (okDisplay) {
+                    displayMessage(message);
+                    okDisplay = false;
+                }
+            }
+        });
+    }
 }
 

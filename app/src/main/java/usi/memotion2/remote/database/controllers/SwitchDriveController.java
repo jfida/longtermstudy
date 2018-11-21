@@ -1,8 +1,11 @@
 package usi.memotion2.remote.database.controllers;
 
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
@@ -22,6 +25,9 @@ public class SwitchDriveController implements RemoteStorageController {
     private CountDownLatch doneSignal;
     private int httpResponse;
     private OnTransferCompleted callback;
+    private OnUpload onUpload;
+
+
 
     public SwitchDriveController(String serverAddress, String accessToken, String password) {
         this.serverAddress = serverAddress;
@@ -31,6 +37,9 @@ public class SwitchDriveController implements RemoteStorageController {
 
     }
 
+    public void setInterface(OnUpload onUpload){
+        this.onUpload = onUpload;
+    }
 
     @Override
     public int upload(String fileName, String data) {
@@ -95,14 +104,27 @@ public class SwitchDriveController implements RemoteStorageController {
 
         @Override
         protected void onPostExecute(Integer result) {
-            httpResponse = result;
-//            callback.onTransferCompleted(fileName, result);
+            int httpResponse = result;
+            if(!String.valueOf(httpResponse).startsWith("2")){
+                onUpload.sendResponse("Upload of data remotely has failed! Please make sure you have internet connection and the right password! If not, do contact us.");
+                Log.v("DATA UPLOAD SERVICE","UPLOAD FAILED");
+            } else {
+                Log.v("DATA UPLOAD SERVICE","UPLOAD SUCCESSFUL");
+                onUpload.sendResponse("Upload of data remotely was successful!");
+            }
+
+            //callback.onTransferCompleted(fileName, result);
 //            doneSignal.countDown();
         }
     }
 
     public interface OnTransferCompleted {
         void onTransferCompleted(String fileName, int status);
+    }
+
+    public interface OnUpload{
+        void sendResponse(String message);
+
     }
 
     public void setCallback(OnTransferCompleted callback) {

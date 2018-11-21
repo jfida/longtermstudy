@@ -593,6 +593,7 @@
     <string name="menu_ediary">E-Diary</string>
     <string name="menu_about_study">About study</string>
     <string name="menu_about_app">About app</string>
+    <string name="menu_setup">Setup remote upload</string>
     <string name="menu_upload">Upload remotely</string>
 
     <!-- ++++++++++++++++++Activities List ++++++++++++++++++++++++++++++++++++++++++++++++ -->
