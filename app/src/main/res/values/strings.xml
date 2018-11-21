@@ -594,6 +594,7 @@
     <string name="menu_about_study">About study</string>
     <string name="menu_about_app">About app</string>
     <string name="menu_upload">Upload remotely</string>
+    <string name="setup_upload">Setup upload remotely</string>
 
     <!-- ++++++++++++++++++Activities List ++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <string-array name="activities_list">

@@ -51,7 +51,11 @@ import usi.memotion2.gathering.SensorType;
 import usi.memotion2.gathering.gatheringServices.Notifications.Utils.SharedPref;
 import usi.memotion2.local.database.controllers.LocalStorageController;
 import usi.memotion2.local.database.controllers.SQLiteController;
+import usi.memotion2.local.database.db.LocalSQLiteDBHelper;
+import usi.memotion2.local.database.tables.UserTable;
+import usi.memotion2.remote.database.controllers.SwitchDriveController;
 import usi.memotion2.remote.database.upload.UploadAlarmReceiver;
+import usi.memotion2.remote.database.upload.Uploader;
 
 /**
  * Created by shkurtagashi
@@ -76,6 +80,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private GatheringSystem gSys;
     private boolean viewIsAtHome;
     private Toolbar toolbar;
+    LocalSQLiteDBHelper dbHelper;
+    SwitchDriveController switchDriveController;
+    String androidID;
+    private LocalStorageController localController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -284,6 +292,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 buildDrivePasswordAlertDialog();
                 viewIsAtHome = false;
                 break;
+            case R.id.nav_upload_remote:
+                uploadDataEveryday();
+                viewIsAtHome = false;
+                break;
         }
 
 
@@ -386,7 +398,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (month == Calendar.SEPTEMBER || month == Calendar.OCTOBER || month == Calendar.NOVEMBER || month == Calendar.DECEMBER) {
             Log.v("Homeee", "Alarms Triggered");
             scheduler.createReminder(getApplicationContext());
-            uploadDataEveryday();
+            uploadRemotely();
         }
     }
 
@@ -413,6 +425,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             cal.add(Calendar.DAY_OF_MONTH, 1); //trigger alarm tomorrow
             am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_ONE_SHOT));
         }
+    }
+
+    public void uploadRemotely(){
+        androidID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        dbHelper = new LocalSQLiteDBHelper(getApplicationContext());
+        switchDriveController = new SwitchDriveController(getApplicationContext().getString(R.string.server_address),
+                getApplicationContext().getString(R.string.token),  AccountUtils.getPassword(getApplicationContext()));
+        localController = SQLiteController.getInstance(getApplicationContext());
+
+
+        String query = "SELECT * FROM usersTable";
+        Cursor records = localController.rawQuery(query, null);
+        records.moveToFirst();
+
+        String username = null;
+
+        if (records.getCount() > 0) {
+            username = records.getString(records.getColumnIndex(UserTable.USERNAME));
+
+        }
+
+        String userName = username + "_" + androidID;
+        final Uploader uploader = new Uploader(userName, switchDriveController, localController, dbHelper);
+        uploader.upload();
     }
 
 

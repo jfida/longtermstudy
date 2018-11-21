@@ -96,6 +96,7 @@ public class SwitchDriveController implements RemoteStorageController {
         @Override
         protected void onPostExecute(Integer result) {
             httpResponse = result;
+            Log.v("UPLOADER","Result = "+httpResponse);
 //            callback.onTransferCompleted(fileName, result);
 //            doneSignal.countDown();
         }

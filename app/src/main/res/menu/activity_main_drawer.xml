@@ -45,6 +45,11 @@
             <item
                 android:id="@+id/nav_upload"
                 android:icon="@drawable/upload"
+                android:title="@string/setup_upload" />
+
+            <item
+                android:id="@+id/nav_upload_remote"
+                android:icon="@drawable/upload"
                 android:title="@string/menu_upload" />
         </menu>
     </item>
