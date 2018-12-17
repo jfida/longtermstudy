@@ -46,18 +46,20 @@ public class EdiaryFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_ediary, container, false);
         localController = SQLiteController.getInstance(getContext());
-        listView = (ListView) view.findViewById(R.id.entriesList);
-        final FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.add_activity_button);
-        final Spinner daySpinner = (Spinner) view.findViewById(R.id.daySpinner);
+        listView = view.findViewById(R.id.entriesList);
+        final FloatingActionButton fab = view.findViewById(R.id.add_activity_button);
+        final Spinner daySpinner = view.findViewById(R.id.daySpinner);
 
-//        Put the "setup function here"!
-
+        // Put the setup function here!
 
         daySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Format formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -73,11 +75,11 @@ public class EdiaryFragment extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) {}
         });
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> adapterView, final View view, int i, long l) {
                 final EdiaryActivity ediary = (EdiaryActivity) listView.getAdapter().getItem(i);
@@ -125,10 +127,10 @@ public class EdiaryFragment extends Fragment {
                             }
                         });
 
-                        Spinner activity_start_hour = (Spinner) ((AlertDialog) update).findViewById(R.id.activity_start_hour);
-                        Spinner activity_start_minute = (Spinner) ((AlertDialog) update).findViewById(R.id.activity_start_minute);
-                        Spinner activity_end_hour = (Spinner) ((AlertDialog) update).findViewById(R.id.activity_end_hour);
-                        Spinner activity_end_minute = (Spinner) ((AlertDialog) update).findViewById(R.id.activity_end_minute);
+                        Spinner activity_start_hour   = (Spinner) update.findViewById(R.id.activity_start_hour);
+                        Spinner activity_start_minute = (Spinner) update.findViewById(R.id.activity_start_minute);
+                        Spinner activity_end_hour     = (Spinner) update.findViewById(R.id.activity_end_hour);
+                        Spinner activity_end_minute   = (Spinner) update.findViewById(R.id.activity_end_minute);
 
                         String start[] = ediary.getStart_time().split(":");
                         String end[] = ediary.getEnd_time().split(":");
@@ -301,14 +303,12 @@ public class EdiaryFragment extends Fragment {
                                 }
                             }
                         });
-                    };
+                    }
                 });
                 update.show();
-            };
+            }
         });
-        fab.setOnClickListener(new View.OnClickListener()
-
-        {
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final AlertDialog.Builder builderAdd = new AlertDialog.Builder(getContext());
@@ -403,7 +403,7 @@ public class EdiaryFragment extends Fragment {
                                     int choice = ediary_interaction_group.getCheckedRadioButtonId();
                                     String interaction = "";
                                     if (choice > 0) {
-                                        RadioButton radio = (RadioButton) ediary_interaction_group.findViewById(choice);
+                                        RadioButton radio = ediary_interaction_group.findViewById(choice);
                                         interaction = radio.getText().toString();
                                     }
 
@@ -471,7 +471,7 @@ public class EdiaryFragment extends Fragment {
         String social_interaction;
         String comments;
 
-        public EdiaryActivity(String emotion, String activity, String start_time, String end_time, String social_interaction, String comments, String date_entry, String timestamp) {
+        EdiaryActivity(String emotion, String activity, String start_time, String end_time, String social_interaction, String comments, String date_entry, String timestamp) {
             this.emotion = emotion;
             this.activity = activity;
             this.start_time = start_time;
@@ -506,7 +506,7 @@ public class EdiaryFragment extends Fragment {
             return comments;
         }
 
-        public String getDate_entry() {
+        String getDate_entry() {
             return date_entry;
         }
 
@@ -516,7 +516,7 @@ public class EdiaryFragment extends Fragment {
     }
 
     public class LoadEdiary extends AsyncTask {
-        ArrayList<EdiaryActivity> ediaries = new ArrayList<EdiaryActivity>();
+        ArrayList<EdiaryActivity> ediaries = new ArrayList<>();
 
         @Override
         protected Object doInBackground(Object[] objects) {

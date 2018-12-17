@@ -12,7 +12,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion '28.0.2'
     defaultConfig {
-        applicationId "usi.memotion2"
+        applicationId "usi.sevenseconds"
         minSdkVersion 23
         targetSdkVersion 26
         versionCode 15

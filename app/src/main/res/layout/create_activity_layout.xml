@@ -21,6 +21,69 @@
             android:layout_marginBottom="@dimen/margin_medium"
             android:entries="@array/activities_list" />
 
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="ltr">
+
+                <ImageButton
+                    android:background="@drawable/sleep"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp" />
+
+                <ImageButton
+                    android:background="@drawable/study"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp" />
+
+                <ImageButton
+                    android:background="@drawable/work"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp" />
+
+                <ImageButton
+                    android:background="@drawable/relaxation"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp" />
+
+                <ImageButton
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/physical_exercise" />
+
+                <ImageButton
+                    android:background="@drawable/attend_lecture"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp" />
+
+                <ImageButton
+                    android:background="@drawable/physical_exercise"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp" />
+
+                <ImageButton
+                    android:background="@drawable/eat"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp" />
+
+                <ImageButton
+                    android:background="@drawable/commute"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp" />
+
+                <ImageButton
+                    android:background="@drawable/socialize"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp" />
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
