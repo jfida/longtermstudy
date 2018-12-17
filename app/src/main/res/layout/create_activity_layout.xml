@@ -133,88 +133,82 @@
             android:layout_marginBottom="@dimen/margin_medium"
             android:text="@string/activity_emotion" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="@dimen/margin_small"
-            android:layout_marginRight="@dimen/margin_large"
-            android:layout_marginBottom="@dimen/margin_small">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_weight="0.2"
-                android:src="@drawable/activity_very_happy" />
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_weight="0.2"
-                android:src="@drawable/activity_happy" />
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_weight="0.2"
-                android:src="@drawable/activity_neutral" />
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_weight="0.2"
-                android:src="@drawable/activity_sad" />
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_weight="0.2"
-                android:src="@drawable/activity_very_sad" />
-        </LinearLayout>
-
         <RadioGroup
             android:id="@+id/ediary_emotion_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_small"
-            android:layout_marginRight="@dimen/margin_large"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_large"
             android:layout_marginBottom="@dimen/margin_medium"
             android:orientation="horizontal">
 
+            <!-- Added:
+                - android:button="@null"
+                -  android:background="@drawable/...
+                -->
+
+            <!--android:background="@drawable/activity_very_happy"-->
+            <!--android:button="@null"-->
+            <!--android:drawableStart="@drawable/btn_bg_selector"-->
             <RadioButton
                 android:id="@+id/ediary_emotion_very_happy"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="0.2"/>
+                android:layout_height="50dp"
+                android:layout_weight="0.2"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/activity_very_happy"
+                android:button="@null"
+                android:scaleX=".8"
+                android:scaleY=".8"
+                />
 
             <RadioButton
                 android:id="@+id/ediary_emotion_happy"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-            android:layout_weight="0.2"/>
+                android:layout_height="50dp"
+                android:layout_weight="0.2"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/activity_happy"
+                android:button="@null"
+                android:scaleX=".8"
+                android:scaleY=".8"
+                />
 
             <RadioButton
                 android:id="@+id/ediary_emotion_neutral"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="0.2"/>
+                android:layout_height="50dp"
+                android:layout_weight="0.2"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/activity_neutral"
+                android:button="@null"
+                android:scaleX=".8"
+                android:scaleY=".8"
+                />
 
             <RadioButton
                 android:id="@+id/ediary_emotion_sad"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="0.2"/>
+                android:layout_height="50dp"
+                android:layout_weight="0.2"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/activity_sad"
+                android:button="@null"
+                android:scaleX=".8"
+                android:scaleY=".8"
+                />
 
             <RadioButton
                 android:id="@+id/ediary_emotion_very_sad"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="0.2"/>
+                android:layout_height="50dp"
+                android:layout_weight="0.2"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/activity_very_sad"
+                android:button="@null"
+                android:scaleX=".8"
+                android:scaleY=".8"
+                />
         </RadioGroup>
 
         <TextView

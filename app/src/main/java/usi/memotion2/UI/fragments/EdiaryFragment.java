@@ -54,6 +54,8 @@ public class EdiaryFragment extends Fragment {
         final FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.add_activity_button);
         final Spinner daySpinner = (Spinner) view.findViewById(R.id.daySpinner);
 
+//        Put the "setup function here"!
+
 
         daySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -257,7 +259,12 @@ public class EdiaryFragment extends Fragment {
                                     String end_time = activity_end_hour.getSelectedItem().toString() + ":" + activity_end_minute.getSelectedItem().toString();
                                     String comments = ediary_comments.getText().toString().isEmpty() ? "" : ediary_comments.getText().toString();
 
+
                                     int choice_emotion = ediary_emotion_group.getCheckedRadioButtonId();
+
+//                                    RadioButton btn = (RadioButton) (ediary_emotion_group.findViewById(choice_emotion));
+//
+//                                    RadioButton.setButtonDrawable();
                                     String emotion = "";
                                     if (choice_emotion > 0) {
                                         switch (choice_emotion) {
