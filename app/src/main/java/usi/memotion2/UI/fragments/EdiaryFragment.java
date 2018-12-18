@@ -97,6 +97,7 @@ public class EdiaryFragment extends Fragment {
                 update.setOnShowListener(new DialogInterface.OnShowListener() {
                     @Override
                     public void onShow(final DialogInterface dialog) {
+                        setBtnListeners((AlertDialog) dialog);
                         final Spinner ediary_activity_spinner = (Spinner) ((AlertDialog) update).findViewById(R.id.ediary_activity_spinner);
                         final LinearLayout otherLayout = (LinearLayout) ((AlertDialog) update).findViewById(R.id.otherLayout);
                         final EditText ediary_activity_edit = (EditText) ((AlertDialog) update).findViewById(R.id.ediary_activity_edit);
@@ -325,6 +326,7 @@ public class EdiaryFragment extends Fragment {
                 add.setOnShowListener(new DialogInterface.OnShowListener() {
                     @Override
                     public void onShow(final DialogInterface dialog) {
+                        setBtnListeners((AlertDialog) dialog);
                         final Spinner ediary_activity_spinner = (Spinner) add.findViewById(R.id.ediary_activity_spinner);
                         final LinearLayout otherLayout = (LinearLayout) add.findViewById(R.id.otherLayout);
                         final EditText ediary_activity_edit = (EditText) add.findViewById(R.id.ediary_activity_edit);
@@ -536,4 +538,102 @@ public class EdiaryFragment extends Fragment {
             return null;
         }
     }
+
+    public void setBtnListeners(final AlertDialog dialog){
+        setRadioBtnsListeners(dialog, R.id.ediary_interaction_group);
+        setRadioBtnsListeners(dialog, R.id.ediary_emotion_group);
+    }
+
+    public void setRadioBtnsListeners(final AlertDialog dialog, final int groupId){
+        RadioGroup ediary_emotion_group = (RadioGroup) dialog.findViewById(groupId);
+        try {
+            ediary_emotion_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    deselectAllRadioBtns(group, groupId);
+                    selectCheckedBtn(group, checkedId, groupId);
+                }
+            });
+        } catch (NullPointerException e){
+            Log.e("Exception", "Found the following NullPointerException", e);
+        }
+    }
+
+    public void deselectAllRadioBtns(RadioGroup group, int groupId){
+
+        for(int i=0;i < group.getChildCount();i++) {
+
+            RadioButton rb = (RadioButton) group.getChildAt(i);
+
+            if(groupId ==  R.id.ediary_emotion_group){
+                deselectEmotionRadioBtn(rb);
+            } else if(groupId ==  R.id.ediary_interaction_group){
+                deselectInteractionRadioBtn(rb);
+            }
+        }
+    }
+
+    public void deselectInteractionRadioBtn(RadioButton rb){
+        rb.setTextColor(getResources().getColor(R.color.ms_black, getActivity().getTheme()));
+    }
+
+    public void deselectEmotionRadioBtn(RadioButton rb){
+        switch (rb.getId()) {
+            case R.id.ediary_emotion_very_happy:
+                rb.setBackgroundResource(R.drawable.activity_very_happy);
+                break;
+            case R.id.ediary_emotion_happy:
+                rb.setBackgroundResource(R.drawable.activity_happy);
+                break;
+            case R.id.ediary_emotion_neutral:
+                rb.setBackgroundResource(R.drawable.activity_neutral);
+                break;
+            case R.id.ediary_emotion_sad:
+                rb.setBackgroundResource(R.drawable.activity_sad);
+                break;
+            case R.id.ediary_emotion_very_sad:
+                rb.setBackgroundResource(R.drawable.activity_very_sad);
+                break;
+        }
+        rb.setScaleX(0.8f);
+        rb.setScaleY(0.8f);
+    }
+
+    public void selectCheckedBtn(RadioGroup group, int btnId, int groupId){
+
+        RadioButton rb = group.findViewById(btnId);
+
+        if(groupId ==  R.id.ediary_emotion_group){
+            selectEmotionRadioBtn(rb);
+        } else if(groupId ==  R.id.ediary_interaction_group){
+            selectInteractionRadioBtn(rb);
+        }
+    }
+
+    public void selectInteractionRadioBtn(RadioButton rb){
+        rb.setTextColor(getResources().getColor(R.color.colorAccent, getActivity().getTheme()));
+    }
+
+    public void selectEmotionRadioBtn(RadioButton rb){
+        switch (rb.getId()) {
+            case R.id.ediary_emotion_very_happy:
+                rb.setBackgroundResource(R.drawable.activity_very_happy_selected);
+                break;
+            case R.id.ediary_emotion_happy:
+                rb.setBackgroundResource(R.drawable.activity_happy_selected);
+                break;
+            case R.id.ediary_emotion_neutral:
+                rb.setBackgroundResource(R.drawable.activity_neutral_selected);
+                break;
+            case R.id.ediary_emotion_sad:
+                rb.setBackgroundResource(R.drawable.activity_sad_selected);
+                break;
+            case R.id.ediary_emotion_very_sad:
+                rb.setBackgroundResource(R.drawable.activity_very_sad_selected);
+                break;
+        }
+        rb.setScaleX(1);
+        rb.setScaleY(1);
+    }
+
 }

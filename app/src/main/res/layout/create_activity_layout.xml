@@ -5,13 +5,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginStart="@dimen/margin_small"
             android:text="@string/activity_choose" />
 
         <Spinner
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layoutDirection="ltr">
 
@@ -46,9 +46,9 @@
                     android:layout_height="64dp" />
 
                 <ImageButton
-                    android:background="@drawable/relaxation"
                     android:layout_width="64dp"
-                    android:layout_height="64dp" />
+                    android:layout_height="64dp"
+                    android:background="@drawable/relaxation" />
 
                 <ImageButton
                     android:layout_width="64dp"
@@ -162,7 +162,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:layout_marginStart="@dimen/margin_small"
             android:text="@string/activity_interaction" />
 
         <RadioGroup
@@ -170,22 +171,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_small"
             android:layout_marginBottom="@dimen/margin_medium"
             android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/ediary_interaction_yes"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="0.5"
-                android:text="Yes" />
+                android:layout_marginEnd="@dimen/margin_tiny"
+                android:button="@null"
+                android:text="Yes"
+                android:textColor="@color/ms_black"
+                android:textAlignment="center"
+                android:background="@color/common_google_signin_btn_text_dark_disabled" />
 
             <RadioButton
                 android:id="@+id/ediary_interaction_no"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="0.5"
-                android:text="No" />
+                android:layout_marginStart="@dimen/margin_tiny"
+                android:button="@null"
+                android:text="No"
+                android:textColor="@color/ms_black"
+                android:textAlignment="center"
+                android:background="@color/common_google_signin_btn_text_dark_disabled"/>
         </RadioGroup>
 
         <TextView
