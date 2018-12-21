@@ -22,6 +22,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import org.joda.time.DateTime;
 
@@ -97,7 +98,8 @@ public class EdiaryFragment extends Fragment {
                 update.setOnShowListener(new DialogInterface.OnShowListener() {
                     @Override
                     public void onShow(final DialogInterface dialog) {
-                        setBtnListeners((AlertDialog) dialog);
+                        Log.d("DEBUG", "EDIT ACTIVITY");
+
                         final Spinner ediary_activity_spinner = (Spinner) ((AlertDialog) update).findViewById(R.id.ediary_activity_spinner);
                         final LinearLayout otherLayout = (LinearLayout) ((AlertDialog) update).findViewById(R.id.otherLayout);
                         final EditText ediary_activity_edit = (EditText) ((AlertDialog) update).findViewById(R.id.ediary_activity_edit);
@@ -124,42 +126,24 @@ public class EdiaryFragment extends Fragment {
                             }
 
                             @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {
-                            }
+                            public void onNothingSelected(AdapterView<?> adapterView) {}
                         });
 
-                        Spinner activity_start_hour   = (Spinner) update.findViewById(R.id.activity_start_hour);
-                        Spinner activity_start_minute = (Spinner) update.findViewById(R.id.activity_start_minute);
-                        Spinner activity_end_hour     = (Spinner) update.findViewById(R.id.activity_end_hour);
-                        Spinner activity_end_minute   = (Spinner) update.findViewById(R.id.activity_end_minute);
+                        set24HoursClock(update);
+
+                        TimePicker activity_start = (TimePicker) ((AlertDialog) dialog).findViewById(R.id.activity_start);
+                        TimePicker activity_stop = (TimePicker) ((AlertDialog) dialog).findViewById(R.id.activity_stop);
 
                         String start[] = ediary.getStart_time().split(":");
                         String end[] = ediary.getEnd_time().split(":");
 
-                        if (start[0] == "Select") {
-                            activity_start_hour.setSelection(0);
-                        } else {
-                            activity_start_hour.setSelection(Integer.parseInt(start[0]) + 1);
-                        }
+                        activity_start.setHour(Integer.parseInt(start[0]));
+                        activity_start.setMinute(Integer.parseInt(start[1]));
 
-                        if (start[1] == "Select") {
-                            activity_start_minute.setSelection(0);
-                        } else {
-                            activity_start_minute.setSelection(Integer.parseInt(start[1]) + 1);
-                        }
+                        activity_stop.setHour(Integer.parseInt(end[0]));
+                        activity_stop.setMinute(Integer.parseInt(end[1]));
 
-                        if (end[0] == "Select") {
-                            activity_end_hour.setSelection(0);
-                        } else {
-                            activity_end_hour.setSelection(Integer.parseInt(end[0]) + 1);
-                        }
-
-                        if (end[1] == "Select") {
-                            activity_end_minute.setSelection(0);
-                        } else {
-                            activity_end_minute.setSelection(Integer.parseInt(end[1]) + 1);
-                        }
-
+                        setBtnListeners((AlertDialog) dialog);
                         RadioButton ediary_interaction_yes = (RadioButton) ((AlertDialog) update).findViewById(R.id.ediary_interaction_yes);
                         RadioButton ediary_interaction_no = (RadioButton) ((AlertDialog) update).findViewById(R.id.ediary_interaction_no);
 
@@ -201,15 +185,14 @@ public class EdiaryFragment extends Fragment {
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                Log.d("DEBUG", "EDIT ACTIVITY - SUBMISSION");
                                 Spinner ediary_activity_spinner = (Spinner) ((AlertDialog) dialog).findViewById(R.id.ediary_activity_spinner);
                                 LinearLayout otherLayout = (LinearLayout) ((AlertDialog) dialog).findViewById(R.id.otherLayout);
                                 EditText ediary_activity_edit = (EditText) ((AlertDialog) dialog).findViewById(R.id.ediary_activity_edit);
 
-                                Spinner activity_start_hour = (Spinner) ((AlertDialog) dialog).findViewById(R.id.activity_start_hour);
-                                Spinner activity_start_minute = (Spinner) ((AlertDialog) dialog).findViewById(R.id.activity_start_minute);
+                                TimePicker activity_start = (TimePicker) ((AlertDialog) dialog).findViewById(R.id.activity_start);
 
-                                Spinner activity_end_hour = (Spinner) ((AlertDialog) dialog).findViewById(R.id.activity_end_hour);
-                                Spinner activity_end_minute = (Spinner) ((AlertDialog) dialog).findViewById(R.id.activity_end_minute);
+                                TimePicker activity_stop = (TimePicker) ((AlertDialog) dialog).findViewById(R.id.activity_stop);
 
                                 RadioGroup ediary_interaction_group = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.ediary_interaction_group);
 
@@ -234,22 +217,6 @@ public class EdiaryFragment extends Fragment {
                                     activity = ediary_activity_spinner.getSelectedItem().toString();
                                 }
 
-                                if (activity_start_hour.getSelectedItem().toString().equals("Select")) {
-                                    error = true;
-                                    ((TextView) activity_start_hour.getSelectedView()).setError("Please enter a value!");
-                                }
-                                if (activity_end_hour.getSelectedItem().toString().equals("Select")) {
-                                    error = true;
-                                    ((TextView) activity_end_hour.getSelectedView()).setError("Please enter a value!");
-                                }
-                                if (activity_start_minute.getSelectedItem().toString().equals("Select")) {
-                                    error = true;
-                                    ((TextView) activity_start_minute.getSelectedView()).setError("Please enter a value!");
-                                }
-                                if (activity_end_minute.getSelectedItem().toString().equals("Select")) {
-                                    error = true;
-                                    ((TextView) activity_end_minute.getSelectedView()).setError("Please enter a value!");
-                                }
                                 if (!error) {
                                     int choice = ediary_interaction_group.getCheckedRadioButtonId();
                                     String interaction = "";
@@ -258,16 +225,14 @@ public class EdiaryFragment extends Fragment {
                                         interaction = radio.getText().toString();
                                     }
 
-                                    String start_time = activity_start_hour.getSelectedItem().toString() + ":" + activity_start_minute.getSelectedItem().toString();
-                                    String end_time = activity_end_hour.getSelectedItem().toString() + ":" + activity_end_minute.getSelectedItem().toString();
+                                    String start_time   = String.format("%02d", activity_start.getHour()) + ":" + String.format("%02d", activity_start.getMinute());
+                                    String end_time     = String.format("%02d", activity_stop.getHour()) + ":" + String.format("%02d", activity_stop.getMinute());
+
                                     String comments = ediary_comments.getText().toString().isEmpty() ? "" : ediary_comments.getText().toString();
 
 
                                     int choice_emotion = ediary_emotion_group.getCheckedRadioButtonId();
 
-//                                    RadioButton btn = (RadioButton) (ediary_emotion_group.findViewById(choice_emotion));
-//
-//                                    RadioButton.setButtonDrawable();
                                     String emotion = "";
                                     if (choice_emotion > 0) {
                                         switch (choice_emotion) {
@@ -326,7 +291,7 @@ public class EdiaryFragment extends Fragment {
                 add.setOnShowListener(new DialogInterface.OnShowListener() {
                     @Override
                     public void onShow(final DialogInterface dialog) {
-                        setBtnListeners((AlertDialog) dialog);
+                        Log.d("DEBUG", "CREATE ACTIVITY");
                         final Spinner ediary_activity_spinner = (Spinner) add.findViewById(R.id.ediary_activity_spinner);
                         final LinearLayout otherLayout = (LinearLayout) add.findViewById(R.id.otherLayout);
                         final EditText ediary_activity_edit = (EditText) add.findViewById(R.id.ediary_activity_edit);
@@ -347,20 +312,22 @@ public class EdiaryFragment extends Fragment {
                             }
                         });
 
+                        setBtnListeners((AlertDialog) dialog);
+                        set24HoursClock((AlertDialog) dialog);
+
                         Button button = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
                         button.setOnClickListener(new View.OnClickListener() {
 
                             @Override
                             public void onClick(View view) {
+                                Log.d("DEBUG", "CREATE ACTIVITY - SUBMISSION");
                                 Spinner ediary_activity_spinner = (Spinner) ((AlertDialog) dialog).findViewById(R.id.ediary_activity_spinner);
                                 LinearLayout otherLayout = (LinearLayout) ((AlertDialog) dialog).findViewById(R.id.otherLayout);
                                 EditText ediary_activity_edit = (EditText) ((AlertDialog) dialog).findViewById(R.id.ediary_activity_edit);
 
-                                Spinner activity_start_hour = (Spinner) ((AlertDialog) dialog).findViewById(R.id.activity_start_hour);
-                                Spinner activity_start_minute = (Spinner) ((AlertDialog) dialog).findViewById(R.id.activity_start_minute);
+                                TimePicker activity_start = (TimePicker) ((AlertDialog) dialog).findViewById(R.id.activity_start);
 
-                                Spinner activity_end_hour = (Spinner) ((AlertDialog) dialog).findViewById(R.id.activity_end_hour);
-                                Spinner activity_end_minute = (Spinner) ((AlertDialog) dialog).findViewById(R.id.activity_end_minute);
+                                TimePicker activity_stop = (TimePicker) ((AlertDialog) dialog).findViewById(R.id.activity_stop);
 
                                 RadioGroup ediary_interaction_group = (RadioGroup) ((AlertDialog) dialog).findViewById(R.id.ediary_interaction_group);
 
@@ -385,22 +352,6 @@ public class EdiaryFragment extends Fragment {
                                     activity = ediary_activity_spinner.getSelectedItem().toString();
                                 }
 
-                                if (activity_start_hour.getSelectedItem().toString().equals("Select")) {
-                                    error = true;
-                                    ((TextView) activity_start_hour.getSelectedView()).setError("Please enter a value!");
-                                }
-                                if (activity_end_hour.getSelectedItem().toString().equals("Select")) {
-                                    error = true;
-                                    ((TextView) activity_end_hour.getSelectedView()).setError("Please enter a value!");
-                                }
-                                if (activity_start_minute.getSelectedItem().toString().equals("Select")) {
-                                    error = true;
-                                    ((TextView) activity_start_minute.getSelectedView()).setError("Please enter a value!");
-                                }
-                                if (activity_end_minute.getSelectedItem().toString().equals("Select")) {
-                                    error = true;
-                                    ((TextView) activity_end_minute.getSelectedView()).setError("Please enter a value!");
-                                }
                                 if (!error) {
                                     int choice = ediary_interaction_group.getCheckedRadioButtonId();
                                     String interaction = "";
@@ -409,8 +360,9 @@ public class EdiaryFragment extends Fragment {
                                         interaction = radio.getText().toString();
                                     }
 
-                                    String start_time = activity_start_hour.getSelectedItem().toString() + ":" + activity_start_minute.getSelectedItem().toString();
-                                    String end_time = activity_end_hour.getSelectedItem().toString() + ":" + activity_end_minute.getSelectedItem().toString();
+                                    String start_time   = String.format("%02d", activity_start.getHour()) + ":" + String.format("%02d", activity_start.getMinute());
+                                    String end_time     = String.format("%02d", activity_stop.getHour()) + ":" + String.format("%02d", activity_stop.getMinute());
+
                                     String comments = ediary_comments.getText().toString().isEmpty() ? "" : ediary_comments.getText().toString();
 
                                     int choice_emotion = ediary_emotion_group.getCheckedRadioButtonId();
@@ -539,6 +491,22 @@ public class EdiaryFragment extends Fragment {
         }
     }
 
+
+    /**
+     * Set emotion and interaction
+     */
+
+    public void set24HoursClock(final AlertDialog dialog){
+        TimePicker start = (TimePicker) dialog.findViewById(R.id.activity_start);
+        TimePicker stop = (TimePicker) dialog.findViewById(R.id.activity_stop);
+        start.setIs24HourView(true);
+        stop.setIs24HourView(true);
+    }
+
+    /**
+     * Set emotion/interaction buttons eventListeners
+     */
+
     public void setBtnListeners(final AlertDialog dialog){
         setRadioBtnsListeners(dialog, R.id.ediary_interaction_group);
         setRadioBtnsListeners(dialog, R.id.ediary_emotion_group);
@@ -635,5 +603,4 @@ public class EdiaryFragment extends Fragment {
         rb.setScaleX(1);
         rb.setScaleY(1);
     }
-
 }

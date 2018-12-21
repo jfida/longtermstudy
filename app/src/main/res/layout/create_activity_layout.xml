@@ -107,55 +107,35 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/activity_start"
+            android:text="@string/activity_duration"
+            android:layout_marginTop="@dimen/margin_medium"
             android:layout_marginBottom="@dimen/margin_small"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="@dimen/margin_medium">
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:text="@string/activity_emotion">
 
-            <Spinner
-                android:id="@+id/activity_start_hour"
+            <TimePicker
+                android:id="@+id/activity_start"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:entries="@array/hour_options"/>
+                android:timePickerMode="spinner"
+                android:layout_marginEnd="@dimen/margin_tiny"
+                android:layout_weight="0.2" />
 
-            <Spinner
-                android:id="@+id/activity_start_minute"
+            <TimePicker
+                android:id="@+id/activity_stop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:entries="@array/minute_options"/>
-        </LinearLayout>
+                android:timePickerMode="spinner"
+                android:layout_marginStart="@dimen/margin_tiny"
+                android:layout_weight="0.2" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/activity_end"
-            android:layout_marginBottom="@dimen/margin_small"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="@dimen/margin_medium">
-
-            <Spinner
-                android:id="@+id/activity_end_hour"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:entries="@array/hour_options"/>
-
-            <Spinner
-                android:id="@+id/activity_end_minute"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:entries="@array/minute_options"/>
         </LinearLayout>
 
 
@@ -218,14 +198,6 @@
             android:layout_marginBottom="@dimen/margin_medium"
             android:orientation="horizontal">
 
-            <!-- Added:
-                - android:button="@null"
-                -  android:background="@drawable/...
-                -->
-
-            <!--android:background="@drawable/activity_very_happy"-->
-            <!--android:button="@null"-->
-            <!--android:drawableStart="@drawable/btn_bg_selector"-->
             <RadioButton
                 android:id="@+id/ediary_emotion_very_happy"
                 android:layout_width="match_parent"

@@ -619,6 +619,7 @@
     <string name="activity_comments">Additional comments</string>
     <string name="activity_start">Start time of activity:</string>
     <string name="activity_end">End time of activity:</string>
+    <string name="activity_duration">Select start and end time of the activity:</string>
 
     <!-- ++++++++++++++++++Activities List ++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <string-array name="ediary_dates">
