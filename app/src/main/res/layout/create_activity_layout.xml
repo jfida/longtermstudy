@@ -9,86 +9,101 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/choose_activity_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
             android:text="@string/activity_choose" />
-
-        <Spinner
-            android:id="@+id/ediary_activity_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_medium"
-            android:entries="@array/activities_list" />
 
         <HorizontalScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/ediary_activity_buttons_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layoutDirection="ltr">
 
                 <ImageButton
-                    android:background="@drawable/sleep"
+                    android:id="@+id/sleep_activity_button"
                     android:layout_width="64dp"
-                    android:layout_height="64dp" />
+                    android:layout_height="64dp"
+                    android:background="@drawable/sleep" />
 
                 <ImageButton
-                    android:background="@drawable/study"
+                    android:id="@+id/study_activity_button"
                     android:layout_width="64dp"
-                    android:layout_height="64dp" />
+                    android:layout_height="64dp"
+                    android:background="@drawable/study" />
 
                 <ImageButton
-                    android:background="@drawable/work"
+                    android:id="@+id/work_activity_button"
                     android:layout_width="64dp"
-                    android:layout_height="64dp" />
+                    android:layout_height="64dp"
+                    android:background="@drawable/work" />
 
                 <ImageButton
+                    android:id="@+id/relaxation_activity_button"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:background="@drawable/relaxation" />
 
                 <ImageButton
+                    android:id="@+id/physical_exercise_activity_button"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:background="@drawable/physical_exercise" />
 
                 <ImageButton
-                    android:background="@drawable/attend_lecture"
+                    android:id="@+id/attend_lecture_activity_button"
                     android:layout_width="64dp"
-                    android:layout_height="64dp" />
+                    android:layout_height="64dp"
+                    android:background="@drawable/attend_lecture" />
 
                 <ImageButton
-                    android:background="@drawable/physical_exercise"
+                    android:id="@+id/eat_activity_button"
                     android:layout_width="64dp"
-                    android:layout_height="64dp" />
+                    android:layout_height="64dp"
+                    android:background="@drawable/eat" />
 
                 <ImageButton
-                    android:background="@drawable/eat"
+                    android:id="@+id/commute_activity_button"
                     android:layout_width="64dp"
-                    android:layout_height="64dp" />
+                    android:layout_height="64dp"
+                    android:background="@drawable/commute" />
 
                 <ImageButton
-                    android:background="@drawable/commute"
+                    android:id="@+id/socialize_activity_button"
                     android:layout_width="64dp"
-                    android:layout_height="64dp" />
+                    android:layout_height="64dp"
+                    android:background="@drawable/socialize" />
 
                 <ImageButton
-                    android:background="@drawable/socialize"
+                    android:id="@+id/other_activity_button"
                     android:layout_width="64dp"
-                    android:layout_height="64dp" />
+                    android:layout_height="64dp"
+                    android:background="@drawable/other_activity"/>
+
+                <TextView
+                    android:id="@+id/ediary_selected_activity_text"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="24sp"
+                    android:paddingLeft="16sp"
+                    android:text="Select an Activity"/>
 
             </LinearLayout>
 
         </HorizontalScrollView>
 
         <LinearLayout
+            android:id="@+id/otherLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/otherLayout">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
@@ -142,8 +157,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_small"
             android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_small"
             android:text="@string/activity_interaction" />
 
         <RadioGroup
@@ -160,25 +175,25 @@
                 android:id="@+id/ediary_interaction_yes"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_weight="0.5"
                 android:layout_marginEnd="@dimen/margin_tiny"
+                android:layout_weight="0.5"
+                android:background="@color/common_google_signin_btn_text_dark_disabled"
                 android:button="@null"
                 android:text="Yes"
-                android:textColor="@color/ms_black"
                 android:textAlignment="center"
-                android:background="@color/common_google_signin_btn_text_dark_disabled" />
+                android:textColor="@color/ms_black" />
 
             <RadioButton
                 android:id="@+id/ediary_interaction_no"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_weight="0.5"
                 android:layout_marginStart="@dimen/margin_tiny"
+                android:layout_weight="0.5"
+                android:background="@color/common_google_signin_btn_text_dark_disabled"
                 android:button="@null"
                 android:text="No"
-                android:textColor="@color/ms_black"
                 android:textAlignment="center"
-                android:background="@color/common_google_signin_btn_text_dark_disabled"/>
+                android:textColor="@color/ms_black" />
         </RadioGroup>
 
         <TextView
@@ -202,61 +217,56 @@
                 android:id="@+id/ediary_emotion_very_happy"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_weight="0.2"
                 android:layout_marginStart="15dp"
+                android:layout_weight="0.2"
                 android:background="@drawable/activity_very_happy"
                 android:button="@null"
                 android:scaleX=".8"
-                android:scaleY=".8"
-                />
+                android:scaleY=".8" />
 
             <RadioButton
                 android:id="@+id/ediary_emotion_happy"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_weight="0.2"
                 android:layout_marginStart="15dp"
+                android:layout_weight="0.2"
                 android:background="@drawable/activity_happy"
                 android:button="@null"
                 android:scaleX=".8"
-                android:scaleY=".8"
-                />
+                android:scaleY=".8" />
 
             <RadioButton
                 android:id="@+id/ediary_emotion_neutral"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_weight="0.2"
                 android:layout_marginStart="15dp"
+                android:layout_weight="0.2"
                 android:background="@drawable/activity_neutral"
                 android:button="@null"
                 android:scaleX=".8"
-                android:scaleY=".8"
-                />
+                android:scaleY=".8" />
 
             <RadioButton
                 android:id="@+id/ediary_emotion_sad"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_weight="0.2"
                 android:layout_marginStart="15dp"
+                android:layout_weight="0.2"
                 android:background="@drawable/activity_sad"
                 android:button="@null"
                 android:scaleX=".8"
-                android:scaleY=".8"
-                />
+                android:scaleY=".8" />
 
             <RadioButton
                 android:id="@+id/ediary_emotion_very_sad"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_weight="0.2"
                 android:layout_marginStart="15dp"
+                android:layout_weight="0.2"
                 android:background="@drawable/activity_very_sad"
                 android:button="@null"
                 android:scaleX=".8"
-                android:scaleY=".8"
-                />
+                android:scaleY=".8" />
         </RadioGroup>
 
         <TextView

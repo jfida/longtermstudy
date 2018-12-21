@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -41,6 +42,7 @@ public class EdiaryFragment extends Fragment {
     ListView listView;
     private LocalStorageController localController;
     private String dateView;
+    private String selectedActivity = "";
 
 
     public EdiaryFragment() {
@@ -100,34 +102,11 @@ public class EdiaryFragment extends Fragment {
                     public void onShow(final DialogInterface dialog) {
                         Log.d("DEBUG", "EDIT ACTIVITY");
 
-                        final Spinner ediary_activity_spinner = (Spinner) ((AlertDialog) update).findViewById(R.id.ediary_activity_spinner);
                         final LinearLayout otherLayout = (LinearLayout) ((AlertDialog) update).findViewById(R.id.otherLayout);
                         final EditText ediary_activity_edit = (EditText) ((AlertDialog) update).findViewById(R.id.ediary_activity_edit);
                         String activity = ediary.getActivity();
-                        ArrayAdapter myAdap = (ArrayAdapter) ediary_activity_spinner.getAdapter();
-                        Integer spinnerPosition = myAdap.getPosition(activity);
-                        if (spinnerPosition != null && spinnerPosition >= 0) {
-                            ediary_activity_spinner.setSelection(spinnerPosition);
-                            otherLayout.setVisibility(View.GONE);
-                        } else {
-                            ediary_activity_spinner.setSelection(ediary_activity_spinner.getCount() - 1);
-                            otherLayout.setVisibility(View.VISIBLE);
-                            ediary_activity_edit.setText(ediary.getActivity());
-                        }
-                        ediary_activity_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                if (ediary_activity_spinner.getItemAtPosition(i).toString().equals("Other")) {
-                                    otherLayout.setVisibility(View.VISIBLE);
-                                } else {
-                                    ediary_activity_edit.setText("");
-                                    otherLayout.setVisibility(View.GONE);
-                                }
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {}
-                        });
+                        initializeActivityBar((AlertDialog) dialog);
+                        update.findViewById(getButtonIdFromActivityName(activity)).callOnClick();
 
                         set24HoursClock(update);
 
@@ -186,7 +165,9 @@ public class EdiaryFragment extends Fragment {
                             @Override
                             public void onClick(View view) {
                                 Log.d("DEBUG", "EDIT ACTIVITY - SUBMISSION");
-                                Spinner ediary_activity_spinner = (Spinner) ((AlertDialog) dialog).findViewById(R.id.ediary_activity_spinner);
+                                TextView chooseActivityText = (TextView) ((AlertDialog) dialog).findViewById(R.id.choose_activity_text);
+                                final LinearLayout ediaryActivityButtonsGroup = (LinearLayout) ((AlertDialog) dialog).findViewById(R.id.ediary_activity_buttons_group);
+
                                 LinearLayout otherLayout = (LinearLayout) ((AlertDialog) dialog).findViewById(R.id.otherLayout);
                                 EditText ediary_activity_edit = (EditText) ((AlertDialog) dialog).findViewById(R.id.ediary_activity_edit);
 
@@ -210,11 +191,12 @@ public class EdiaryFragment extends Fragment {
                                         activity = ediary_activity_edit.getText().toString();
                                     }
                                 } else {
-                                    if (ediary_activity_spinner.getSelectedItem().toString().equals("Select")) {
+                                    if (getActiveChildId(ediaryActivityButtonsGroup) == -1) {
                                         error = true;
-                                        ((TextView) ediary_activity_spinner.getSelectedView()).setError("Please enter a value!");
+                                        chooseActivityText.setError("Please enter a value!");
+                                    } else {
+                                        activity = getActivityNameFromButtonId(getActiveChildId(ediaryActivityButtonsGroup));
                                     }
-                                    activity = ediary_activity_spinner.getSelectedItem().toString();
                                 }
 
                                 if (!error) {
@@ -291,26 +273,11 @@ public class EdiaryFragment extends Fragment {
                 add.setOnShowListener(new DialogInterface.OnShowListener() {
                     @Override
                     public void onShow(final DialogInterface dialog) {
-                        Log.d("DEBUG", "CREATE ACTIVITY");
-                        final Spinner ediary_activity_spinner = (Spinner) add.findViewById(R.id.ediary_activity_spinner);
+                        setBtnListeners((AlertDialog) dialog);
                         final LinearLayout otherLayout = (LinearLayout) add.findViewById(R.id.otherLayout);
                         final EditText ediary_activity_edit = (EditText) add.findViewById(R.id.ediary_activity_edit);
                         otherLayout.setVisibility(View.GONE);
-                        ediary_activity_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                if (ediary_activity_spinner.getItemAtPosition(i).toString().equals("Other")) {
-                                    otherLayout.setVisibility(View.VISIBLE);
-                                } else {
-                                    ediary_activity_edit.setText("");
-                                    otherLayout.setVisibility(View.GONE);
-                                }
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {
-                            }
-                        });
+                        initializeActivityBar(add);
 
                         setBtnListeners((AlertDialog) dialog);
                         set24HoursClock((AlertDialog) dialog);
@@ -320,8 +287,9 @@ public class EdiaryFragment extends Fragment {
 
                             @Override
                             public void onClick(View view) {
-                                Log.d("DEBUG", "CREATE ACTIVITY - SUBMISSION");
-                                Spinner ediary_activity_spinner = (Spinner) ((AlertDialog) dialog).findViewById(R.id.ediary_activity_spinner);
+                                TextView chooseActivityText = (TextView) ((AlertDialog) dialog).findViewById(R.id.choose_activity_text);
+                                final LinearLayout ediaryActivityButtonsGroup = (LinearLayout) ((AlertDialog) dialog).findViewById(R.id.ediary_activity_buttons_group);
+
                                 LinearLayout otherLayout = (LinearLayout) ((AlertDialog) dialog).findViewById(R.id.otherLayout);
                                 EditText ediary_activity_edit = (EditText) ((AlertDialog) dialog).findViewById(R.id.ediary_activity_edit);
 
@@ -345,11 +313,12 @@ public class EdiaryFragment extends Fragment {
                                         activity = ediary_activity_edit.getText().toString();
                                     }
                                 } else {
-                                    if (ediary_activity_spinner.getSelectedItem().toString().equals("Select")) {
+                                    if (getActiveChildId(ediaryActivityButtonsGroup) == -1) {
                                         error = true;
-                                        ((TextView) ediary_activity_spinner.getSelectedView()).setError("Please enter a value!");
+                                        chooseActivityText.setError("Please enter a value!");
+                                    } else {
+                                        activity = getActivityNameFromButtonId(getActiveChildId(ediaryActivityButtonsGroup));
                                     }
-                                    activity = ediary_activity_spinner.getSelectedItem().toString();
                                 }
 
                                 if (!error) {
@@ -412,6 +381,112 @@ public class EdiaryFragment extends Fragment {
             ;
         });
         return view;
+    }
+
+    private int getActiveChildId(LinearLayout ediaryActivityButtonsGroup) {
+        for (int i = 0; i < ediaryActivityButtonsGroup.getChildCount() - 1; ++i) {
+            if (ediaryActivityButtonsGroup.getChildAt(i).isActivated())
+                return ediaryActivityButtonsGroup.getChildAt(i).getId();
+        }
+        return -1;
+    }
+
+    private void initializeActivityBar(final AlertDialog dialog) {
+        // activity image buttons
+        final LinearLayout ediaryActivityButtonsGroup = (LinearLayout) dialog.findViewById(R.id.ediary_activity_buttons_group);
+        ImageButton activityButton;
+        for (int i = 0; i < ediaryActivityButtonsGroup.getChildCount() - 1; ++i) {
+            activityButton = (ImageButton) ediaryActivityButtonsGroup.getChildAt(i);
+            activityButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ImageButton target = (ImageButton) view;
+                    LinearLayout container = (LinearLayout) target.getParent();
+                    TextView activityViewer = (TextView) dialog.findViewById(R.id.ediary_selected_activity_text);
+                    assert activityViewer != null;
+                    // deselect activity
+                    if (target.isActivated()) {
+                        target.setActivated(false);
+                        selectedActivity = "";
+                        activityViewer.setVisibility(View.GONE);
+                        ((EditText) dialog.findViewById(R.id.ediary_activity_edit)).setText("");
+                        dialog.findViewById(R.id.otherLayout).setVisibility(View.GONE);
+                        for (int i = 0; i < container.getChildCount() - 1; ++i) {
+                            ImageButton button = (ImageButton) container.getChildAt(i);
+                            button.setVisibility(View.VISIBLE);
+                            button.setActivated(false);
+                        }
+                    // select activity
+                    } else {
+                        target.setActivated(true);
+                        if (target.getId() == R.id.other_activity_button)
+                            dialog.findViewById(R.id.otherLayout).setVisibility(View.VISIBLE);
+                        else {
+                            ((EditText) dialog.findViewById(R.id.ediary_activity_edit)).setText("");
+                            dialog.findViewById(R.id.otherLayout).setVisibility(View.GONE);
+                        }
+                        for (int i = 0; i < container.getChildCount() - 1; ++i) {
+                            ImageButton button = (ImageButton) container.getChildAt(i);
+                            if (button == target) {
+                                selectedActivity = getActivityNameFromButtonId(target.getId());
+                                activityViewer.setText(selectedActivity);
+                                activityViewer.setVisibility(View.VISIBLE);
+                            } else button.setVisibility(View.GONE);
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    private String getActivityNameFromButtonId(int id) {
+        switch (id) {
+            case R.id.sleep_activity_button:
+                return "Sleep";
+            case R.id.study_activity_button:
+                return "Study";
+            case R.id.relaxation_activity_button:
+                return "Relaxation";
+            case R.id.physical_exercise_activity_button:
+                return "Physical exercise";
+            case R.id.attend_lecture_activity_button:
+                return "Attend lecture";
+            case R.id.eat_activity_button:
+                return "Eat";
+            case R.id.commute_activity_button:
+                return "Commute";
+            case R.id.socialize_activity_button:
+                return "Socialize";
+            case R.id.work_activity_button:
+                return "Work";
+            default:
+                return "Other";
+        }
+    }
+
+    private int getButtonIdFromActivityName(String name) {
+        switch (name) {
+            case "Sleep":
+                return R.id.sleep_activity_button;
+            case "Study":
+                return R.id.study_activity_button;
+            case "Relaxation":
+                return R.id.relaxation_activity_button;
+            case "Physical exercise":
+                return R.id.physical_exercise_activity_button;
+            case "Attend lecture":
+                return R.id.attend_lecture_activity_button;
+            case "Eat":
+                return R.id.eat_activity_button;
+            case "Commute":
+                return R.id.commute_activity_button;
+            case "Socialize":
+                return R.id.socialize_activity_button;
+            case "Work":
+                return R.id.work_activity_button;
+            default:
+                return R.id.other_activity_button;
+        }
     }
 
 
@@ -603,4 +678,5 @@ public class EdiaryFragment extends Fragment {
         rb.setScaleX(1);
         rb.setScaleY(1);
     }
+
 }
